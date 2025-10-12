@@ -1,140 +1,207 @@
-/* पूरे पेज के लिए बेसिक स्टाइलिंग */
-body {
-    font-family: Arial, sans-serif; /* फॉन्ट सेट करें */
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9; /* हल्का बैकग्राउंड कलर */
-    color: #333;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --text-color: #333;
+    --bg-color: #f4f4f9;
+    --white: #fff;
 }
 
-/* 1. HEADER स्टाइलिंग */
-#main-header {
-    background-color: #0d47a1; /* नेवी ब्लू */
-    color: white;
-    padding: 15px 30px;
-    display: flex; /* Logo और Nav को एक लाइन में रखने के लिए */
-    justify-content: space-between; /* दोनों के बीच स्पेस देने के लिए */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background: var(--white);
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.main-nav ul {
-    list-style: none; /* बुलेट पॉइंट्स हटाएँ */
-    padding: 0;
-    margin: 0;
+nav .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+nav ul {
+    list-style: none;
     display: flex;
 }
 
-.main-nav ul li a {
-    color: white;
-    text-decoration: none; /* अंडरलाइन हटाएँ */
-    padding: 10px 15px;
-    display: block;
-    font-weight: bold;
-    transition: background-color 0.3s; /* होवर इफ़ेक्ट के लिए */
+nav ul li {
+    margin-left: 2rem;
 }
 
-.main-nav ul li a:hover {
-    background-color: #1565c0; /* होवर पर हल्का नीला */
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-/* 2. HERO SECTION स्टाइलिंग */
-#hero {
-    background-image: url('placeholder-bg.jpg'); /* यहां अपनी इमेज/वीडियो का URL डालें */
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+.hero {
+    height: 100vh;
+    background: linear-gradient(to right, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
     background-size: cover;
     background-position: center;
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
-    min-height: 400px; /* कम से कम ऊंचाई */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Behance-style look के लिए हल्का ओवरले */
-    position: relative;
-    z-index: 1;
+    text-align: center;
+    color: var(--white);
+    padding: 0 5%;
 }
 
 .hero-content {
-    background-color: rgba(0, 0, 0, 0.5); /* पढ़ने में आसानी के लिए काला ओवरले */
-    padding: 30px;
-    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
 }
 
 .cta-button {
-    background-color: #ff6f00; /* ऑरेंज - आकर्षक रंग */
-    color: white;
-    padding: 15px 30px;
+    background: var(--white);
+    color: var(--primary-color);
+    padding: 1rem 2rem;
     text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    display: inline-block;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .cta-button:hover {
-    background-color: #e65100; /* होवर पर गहरा ऑरेंज */
+    background: var(--secondary-color);
+    color: var(--white);
+    transform: translateY(-5px);
 }
 
-/* 3. SERVICES SUMMARY स्टाइलिंग */
-#services-summary {
-    padding: 40px 20px;
+.services-summary, .testimonials {
+    padding: 4rem 5%;
     text-align: center;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
 }
 
 .service-cards {
     display: flex;
-    justify-content: space-around;
-    gap: 20px;
+    justify-content: center;
+    gap: 2rem;
     flex-wrap: wrap;
-    margin-top: 30px;
 }
 
 .card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%; /* तीन कार्ड एक लाइन में */
-    min-width: 280px;
-    transition: transform 0.3s;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px); /* होवर पर हल्का ऊपर उठाना */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
-/* 4. FOOTER स्टाइलिंग */
-#main-footer {
-    background-color: #333;
-    color: white;
+.card h3 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.testimonial-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 1rem auto;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.testimonial-card span {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+footer {
+    background: var(--text-color);
+    color: var(--white);
+    padding: 2rem 5%;
     text-align: center;
-    padding: 20px 0;
-    margin-top: 30px;
 }
 
-/* मोबाइल रिस्पॉन्सिवनेस (Mobile Responsiveness) [cite: 3] */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    color: var(--white);
+    margin-left: 1rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--secondary-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    #main-header {
-        flex-direction: column;
-        text-align: center;
+    nav ul {
+        display: none; /* Simple responsive menu, can be improved with JS */
     }
-
-    .main-nav ul {
-        flex-direction: column;
+    .hero h1 {
+        font-size: 2.5rem;
     }
-
-    .main-nav ul li {
-        margin: 5px 0;
-    }
-
     .service-cards {
         flex-direction: column;
         align-items: center;
-    }
-
-    .card {
-        width: 90%;
     }
 }
