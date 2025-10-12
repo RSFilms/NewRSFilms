@@ -1,84 +1,140 @@
-/* बेसिक रीसेट और फॉन्ट */
+/* पूरे पेज के लिए बेसिक स्टाइलिंग */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* फॉन्ट सेट करें */
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    background-color: #f4f4f9; /* हल्का बैकग्राउंड कलर */
     color: #333;
-    background-color: #f4f4f4;
 }
 
-/* हेडर स्टाइलिंग */
-header {
-    background: #007bff; /* नीला बैकग्राउंड */
+/* 1. HEADER स्टाइलिंग */
+#main-header {
+    background-color: #0d47a1; /* नेवी ब्लू */
     color: white;
-    padding: 15px 50px;
-    display: flex;
-    justify-content: space-between;
+    padding: 15px 30px;
+    display: flex; /* Logo और Nav को एक लाइन में रखने के लिए */
+    justify-content: space-between; /* दोनों के बीच स्पेस देने के लिए */
     align-items: center;
 }
 
-.logo {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
+.main-nav ul {
+    list-style: none; /* बुलेट पॉइंट्स हटाएँ */
     padding: 0;
+    margin: 0;
     display: flex;
 }
 
-nav ul li a {
+.main-nav ul li a {
     color: white;
-    text-decoration: none;
+    text-decoration: none; /* अंडरलाइन हटाएँ */
     padding: 10px 15px;
     display: block;
+    font-weight: bold;
+    transition: background-color 0.3s; /* होवर इफ़ेक्ट के लिए */
+}
+
+.main-nav ul li a:hover {
+    background-color: #1565c0; /* होवर पर हल्का नीला */
+}
+
+/* 2. HERO SECTION स्टाइलिंग */
+#hero {
+    background-image: url('placeholder-bg.jpg'); /* यहां अपनी इमेज/वीडियो का URL डालें */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    min-height: 400px; /* कम से कम ऊंचाई */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Behance-style look के लिए हल्का ओवरले */
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.5); /* पढ़ने में आसानी के लिए काला ओवरले */
+    padding: 30px;
+    border-radius: 10px;
 }
 
 .cta-button {
-    background-color: #ffc107; /* पीला बटन */
-    color: #333;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* हीरो सेक्शन स्टाइलिंग */
-.hero {
-    background: url('hero-bg.jpg') no-repeat center center/cover; /* एक बैकग्राउंड इमेज जोड़ें */
+    background-color: #ff6f00; /* ऑरेंज - आकर्षक रंग */
     color: white;
-    padding: 100px 50px;
-    text-align: center;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.hero h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-
-.primary-button {
-    background-color: #28a745; /* हरा बटन */
-    color: white;
-    text-decoration: none;
     padding: 15px 30px;
+    text-decoration: none;
     border-radius: 5px;
-    margin-top: 20px;
+    font-size: 1.2em;
     display: inline-block;
-    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
 }
 
-/* फुटर स्टाइलिंग */
-footer {
-    background: #333;
+.cta-button:hover {
+    background-color: #e65100; /* होवर पर गहरा ऑरेंज */
+}
+
+/* 3. SERVICES SUMMARY स्टाइलिंग */
+#services-summary {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.service-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%; /* तीन कार्ड एक लाइन में */
+    min-width: 280px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* होवर पर हल्का ऊपर उठाना */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. FOOTER स्टाइलिंग */
+#main-footer {
+    background-color: #333;
     color: white;
     text-align: center;
     padding: 20px 0;
+    margin-top: 30px;
+}
+
+/* मोबाइल रिस्पॉन्सिवनेस (Mobile Responsiveness) [cite: 3] */
+@media (max-width: 768px) {
+    #main-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+    }
+
+    .main-nav ul li {
+        margin: 5px 0;
+    }
+
+    .service-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+    }
 }
