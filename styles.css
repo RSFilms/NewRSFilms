@@ -1,0 +1,84 @@
+/* बेसिक रीसेट और फॉन्ट */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* हेडर स्टाइलिंग */
+header {
+    background: #007bff; /* नीला बैकग्राउंड */
+    color: white;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.cta-button {
+    background-color: #ffc107; /* पीला बटन */
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* हीरो सेक्शन स्टाइलिंग */
+.hero {
+    background: url('hero-bg.jpg') no-repeat center center/cover; /* एक बैकग्राउंड इमेज जोड़ें */
+    color: white;
+    padding: 100px 50px;
+    text-align: center;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.primary-button {
+    background-color: #28a745; /* हरा बटन */
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* फुटर स्टाइलिंग */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
