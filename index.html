@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R.S Films Group | Music & Film Promotion</title>
-   
+    <title>R.S Films Group | Digital Empire</title>
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,12 +20,13 @@
             --blob-2: #0044ff; /* Electric Blue */
             --blob-3: #ff00de; /* Neon Pink */
             --whatsapp: #25D366;
+            --header-bg: rgba(5, 5, 5, 0.85);
             --font-display: 'Syne', sans-serif;
             --font-body: 'Inter', sans-serif;
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg);
@@ -33,7 +34,7 @@
             font-family: var(--font-body);
             overflow-x: hidden;
             min-height: 100vh;
-            line-height: 1.6; /* Improved readability for text */
+            line-height: 1.6;
         }
 
         /* 2. BACKGROUND ANIMATION */
@@ -47,605 +48,508 @@
         
         .glass-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; backdrop-filter: blur(80px); z-index: -1; pointer-events: none; }
 
-        /* 3. CURSOR */
-        .cursor { 
-            position: fixed; top:0; left:0;
-            width: 20px; height: 20px; 
-            background: #fff; border-radius: 50%; 
-            pointer-events: none; mix-blend-mode: difference; 
-            z-index: 9999; transition: width 0.3s, height 0.3s, transform 0.1s; 
-            transform: translate(-50%, -50%);
+        /* 3. NEW HEADER (REPLACES DOCK) */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%;
+            background: var(--header-bg); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
         }
-        .cursor.hovered { width: 60px; height: 60px; mix-blend-mode: exclusion; background: rgba(255,255,255,0.8); }
 
-        /* 4. NAVIGATION DOCK */
-        .dock-nav { 
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
-            background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); 
-            padding: 15px 30px; border-radius: 50px; 
-            border: 1px solid rgba(255,255,255,0.1); 
-            display: flex; gap: 30px; z-index: 1000; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        }
-        .dock-link { color: #fff; text-decoration: none; font-size: 1.2rem; position: relative; transition: 0.3s; opacity: 0.5; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; }
-        .dock-link:hover, .dock-link.active { opacity: 1; background: rgba(255,255,255,0.1); transform: translateY(-5px); }
-        .dock-tooltip {
-            position: absolute; top: -40px; left: 50%; transform: translateX(-50%) translateY(10px);
-            background: #fff; color: #000; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;
-            opacity: 0; pointer-events: none; transition: 0.3s; white-space: nowrap;
-        }
-        .dock-link:hover .dock-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .logo { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: var(--blob-1); }
 
-        /* =========================================
-           5. SPA VIEWS
-           ========================================= */
-        .view-section { display: none; min-height: 100vh; padding: 120px 8% 150px; animation: fadeIn 0.6s ease; }
-        .view-section.active-view { display: flex; flex-direction: column; }
+        .nav-menu { display: flex; gap: 30px; align-items: center; }
+        .nav-link { color: #ccc; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; position: relative; cursor: pointer; }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+
+        /* Dropdown */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: #111; min-width: 200px; border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
+        .dropdown-item { display: block; padding: 10px 20px; color: #aaa; text-decoration: none; transition: 0.2s; font-size: 0.9rem; }
+        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: #fff; padding-left: 25px; }
+
+        .header-btn {
+            background: var(--whatsapp); color: #fff; padding: 10px 25px;
+            border-radius: 50px; font-weight: 600; text-decoration: none;
+            display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.3s;
+        }
+        .header-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+
+        .hamburger { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
+
+        /* 4. SECTIONS & SPA LOGIC */
+        .view-section { display: none; padding-top: 100px; padding-bottom: 50px; animation: fadeIn 0.6s ease; }
+        .view-section.active-view { display: block; }
         
-        #home { justify-content: center; padding-top: 80px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* HERO STYLES (UPDATED) */
-        .hero-label {
-            font-family: var(--font-body); 
-            letter-spacing: 2px; 
-            margin-bottom: 15px; 
-            color: var(--blob-1); 
-            font-weight: 600; 
-            font-size: 0.9rem;
+        /* 5. NEW HERO STYLE */
+        .hero-section {
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            position: relative; padding-top: 60px;
+        }
+        .hero-tag { font-family: var(--font-body); letter-spacing: 3px; color: var(--blob-2); margin-bottom: 20px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+        .hero-title {
+            font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 10px;
             text-transform: uppercase;
         }
-
-        .hero-big-text { 
-            font-family: var(--font-display); 
-            font-weight: 800; 
-            font-size: clamp(3rem, 7vw, 6rem); /* Responsive Font */
-            line-height: 1.1; 
-            text-transform: uppercase; 
-            margin-bottom: 20px; 
-            color: #fff; 
-        }
-
-        .hero-sub-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.2rem, 2vw, 2rem);
-            color: #ccc;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .hero-desc {
-            max-width: 600px; 
-            line-height: 1.8; 
-            font-size: 1.1rem; 
-            color: #aaa;
-            margin-bottom: 40px;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #fff;
-            color: #000;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-weight: 700;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-        .cta-btn:hover { background: var(--whatsapp); color: #fff; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
-
-        /* MARQUEES */
-        .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; margin: 30px 0; position: relative; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-        .marquee-text-left { display: inline-block; font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); animation: marqueeLeft 40s linear infinite; }
+        .hero-sub { color: #aaa; font-size: 1.2rem; margin-bottom: 40px; }
         
-        @keyframes marqueeLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        /* 4 Big Buttons */
+        .hero-btn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; max-width: 1000px; margin-top: 30px; }
+        .hero-card-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            padding: 30px 20px; border-radius: 20px; cursor: pointer; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+        }
+        .hero-card-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--blob-1); transform: translateY(-10px); }
+        .hero-card-btn i { font-size: 2rem; color: var(--blob-1); }
+        .hero-card-btn span { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; }
 
-        /* INNER PAGES STYLES */
-        .page-header { margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-        .page-title { font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; color: transparent; }
-        
-        .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding-bottom: 50px; }
-        
-        .glass-card { 
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
-            padding: 30px; border-radius: 20px; transition: 0.3s; display: flex; flex-direction: column; 
-            position: relative; overflow: hidden; height: 100%;
+        /* 6. QUICK SERVICES (Bullets) */
+        .quick-services { margin: 80px 0; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 40px; }
+        .quick-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; list-style: none; margin-bottom: 30px; }
+        .quick-list li { display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1.1rem; }
+        .quick-list li i { color: var(--whatsapp); }
+        .btn-outline {
+            display: inline-block; border: 1px solid #fff; color: #fff; padding: 12px 30px;
+            border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s;
         }
-        .glass-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
-        
-        .card-icon { font-size: 2.5rem; color: #fff; margin-bottom: 20px; }
-        .card-title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
-        .card-list { list-style: none; color: #aaa; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.8; flex-grow: 1; }
-        .card-list li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
-        .card-list li::before { content: '•'; color: var(--blob-1); font-size: 1.2rem; line-height: 1; }
-        
-        .benefit-tag {
-            font-size: 0.85rem; color: var(--blob-2); font-weight: 600; 
-            background: rgba(0, 68, 255, 0.1); padding: 8px 15px; 
-            border-radius: 8px; display: inline-block; margin-top: auto;
-        }
+        .btn-outline:hover { background: #fff; color: #000; }
 
-        /* FORM & CONTACT */
-        .booking-container { max-width: 800px; margin: 0 auto; width: 100%; }
-        .form-group { margin-bottom: 25px; }
-        .input-label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: #888; }
-        .input-box, textarea { 
-            width: 100%; padding: 20px; background: rgba(255,255,255,0.03); 
-            border: 1px solid var(--border); color: #fff; border-radius: 10px; 
-            font-family: var(--font-body); font-size: 1rem; transition: 0.3s; resize: none;
-        }
-        .input-box:focus, textarea:focus { outline: none; border-color: var(--blob-1); background: rgba(255,255,255,0.05); }
-        .submit-btn { 
-            width: 100%; padding: 20px; background: #fff; color: #000; border: none; 
-            border-radius: 50px; font-weight: 800; font-family: var(--font-display); 
-            font-size: 1.2rem; text-transform: uppercase; cursor: none; transition: 0.3s; 
-        }
-        .submit-btn:hover { background: var(--blob-1); color: #fff; transform: scale(1.02); }
-
-        /* CONTACT INFO SECTION */
-        .contact-info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px;
-            text-align: center;
-        }
-        .info-box {
-            padding: 20px; border: 1px solid var(--border); border-radius: 15px; background: rgba(255,255,255,0.02);
-            transition: 0.3s;
-        }
-        .info-box:hover { background: rgba(255,255,255,0.05); border-color: var(--blob-1); }
-        .info-box i { font-size: 1.5rem; color: #fff; margin-bottom: 10px; display: block; }
-        .info-box span { font-size: 0.9rem; color: #aaa; }
-
-        /* PORTFOLIO SPECIFIC */
-        .portfolio-filters { display: flex; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
-        .filter-btn {
-            background: transparent; border: 1px solid var(--border); color: #888;
-            padding: 10px 25px; border-radius: 30px; font-family: var(--font-body);
-            font-size: 0.9rem; text-transform: uppercase; transition: 0.3s;
-        }
-        .filter-btn:hover, .filter-btn.active { border-color: var(--blob-1); color: #fff; background: rgba(255,60,0,0.1); }
+        /* 7. PORTFOLIO PREVIEW & GRID */
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-title { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 10px; }
         
-        .project-card {
-            height: 350px; position: relative; border-radius: 20px; overflow: hidden;
-            border: 1px solid var(--border); background: #000;
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .work-item {
+            position: relative; height: 300px; background: #111; border-radius: 15px; overflow: hidden; cursor: pointer; border: 1px solid var(--border);
         }
-        .project-thumb {
-            width: 100%; height: 70%; background: #222; position: relative;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
+        .work-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.6; }
+        .work-item:hover .work-img { transform: scale(1.1); opacity: 0.3; }
+        .work-overlay {
+            position: absolute; bottom: 20px; left: 20px; z-index: 2; pointer-events: none;
         }
-        .thumb-overlay {
-            width: 100%; height: 100%; position: absolute; top:0; left:0;
-            background: linear-gradient(45deg, rgba(0,0,0,0.8), transparent);
-            opacity: 0.5; transition: 0.5s;
-        }
-        .project-card:hover .thumb-overlay { opacity: 0; }
-        .project-card:hover .project-thumb i { transform: scale(1.2); color: #fff; }
-        
-        .project-info { padding: 20px; height: 30%; background: rgba(255,255,255,0.03); display: flex; flex-direction: column; justify-content: center; }
-        .project-title { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 5px; color: #fff; }
-        .project-cat { color: var(--blob-1); font-size: 0.8rem; text-transform: uppercase; }
-        
-        /* CLIENT LIST STYLE */
-        .client-pill {
-            padding: 15px 25px; border: 1px solid var(--border); border-radius: 50px;
-            font-family: var(--font-display); font-size: 1.1rem; color: #ccc;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            transition: 0.3s; background: rgba(255,255,255,0.02);
-        }
-        .client-pill:hover { background: #fff; color: #000; border-color: #fff; }
+        .work-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+        .work-cat { color: var(--blob-1); font-size: 0.8rem; text-transform: uppercase; }
 
+        /* 8. FOOTER */
+        footer {
+            background: #020202; border-top: 1px solid var(--border); padding: 60px 0 20px; margin-top: 100px;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { font-family: var(--font-display); margin-bottom: 20px; color: #fff; }
+        .social-links { display: flex; gap: 15px; }
+        .social-btn {
+            width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: 0.3s;
+        }
+        .social-btn:hover { background: #fff; color: #000; }
+        .contact-list p { margin-bottom: 10px; color: #888; display: flex; gap: 10px; }
+        .copyright { text-align: center; color: #444; font-size: 0.9rem; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* 9. MODAL */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: #111; padding: 40px; border-radius: 20px; border: 1px solid var(--border);
+            max-width: 600px; width: 90%; text-align: center; position: relative;
+        }
+        .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+        /* PRICING & ARTISTS SPECIFIC STYLES */
+        .price-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .price-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 40px 20px; border-radius: 20px; text-align: center; transition: 0.3s; }
+        .price-card:hover { border-color: var(--blob-1); background: rgba(255,255,255,0.05); transform: translateY(-10px); }
+        .price-amount { font-size: 2.5rem; font-weight: 800; font-family: var(--font-display); margin: 20px 0; color: #fff; }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .view-section { padding: 100px 5% 120px; }
-            .hero-big-text { font-size: 11vw; } /* Adjusted for readability */
-            .dock-nav { padding: 10px 15px; gap: 10px; bottom: 20px; width: 92%; justify-content: space-around; }
-            .page-title { font-size: 12vw; }
-            .dock-link { width: 35px; height: 35px; font-size: 1rem; }
-            .dock-tooltip { display: none; } /* Hide tooltips on mobile */
-            .mega-grid { grid-template-columns: 1fr; gap: 20px; } /* Single column for mobile */
-            .hero-sub-title { font-size: 1.2rem; line-height: 1.4; }
-            
-            /* Hide custom cursor on touch devices */
-            .cursor { display: none; }
-            * { cursor: auto; }
+            .nav-menu {
+                position: fixed; top: 70px; left: -100%; width: 100%; height: calc(100vh - 70px);
+                background: #000; flex-direction: column; padding: 40px; transition: 0.4s;
+                align-items: flex-start; border-right: 1px solid var(--border);
+            }
+            .nav-menu.active { left: 0; }
+            .hamburger { display: block; }
+            .header-btn { display: none; } /* Hide WA btn in header on mobile, show in menu or hero */
+            .hero-btn-grid { grid-template-columns: 1fr 1fr; }
+            .hero-title { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BACKGROUND -->
+    <!-- BG ANIMATION -->
     <div class="fluid-bg">
         <div class="blob"></div>
         <div class="blob"></div>
         <div class="blob"></div>
     </div>
     <div class="glass-overlay"></div>
-    <div class="cursor" id="cursor"></div>
-    <div id="hover-preview"></div>
 
-    <!-- NAV DOCK -->
-    <nav class="dock-nav">
-        <a href="#" class="dock-link active" onclick="switchView('home')">
-            <i class="fas fa-home"></i>
-            <span class="dock-tooltip">Home</span>
-        </a>
-        <a href="#" class="dock-link" onclick="switchView('services')">
-            <i class="fas fa-list"></i>
-            <span class="dock-tooltip">Services</span>
-        </a>
-        <a href="#" class="dock-link" onclick="switchView('portfolio')">
-            <i class="fas fa-play"></i>
-            <span class="dock-tooltip">Work</span>
-        </a>
-        <a href="#" class="dock-link" onclick="switchView('mcn')">
-            <i class="fab fa-youtube"></i>
-            <span class="dock-tooltip">MCN</span>
-        </a>
-        <a href="#" class="dock-link" onclick="switchView('clients')">
-            <i class="fas fa-users"></i>
-            <span class="dock-tooltip">Clients</span>
-        </a>
-        <a href="#" class="dock-link" onclick="switchView('booking')">
-            <i class="fab fa-whatsapp"></i>
-            <span class="dock-tooltip">Contact</span>
-        </a>
-    </nav>
-
-    <!-- 1. VIEW: HERO / HOME -->
-    <section id="home" class="view-section active-view">
-        <div style="margin-left: 0;">
-            <p class="hero-label">EST. 2024 / INDIA</p>
-            
-            <h1 class="hero-big-text">R.S FILMS<br>GROUP</h1>
-            
-            <h2 class="hero-sub-title">
-                Music & Film Promotion | Digital Marketing | Production House
-            </h2>
-            
-            <p class="hero-desc">
-                Hum Bhojpuri, Devotional, aur Regional songs ko organic growth dete hain. 
-                Creating superstars out of regional talent through strategic promotion and digital management.
-            </p>
-            
-            <!-- CTA Button -->
-            <a href="https://wa.me/919999999999" target="_blank" class="cta-btn">
-                <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i>
-                WhatsApp Now
-            </a>
-        </div>
-       
-        <!-- Marquee -->
-        <div class="marquee-container">
-            <div class="marquee-text-left">
-                PROMOTION • SEO • DISTRIBUTION • REELS • EDITING • BRANDING • YOUTUBE GROWTH • DIGITAL MARKETING • PROMOTION •
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. VIEW: SERVICES -->
-    <section id="services" class="view-section">
-        <div class="page-header">
-            <h1 class="page-title">Our Services</h1>
-            <p style="color:#aaa; margin-top: 10px;">End-to-end solutions for Artists & Creators.</p>
-        </div>
+    <!-- 1. HEADER (REPLACEMENT) -->
+    <header class="main-header">
+        <a href="#" class="logo" onclick="switchView('home')">R.S <span>Films</span></a>
         
-        <div class="mega-grid">
-            <!-- Service 1 -->
-            <div class="glass-card">
-                <i class="fas fa-bullhorn card-icon" style="color: var(--blob-1);"></i>
-                <h3 class="card-title">Music Promotion</h3>
-                <ul class="card-list">
-                    <li>YouTube Organic Views</li>
-                    <li>Instagram Reels Promotion</li>
-                    <li>Facebook Viral Marketing</li>
-                </ul>
-                <div class="benefit-tag">Benefit: Reach Millions Real Audience</div>
+        <nav class="nav-menu" id="navMenu">
+            <div class="dropdown">
+                <span class="nav-link">Services <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:5px;"></i></span>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item" onclick="switchView('services')">Digital Agency</a>
+                    <a href="#" class="dropdown-item" onclick="switchView('services')">Music Label</a>
+                    <a href="#" class="dropdown-item" onclick="switchView('services')">AI Studio</a>
+                    <a href="#" class="dropdown-item" onclick="switchView('services')">Production</a>
+                </div>
             </div>
+            <a href="#" class="nav-link" onclick="switchView('portfolio')">Portfolio</a>
+            <a href="#" class="nav-link" onclick="switchView('artists')">Artists</a>
+            <a href="#" class="nav-link" onclick="switchView('pricing')">Plans</a>
+            <a href="#" class="nav-link" onclick="switchView('clients')">Client Zone</a>
+            <a href="#" class="nav-link" onclick="switchView('contact')">Contact</a>
+        </nav>
 
-            <!-- Service 2 -->
-            <div class="glass-card">
-                <i class="fas fa-film card-icon" style="color: var(--blob-3);"></i>
-                <h3 class="card-title">Creative Editing</h3>
-                <ul class="card-list">
-                    <li>4K Poster Design</li>
-                    <li>High CTR Thumbnails</li>
-                    <li>Reels & Shorts Editing</li>
-                    <li>Lyrical Video Creation</li>
-                </ul>
-                <div class="benefit-tag">Benefit: Professional & Attractive Look</div>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="glass-card">
-                <i class="fab fa-youtube card-icon" style="color: red;"></i>
-                <h3 class="card-title">Channel Management</h3>
-                <ul class="card-list">
-                    <li>Full SEO (Tags, Title, Desc)</li>
-                    <li>Upload Scheduling</li>
-                    <li>Copyright Management</li>
-                    <li>Analytics Growth Plan</li>
-                </ul>
-                <div class="benefit-tag">Benefit: Rank Higher on Search</div>
-            </div>
-
-            <!-- Service 4 -->
-            <div class="glass-card">
-                <i class="fas fa-chart-line card-icon" style="color: var(--blob-2);"></i>
-                <h3 class="card-title">Branding & Finance</h3>
-                <ul class="card-list">
-                    <li>Stock Market Content Branding</li>
-                    <li>Finance Creator Management</li>
-                    <li>Personal Brand Building</li>
-                </ul>
-                <div class="benefit-tag">Benefit: Build Trust & Authority</div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <a href="https://wa.me/919999999999" target="_blank" class="header-btn">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- NEW: VIEW: PORTFOLIO -->
-    <section id="portfolio" class="view-section">
-        <div class="page-header">
-            <h1 class="page-title">Selected Works</h1>
-            <p style="color:#aaa; margin-top: 10px;">A curation of our finest productions.</p>
-        </div>
+    <!-- 2. HOME VIEW -->
+    <section id="home" class="view-section active-view">
+        <div class="container">
+            <!-- Hero -->
+            <div class="hero-section">
+                <span class="hero-tag">Welcome to the future</span>
+                <h1 class="hero-title">R.S Films Group<br><span style="color:transparent; -webkit-text-stroke: 1px #fff; opacity:0.5;">Digital Empire</span></h1>
+                <p class="hero-sub">YouTube | Music Distribution | AI Studio | Film Production</p>
+                
+                <div class="hero-btn-grid">
+                    <div class="hero-card-btn" onclick="switchView('services')">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Digital Agency</span>
+                    </div>
+                    <div class="hero-card-btn" onclick="switchView('services')">
+                        <i class="fas fa-music"></i>
+                        <span>Music Label</span>
+                    </div>
+                    <div class="hero-card-btn" onclick="switchView('services')">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Studio</span>
+                    </div>
+                    <div class="hero-card-btn" onclick="switchView('services')">
+                        <i class="fas fa-video"></i>
+                        <span>Production</span>
+                    </div>
+                </div>
+            </div>
 
-        <div class="portfolio-filters">
-            <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-            <button class="filter-btn" onclick="filterProjects('music', this)">Music Videos</button>
-            <button class="filter-btn" onclick="filterProjects('web', this)">Commercials</button>
-            <button class="filter-btn" onclick="filterProjects('design', this)">Design</button>
-        </div>
+            <!-- 3. QUICK SERVICES -->
+            <div class="quick-services">
+                <h2 style="font-family:var(--font-display); margin-bottom:20px; font-size:1.8rem;">Instant Solutions</h2>
+                <ul class="quick-list">
+                    <li><i class="fas fa-check-circle"></i> YouTube Channel Growth</li>
+                    <li><i class="fas fa-check-circle"></i> Music Distribution (300+ Stores)</li>
+                    <li><i class="fas fa-check-circle"></i> AI Video & Poster Generation</li>
+                    <li><i class="fas fa-check-circle"></i> Live Show Artist Booking</li>
+                    <li><i class="fas fa-check-circle"></i> 4K Poster Design & Editing</li>
+                    <li><i class="fas fa-check-circle"></i> Social Media Verification</li>
+                </ul>
+                <a href="#" class="btn-outline" onclick="switchView('services')">View All Services</a>
+            </div>
 
-        <div class="mega-grid" id="projectGrid">
-            <!-- Populated by JS -->
-            <div class="project-card" data-cat="music">
-                <div class="project-thumb" style="background: radial-gradient(circle, #444, #111);">
-                    <div class="thumb-overlay"></div>
-                    <i class="fas fa-play-circle" style="font-size: 4rem; color: #fff; opacity: 0.8; transition: 0.3s;"></i>
+            <!-- 4. PORTFOLIO PREVIEW -->
+            <div style="margin-top: 80px;">
+                <div class="section-header">
+                    <h2 class="section-title">Our Work</h2>
+                    <p style="color:#888;">Recent Blockbusters & Viral Hits</p>
                 </div>
-                <div class="project-info">
-                    <div class="project-title">Desi Swag Vol. 1</div>
-                    <div class="project-cat">Music Video</div>
+                <div class="portfolio-grid">
+                    <!-- 9 Grid Items -->
+                    <div class="work-item" onclick="openModal('Project Alpha', 'Music Video')"><img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Desi Swag</div><div class="work-cat">Music Video</div></div></div>
+                    <div class="work-item" onclick="openModal('Neon Vibes', 'AI Art')"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Neon Vibes</div><div class="work-cat">AI Art</div></div></div>
+                    <div class="work-item" onclick="openModal('Brand TVC', 'Commercial')"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Brand TVC</div><div class="work-cat">Commercial</div></div></div>
+                    <div class="work-item" onclick="openModal('Album Cover', 'Design')"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Album Cover</div><div class="work-cat">Design</div></div></div>
+                    <div class="work-item" onclick="openModal('Live Concert', 'Event')"><img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Live Concert</div><div class="work-cat">Event</div></div></div>
+                    <div class="work-item" onclick="openModal('YT Growth', 'Marketing')"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">YT Growth</div><div class="work-cat">Marketing</div></div></div>
+                    <div class="work-item" onclick="openModal('Short Film', 'Production')"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">The Journey</div><div class="work-cat">Short Film</div></div></div>
+                    <div class="work-item" onclick="openModal('Podcast', 'Audio')"><img src="https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Tech Talk</div><div class="work-cat">Podcast</div></div></div>
+                    <div class="work-item" onclick="openModal('3D Motion', 'Animation')"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">3D Motion</div><div class="work-cat">Animation</div></div></div>
                 </div>
-            </div>
-             <div class="project-card" data-cat="music">
-                <div class="project-thumb" style="background: radial-gradient(circle, var(--blob-1), #111);">
-                    <div class="thumb-overlay"></div>
-                    <i class="fas fa-play-circle" style="font-size: 4rem; color: #fff; opacity: 0.8; transition: 0.3s;"></i>
-                </div>
-                <div class="project-info">
-                    <div class="project-title">Neon Nights</div>
-                    <div class="project-cat">Music Video</div>
-                </div>
-            </div>
-            <div class="project-card" data-cat="web">
-                <div class="project-thumb" style="background: radial-gradient(circle, var(--blob-2), #111);">
-                    <div class="thumb-overlay"></div>
-                    <i class="fas fa-ad" style="font-size: 4rem; color: #fff; opacity: 0.8; transition: 0.3s;"></i>
-                </div>
-                <div class="project-info">
-                    <div class="project-title">Brand TVC 2024</div>
-                    <div class="project-cat">Commercial</div>
-                </div>
-            </div>
-             <div class="project-card" data-cat="design">
-                <div class="project-thumb" style="background: radial-gradient(circle, var(--blob-3), #111);">
-                    <div class="thumb-overlay"></div>
-                    <i class="fas fa-image" style="font-size: 4rem; color: #fff; opacity: 0.8; transition: 0.3s;"></i>
-                </div>
-                <div class="project-info">
-                    <div class="project-title">Album Art Series</div>
-                    <div class="project-cat">Design</div>
-                </div>
-            </div>
-            <div class="project-card" data-cat="music">
-                <div class="project-thumb" style="background: radial-gradient(circle, #555, #000);">
-                    <div class="thumb-overlay"></div>
-                    <i class="fas fa-play-circle" style="font-size: 4rem; color: #fff; opacity: 0.8; transition: 0.3s;"></i>
-                </div>
-                <div class="project-info">
-                    <div class="project-title">Bhojpuri Hits</div>
-                    <div class="project-cat">Music Video</div>
-                </div>
-            </div>
-            <div class="project-card" data-cat="design">
-                <div class="project-thumb" style="background: radial-gradient(circle, #777, #222);">
-                    <div class="thumb-overlay"></div>
-                    <i class="fas fa-palette" style="font-size: 4rem; color: #fff; opacity: 0.8; transition: 0.3s;"></i>
-                </div>
-                <div class="project-info">
-                    <div class="project-title">3D Typography</div>
-                    <div class="project-cat">Design</div>
+                <div style="text-align:center; margin-top:40px;">
+                    <button class="btn-outline" onclick="switchView('portfolio')">View Full Portfolio</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. VIEW: CLIENTS -->
+    <!-- 6. NEW PAGES (Simulated as Sections) -->
+    
+    <!-- SERVICES PAGE -->
+    <section id="services" class="view-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Our Services</h1>
+                <p>Comprehensive solutions for the modern creator.</p>
+            </div>
+            <!-- Tabs (Visual) -->
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:40px;">
+                <span class="btn-outline" style="background:white; color:black;">All</span>
+                <span class="btn-outline">Digital</span>
+                <span class="btn-outline">Music</span>
+                <span class="btn-outline">AI Tools</span>
+            </div>
+            <!-- Reusing the quick-list style for detailed services -->
+            <div class="quick-services">
+                <h3><i class="fas fa-rocket"></i> Digital Agency</h3>
+                <p style="color:#aaa; margin-bottom:20px;">We manage YouTube Channels, Facebook Pages, and Instagram Profiles to ensure maximum reach.</p>
+                <ul class="quick-list">
+                    <li>Content Strategy</li>
+                    <li>SEO Optimization</li>
+                    <li>Copyright Management (MCN)</li>
+                </ul>
+            </div>
+             <div class="quick-services">
+                <h3><i class="fas fa-music"></i> Music Label Services</h3>
+                <p style="color:#aaa; margin-bottom:20px;">Get your songs on Spotify, Apple Music, JioSaavn, and 300+ platforms.</p>
+                <ul class="quick-list">
+                    <li>Worldwide Distribution</li>
+                    <li>Caller Tune Setup</li>
+                    <li>Royalty Collection</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTISTS PAGE -->
+    <section id="artists" class="view-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Artist Zone</h1>
+                <p>Book the biggest stars for your events.</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="work-item" style="height:400px;">
+                    <img src="https://images.unsplash.com/photo-1516280440614-6697288d5d38?auto=format&fit=crop&w=800&q=80" class="work-img">
+                    <div class="work-overlay"><h3>Singer Name</h3><p>Playback Singer</p></div>
+                </div>
+                <div class="work-item" style="height:400px;">
+                    <img src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=800&q=80" class="work-img">
+                    <div class="work-overlay"><h3>Dancer Name</h3><p>Performer</p></div>
+                </div>
+                <div class="work-item" style="height:400px;">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=800&q=80" class="work-img">
+                    <div class="work-overlay"><h3>Model Name</h3><p>Actor</p></div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:40px;">
+                <h3>Are you an Artist?</h3>
+                <br>
+                <button class="btn-outline" onclick="switchView('contact')">Join Agency</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING PAGE -->
+    <section id="pricing" class="view-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Pricing Plans</h1>
+                <p>Transparent pricing for promotion.</p>
+            </div>
+            <div class="price-table">
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <div class="price-amount">₹4,999</div>
+                    <ul class="quick-list" style="display:block; text-align:left;">
+                        <li><i class="fas fa-check"></i> 1 Song Distribution</li>
+                        <li><i class="fas fa-check"></i> Basic Poster</li>
+                        <li><i class="fas fa-check"></i> 1k Views Guaranteed</li>
+                    </ul>
+                    <button class="btn-outline" style="width:100%;">Choose</button>
+                </div>
+                <div class="price-card" style="border-color:var(--blob-1); background:rgba(255,60,0,0.1);">
+                    <h3>Pro Artist</h3>
+                    <div class="price-amount">₹14,999</div>
+                    <ul class="quick-list" style="display:block; text-align:left;">
+                        <li><i class="fas fa-check"></i> 5 Song Distribution</li>
+                        <li><i class="fas fa-check"></i> 4K Video Editing</li>
+                        <li><i class="fas fa-check"></i> 10k Views Guaranteed</li>
+                        <li><i class="fas fa-check"></i> Instagram Reel Promo</li>
+                    </ul>
+                    <button class="btn-outline" style="width:100%; background:var(--blob-1); border:none;">Choose</button>
+                </div>
+                <div class="price-card">
+                    <h3>Label</h3>
+                    <div class="price-amount">Call Us</div>
+                    <ul class="quick-list" style="display:block; text-align:left;">
+                        <li><i class="fas fa-check"></i> Unlimited Distribution</li>
+                        <li><i class="fas fa-check"></i> Dedicated Manager</li>
+                        <li><i class="fas fa-check"></i> Full Channel SEO</li>
+                    </ul>
+                    <button class="btn-outline" style="width:100%;">Contact</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="contact" class="view-section">
+        <div class="container" style="max-width:600px;">
+             <div class="section-header">
+                <h1 class="section-title">Contact Us</h1>
+                <p>Let's discuss your next big project.</p>
+            </div>
+             <form onsubmit="event.preventDefault(); alert('Message Sent!');" style="background:rgba(255,255,255,0.02); padding:40px; border-radius:20px; border:1px solid var(--border);">
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; color:#888; margin-bottom:10px;">Name</label>
+                    <input type="text" style="width:100%; padding:15px; background:#111; border:1px solid var(--border); color:#fff; border-radius:10px;">
+                </div>
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; color:#888; margin-bottom:10px;">Phone</label>
+                    <input type="tel" style="width:100%; padding:15px; background:#111; border:1px solid var(--border); color:#fff; border-radius:10px;">
+                </div>
+                 <div style="margin-bottom:20px;">
+                    <label style="display:block; color:#888; margin-bottom:10px;">Message</label>
+                    <textarea rows="4" style="width:100%; padding:15px; background:#111; border:1px solid var(--border); color:#fff; border-radius:10px;"></textarea>
+                </div>
+                <button class="btn-outline" style="width:100%; background:white; color:black;">Send Message</button>
+             </form>
+        </div>
+    </section>
+
+    <!-- CLIENTS PAGE -->
     <section id="clients" class="view-section">
-        <div class="page-header">
-            <h1 class="page-title">Partners</h1>
-            <p style="color:#aaa;">The brands and creators we empower.</p>
-        </div>
-        <div class="marquee-container" style="margin-bottom: 50px;">
-            <div class="marquee-text-right">
-                AARTI FILMS • ABHISHEK CHHALIYA • AHIR BRAND • BVD MUSIC • GP MUSIC • GUDIYA JHAKI • NEERAJ OFFICIAL • ISHU TILAKDHARI •
+        <div class="container">
+             <div class="section-header">
+                <h1 class="section-title">Our Clients</h1>
+                <p>Trusted by industry leaders.</p>
             </div>
-        </div>
-        <div id="clientGrid" class="mega-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
-            <!-- Populated by JS -->
-        </div>
-    </section>
-
-    <!-- 4. VIEW: MCN -->
-    <section id="mcn" class="view-section">
-        <div class="page-header">
-            <h1 class="page-title">YouTube MCN</h1>
-            <p style="color: var(--blob-2);">Official Multi-Channel Network Partner</p>
-        </div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:50px;">
-            <div>
-                <p style="font-size:1.2rem; line-height:1.8; color:#ccc; margin-bottom:30px;">
-                    Unlock the full potential of your content. We provide <strong>Content ID</strong> to protect your songs and <strong>Premium Ads</strong> for higher revenue. Stop losing money to fake claims.
-                </p>
-                <ul style="list-style:none; line-height:3; font-size: 1.1rem;">
-                    <li><i class="fas fa-check-circle" style="color:var(--blob-2); margin-right:10px;"></i> Instant CMS Linking</li>
-                    <li><i class="fas fa-check-circle" style="color:var(--blob-2); margin-right:10px;"></i> Copyright Strike Removal Assistance</li>
-                    <li><i class="fas fa-check-circle" style="color:var(--blob-2); margin-right:10px;"></i> 40% Revenue Uplift Strategy</li>
-                    <li><i class="fas fa-check-circle" style="color:var(--blob-2); margin-right:10px;"></i> Dedicated Partner Manager</li>
-                </ul>
-            </div>
-            <div class="glass-card" style="border-color: var(--blob-2); background: rgba(0, 68, 255, 0.05);">
-                <h2 style="font-family: var(--font-display); margin-bottom: 20px;">Join the Network</h2>
-                <p style="color:#aaa; margin-bottom:20px;">Requirements: 10k+ Subscribers, Original Content, Clean History.</p>
-                <a href="#" onclick="openBooking('MCN Application')" class="submit-btn" style="text-align: center; text-decoration: none; display: block; line-height: 20px;">Apply Now</a>
+            <div class="quick-services">
+                <p style="text-align:center; font-size:1.5rem;">AARTI FILMS • ABHISHEK CHHALIYA • AHIR BRAND • BVD MUSIC • GP MUSIC • GUDIYA JHAKI</p>
             </div>
         </div>
     </section>
 
-    <!-- 3. VIEW: CONTACT / BOOKING -->
-    <section id="booking" class="view-section">
-        <div class="page-header">
-            <h1 class="page-title">Contact Us</h1>
-            <p>Start your promotion journey today.</p>
-        </div>
-
-        <div class="booking-container">
-            <!-- Contact Info Grid -->
-            <div class="contact-info-grid" style="margin-bottom: 50px;">
-                <a href="https://youtube.com/" class="info-box" style="text-decoration:none;">
-                    <i class="fab fa-youtube" style="color: red;"></i>
-                    <span>YouTube Channel</span>
-                </a>
-                <a href="https://instagram.com/" class="info-box" style="text-decoration:none;">
-                    <i class="fab fa-instagram" style="color: #E1306C;"></i>
-                    <span>Instagram</span>
-                </a>
-                <a href="tel:+919999999999" class="info-box" style="text-decoration:none;">
-                    <i class="fas fa-phone-alt" style="color: #fff;"></i>
-                    <span>Call Us</span>
-                </a>
-                <a href="mailto:contact@rsfilms.com" class="info-box" style="text-decoration:none;">
-                    <i class="fas fa-envelope" style="color: var(--blob-2);"></i>
-                    <span>Email Us</span>
-                </a>
+     <!-- PORTFOLIO FULL PAGE (Placeholder reused logic) -->
+    <section id="portfolio" class="view-section">
+        <div class="container">
+             <div class="section-header">
+                <h1 class="section-title">Full Portfolio</h1>
             </div>
+             <div class="portfolio-grid">
+                 <!-- Reusing items for demo -->
+                <div class="work-item" onclick="openModal('Desi Swag', 'Music Video')"><img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Desi Swag</div><div class="work-cat">Music Video</div></div></div>
+                <div class="work-item" onclick="openModal('Neon Vibes', 'AI Art')"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Neon Vibes</div><div class="work-cat">AI Art</div></div></div>
+                <div class="work-item" onclick="openModal('Brand TVC', 'Commercial')"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" class="work-img"><div class="work-overlay"><div class="work-title">Brand TVC</div><div class="work-cat">Commercial</div></div></div>
+                <!-- ... More items would go here -->
+            </div>
+        </div>
+    </section>
 
-            <form onsubmit="event.preventDefault(); alert('Request sent! We will contact you shortly.');">
-                <div class="form-group">
-                    <label class="input-label">Service Interested In</label>
-                    <input type="text" id="serviceSubject" class="input-box" placeholder="e.g. Song Promotion..." value="">
+    <!-- 5. FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>R.S FILMS GROUP</h3>
+                    <p style="color:#888;">Creating superstars out of regional talent through strategic promotion and digital management.</p>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div class="form-group">
-                        <label class="input-label">Your Name</label>
-                        <input type="text" class="input-box" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="input-label">Mobile Number</label>
-                        <input type="tel" class="input-box" required>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="input-label">Message / Details</label>
-                    <textarea rows="4" placeholder="Tell us about your song or channel..." class="input-box"></textarea>
+                <div class="footer-col contact-list">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai / Delhi, India</p>
+                    <p><i class="fas fa-envelope"></i> contact@rsfilms.com</p>
+                    <p><i class="fas fa-phone"></i> +91 99999 99999</p>
                 </div>
-                
-                <button type="submit" class="submit-btn">
-                    Send Enquiry
-                </button>
-                
-                <!-- WhatsApp Secondary Button -->
-                <a href="https://wa.me/919999999999" style="display: block; text-align: center; margin-top: 20px; color: var(--whatsapp); text-decoration: none; font-weight: bold; font-family: var(--font-display);">
-                    <i class="fab fa-whatsapp"></i> Or Chat Directly on WhatsApp
-                </a>
-            </form>
+            </div>
+            <div class="copyright">
+                &copy; 2025 R.S Films Group. All Rights Reserved.
+            </div>
         </div>
-    </section>
+    </footer>
+
+    <!-- MODAL POPUP -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="closeModal()"></i>
+            <h2 id="modalTitle" style="font-family:var(--font-display); margin-bottom:10px;">Project Name</h2>
+            <p id="modalCat" style="color:var(--blob-1); margin-bottom:20px; text-transform:uppercase;">Category</p>
+            <p style="color:#aaa;">This is a detailed description of the project. It includes the tools used, the impact created, and the client testimonial.</p>
+            <br>
+            <button class="btn-outline">Watch Video</button>
+        </div>
+    </div>
 
     <script>
-        // 1. CURSOR LOGIC
-        const cursor = document.getElementById('cursor');
-        
-        // Only enable cursor on non-touch devices
-        if (window.matchMedia("(pointer: fine)").matches) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
+        // MENU TOGGLE
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
         }
 
-        // Add hover effect to interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .dock-link, .glass-card, .info-box');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
-
-        // 2. VIEW SWITCHING LOGIC
+        // VIEW SWITCHING (SPA LOGIC)
         function switchView(viewId) {
+            // Close mobile menu if open
+            document.getElementById('navMenu').classList.remove('active');
+            
             // Hide all sections
             document.querySelectorAll('.view-section').forEach(section => {
                 section.classList.remove('active-view');
-                section.style.display = 'none';
             });
 
-            // Show target section
+            // Show target
             const target = document.getElementById(viewId);
-            target.style.display = 'flex'; 
-            setTimeout(() => {
+            if(target) {
                 target.classList.add('active-view');
-            }, 10);
-            
-            // Update Dock
-            document.querySelectorAll('.dock-link').forEach(link => link.classList.remove('active'));
-            document.querySelectorAll('.dock-link').forEach(link => {
-                if(link.getAttribute('onclick').includes(viewId)) {
-                    link.classList.add('active');
-                }
-            });
-
-            window.scrollTo(0,0);
+                window.scrollTo(0,0);
+            }
         }
 
-        // 3. POPULATE CLIENTS
-        const clients = [
-            "Aarti Films", "Abhishek Chhaliya", "Ahir Brand", "BVD Music", 
-            "GP Music", "Gudiya Jhaki", "Neeraj Official", "Ishu Tilakdhari", 
-            "Lovkush Arpita", "RS Films Bhojpuri", "Siddhi Vinayak", "Vikash Bhardwaj",
-            "Desi Beats", "Urban Records", "Folk Studio", "Cinema 360"
-        ];
+        // MODAL LOGIC
+        const modal = document.getElementById('projectModal');
+        const mTitle = document.getElementById('modalTitle');
+        const mCat = document.getElementById('modalCat');
 
-        const clientGrid = document.getElementById('clientGrid');
-        if (clientGrid) {
-            clients.forEach(client => {
-                const pill = document.createElement('div');
-                pill.className = 'client-pill';
-                pill.innerText = client;
-                clientGrid.appendChild(pill);
-            });
+        function openModal(title, cat) {
+            mTitle.innerText = title;
+            mCat.innerText = cat;
+            modal.style.display = 'flex';
         }
 
-        // 4. PORTFOLIO FILTER LOGIC
-        function filterProjects(category, btnElement) {
-            // Active Button State
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
+        function closeModal() {
+            modal.style.display = 'none';
+        }
 
-            // Filter Elements
-            const projects = document.querySelectorAll('.project-card');
-            projects.forEach(project => {
-                if (category === 'all' || project.getAttribute('data-cat') === category) {
-                    project.style.display = 'block';
-                } else {
-                    project.style.display = 'none';
-                }
-            });
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
