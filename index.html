@@ -157,6 +157,33 @@
 
         .hero-sub { font-size: 1.2rem; color: var(--text-muted); margin: 30px 0; letter-spacing: 2px; text-transform: uppercase; }
 
+        /* RESTORED: Scroll Indicator */
+        .scroll-indicator {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            font-size: 0.8rem; color: var(--text-muted); opacity: 0.7;
+        }
+        .mouse {
+            width: 25px; height: 40px; border: 2px solid var(--text-muted);
+            border-radius: 20px; position: relative;
+        }
+        .wheel {
+            width: 3px; height: 6px; background: #fff; border-radius: 2px;
+            position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+            animation: scroll 1.5s infinite;
+        }
+        @keyframes scroll { 0% { top: 8px; opacity: 1; } 100% { top: 25px; opacity: 0; } }
+
+        /* RESTORED: Stats Strip */
+        .stats-strip {
+            display: flex; justify-content: space-around; padding: 60px 5%;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.02); flex-wrap: wrap; gap: 30px;
+        }
+        .stat-item { text-align: center; }
+        .stat-num { font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: #fff; display: block; }
+        .stat-label { color: var(--secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
         /* =========================================
            5. MARQUEES (Artists, Clients, Logos)
            ========================================= */
@@ -208,6 +235,20 @@
         .highlight-text { flex: 1; min-width: 300px; }
         .highlight-visual { flex: 1; min-width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 20px; display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid var(--border); }
         .big-icon { font-size: 8rem; color: rgba(255,255,255,0.1); }
+
+        /* RESTORED: CTA Section */
+        .cta-section {
+            text-align: center; padding: 100px 20px;
+            background: radial-gradient(circle at center, rgba(5, 217, 232, 0.1), transparent 70%);
+        }
+        .big-cta-btn {
+            display: inline-block; margin-top: 30px;
+            padding: 20px 60px; background: #fff; color: #000;
+            font-family: var(--font-head); font-size: 1.5rem; font-weight: 700;
+            text-transform: uppercase; border-radius: 50px; text-decoration: none;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .big-cta-btn:hover { background: var(--secondary); transform: scale(1.05); box-shadow: 0 0 50px var(--secondary); }
         
         /* =========================================
            7. MUSIC PLAYER & FOOTER
@@ -248,6 +289,7 @@
             .cursor-dot, .cursor-outline { display: none; }
             .highlight-flex { flex-direction: column; }
             * { cursor: auto; }
+            .stats-strip { flex-direction: column; gap: 40px; }
         }
     </style>
 </head>
@@ -282,8 +324,33 @@
                     <button onclick="switchPage('services')" class="cta-nav" style="background: transparent; border: 1px solid white; margin-right: 15px;">Explore Services</button>
                     <button onclick="switchPage('mcn')" class="cta-nav">Join MCN</button>
                 </div>
+                <!-- ADDED: Scroll Indicator -->
+                <div class="scroll-indicator">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    <span>SCROLL</span>
+                </div>
             </div>
         </section>
+
+        <!-- ADDED: Stats Strip -->
+        <div class="stats-strip">
+            <div class="stat-item">
+                <span class="stat-num" data-target="250">0</span>
+                <span class="stat-label">Projects Done</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" data-target="15">0</span>
+                <span class="stat-label">Million Views</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" data-target="50">0</span>
+                <span class="stat-label">Signed Artists</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" data-target="100">0%</span>
+                <span class="stat-label">Growth Rate</span>
+            </div>
+        </div>
 
         <!-- Crossing Marquees Section (Artists & Clients) -->
         <section class="marquee-zone">
@@ -352,6 +419,13 @@
                     <div style="position:absolute; bottom:20px; font-family:var(--font-head); font-size:1.5rem;">Verified Partner</div>
                 </div>
             </div>
+        </section>
+
+        <!-- ADDED: CTA Section -->
+        <section class="cta-section">
+            <h2 style="font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 20px;">Ready to be the Next Big Thing?</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Join the fastest growing label in India. We turn talent into legacy.</p>
+            <a href="https://wa.me/919999999999" class="big-cta-btn magnet">Start Project</a>
         </section>
     </div>
 
@@ -588,6 +662,32 @@
                 card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
             });
         });
+
+        // ADDED: Stats Counter Animation
+        const stats = document.querySelectorAll('.stat-num');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    const isPercent = entry.target.innerText.includes('%');
+                    let count = 0;
+                    const inc = target / 50; // Speed
+
+                    const updateCount = () => {
+                        count += inc;
+                        if(count < target) {
+                            entry.target.innerText = Math.ceil(count) + (isPercent ? '%' : '+');
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            entry.target.innerText = target + (isPercent ? '%' : '+');
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        stats.forEach(stat => observer.observe(stat));
     </script>
 </body>
 </html>
