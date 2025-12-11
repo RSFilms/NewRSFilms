@@ -48,11 +48,8 @@
 
         /* CUSTOM CURSOR (Desktop Only) */
         @media (min-width: 769px) {
-            /* FIXED: Only hide cursor on body, NOT inputs */
             body { cursor: none; }
             a, button { cursor: none; }
-            
-            /* FIXED: Show text cursor for typing */
             input, textarea { cursor: text !important; }
             
             .cursor-dot, .cursor-outline {
@@ -166,7 +163,7 @@
         .hero-content { width: 90%; max-width: 1200px; padding: 0 20px; }
         .hero-content h1 {
             font-family: var(--font-head);
-            font-size: clamp(2.5rem, 8vw, 7rem); /* Adjusted for mobile */
+            font-size: clamp(2.5rem, 8vw, 7rem);
             line-height: 1.1; font-weight: 700;
             text-transform: uppercase;
             position: relative;
@@ -209,7 +206,7 @@
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
             background: rgba(255,255,255,0.02); flex-wrap: wrap; gap: 30px;
         }
-        .stat-item { text-align: center; flex: 1 1 150px; } /* Improved wrap */
+        .stat-item { text-align: center; flex: 1 1 150px; }
         .stat-num { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #fff; display: block; }
         .stat-label { color: var(--secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
 
@@ -228,19 +225,43 @@
         .marquee-logos-zone { padding: 40px 0; background: rgba(255,255,255,0.03); margin-top: 50px; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .marquee-logos { display: flex; gap: 50px; animation: slideLeft 20s linear infinite; align-items: center; }
         
-        /* WORK MARQUEE */
+        /* UPDATED: WORK MARQUEE (Ultra Fast & Smooth) */
         .work-marquee-container {
             overflow: hidden; width: 100%; white-space: nowrap; margin-top: 40px; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); /* Professional Fade */
         }
+        
         .work-marquee-content {
-            display: flex; gap: 20px; animation: slideLeft 40s linear infinite;
+            display: flex; gap: 30px; 
+            animation: slideWork 15s linear infinite; /* Faster Speed */
         }
+        /* Pause on Hover */
+        .work-marquee-content:hover {
+            animation-play-state: paused;
+        }
+
         .work-marquee-item {
-            width: 300px; height: 180px; border-radius: 15px; overflow: hidden; position: relative;
-            flex-shrink: 0; border: 1px solid var(--border); transition: 0.3s; cursor: pointer;
+            width: 350px; height: 220px; border-radius: 20px; overflow: hidden; position: relative;
+            flex-shrink: 0; border: 1px solid var(--border); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer; background: #111;
         }
-        .work-marquee-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .work-overlay-icon { position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); font-size: 3rem; color: #fff; }
+        
+        /* Hover Effect for Item */
+        .work-marquee-item:hover { 
+            transform: scale(1.1); 
+            z-index: 10; 
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(255, 42, 109, 0.3);
+        }
+        
+        .work-marquee-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; }
+        .work-marquee-item:hover img { opacity: 1; }
+        
+        .work-overlay-icon { 
+            position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); 
+            font-size: 4rem; color: #fff; opacity: 0; transition: 0.4s;
+        }
+        .work-marquee-item:hover .work-overlay-icon { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 
         .platform-icon { font-size: 2.5rem; color: #555; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
         .platform-icon span { font-size: 1.2rem; font-family: var(--font-head); font-weight: bold; }
@@ -250,6 +271,7 @@
 
         @keyframes slideLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes slideRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        @keyframes slideWork { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         /* =========================================
            6. SECTIONS & CARDS
@@ -265,7 +287,6 @@
             display: flex; flex-direction: column; justify-content: space-between;
             transition: transform 0.3s;
         }
-        /* Disable tilt on mobile for better scroll */
         @media (min-width: 769px) {
             .tilt-card { transform-style: preserve-3d; }
         }
@@ -383,7 +404,6 @@
         .album-art { width: 45px; height: 45px; border-radius: 8px; background: #333; position: relative; overflow: hidden; flex-shrink: 0; }
         .equalizer { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding-bottom: 5px; }
         .bar { width: 3px; background: #fff; animation: dance 0.5s infinite alternate; }
-        /* Equalizer bars animation */
         .bar:nth-child(1) { height: 10px; animation-delay: 0.1s; }
         .bar:nth-child(2) { height: 20px; animation-delay: 0.3s; }
         .bar:nth-child(3) { height: 15px; animation-delay: 0.2s; }
@@ -394,31 +414,23 @@
         .cyber-input { width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-family: var(--font-body); transition: 0.3s; cursor: text; }
         .cyber-input:focus { border-color: var(--primary); outline: none; }
 
-        /* =========================================
-           MOBILE OPTIMIZATIONS (Max Width 768px)
-           ========================================= */
         @media(max-width: 768px) {
             nav { width: 90%; padding: 12px 20px; }
-            .nav-links, .cta-nav { display: none; } /* Hide desktop nav */
-            .mobile-menu-btn { display: block; } /* Show hamburger */
-            
-            .hero-content h1 { font-size: 13vw; } /* Really big on mobile */
+            .nav-links, .cta-nav { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero-content h1 { font-size: 13vw; }
             .marquee-zone { padding: 60px 0; }
             .stats-strip { gap: 40px; padding: 40px 5%; }
-            
             .music-player { width: 94%; left: 3%; bottom: 15px; right: auto; border-radius: 12px; }
-            
             .highlight-flex, .profile-detail-container { flex-direction: column; gap: 30px; }
             .highlight-visual { height: 250px; }
             .section-title { font-size: 2rem; margin-bottom: 20px; }
             
+            /* Responsive Work Marquee */
             .work-marquee-item { width: 250px; height: 150px; }
             
-            .cursor-dot, .cursor-outline { display: none; } /* Disable custom cursor */
-            
+            .cursor-dot, .cursor-outline { display: none; }
             .p-info-name { font-size: 2rem; }
-            
-            /* Better grid spacing */
             .services-grid, .plans-grid, .work-grid { padding: 0 5% 50px; gap: 20px; grid-template-columns: 1fr; }
             .client-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
         }
@@ -433,8 +445,6 @@
     <!-- Navigation -->
     <nav>
         <div class="logo" onclick="switchPage('home')">R.S <span>Group</span></div>
-        
-        <!-- Desktop Menu -->
         <ul class="nav-links">
             <li><span onclick="switchPage('work')">Work</span></li>
             <li><span onclick="switchPage('services')">Services</span></li>
@@ -446,8 +456,6 @@
             <li><span onclick="switchPage('contact')">Contact</span></li>
         </ul>
         <button onclick="switchPage('contact')" class="cta-nav magnet">Let's Talk</button>
-
-        <!-- Mobile Menu Button -->
         <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
 
@@ -507,20 +515,25 @@
             </div>
         </section>
 
-        <!-- ANIMATED LATEST WORK MARQUEE -->
+        <!-- UPDATED: ANIMATED LATEST WORK MARQUEE -->
         <section class="highlight-section" id="latest-work">
             <h2 class="section-title">Latest Masterpieces</h2>
             <p class="section-sub">Witness our recent productions currently trending.</p>
             
             <div class="work-marquee-container">
+                <!-- Duplicated content for infinite scroll illusion -->
                 <div class="work-marquee-content">
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/222/fff&text=Song+A"><i class="fas fa-play-circle work-overlay-icon"></i></div>
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/333/fff&text=Reel+B"><i class="fas fa-play-circle work-overlay-icon"></i></div>
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/444/fff&text=Movie+C"><i class="fas fa-play-circle work-overlay-icon"></i></div>
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/555/fff&text=Promo+D"><i class="fas fa-play-circle work-overlay-icon"></i></div>
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/666/fff&text=Event+E"><i class="fas fa-play-circle work-overlay-icon"></i></div>
+                    
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/222/fff&text=Song+A"><i class="fas fa-play-circle work-overlay-icon"></i></div>
                     <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/333/fff&text=Reel+B"><i class="fas fa-play-circle work-overlay-icon"></i></div>
+                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/444/fff&text=Movie+C"><i class="fas fa-play-circle work-overlay-icon"></i></div>
+                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/555/fff&text=Promo+D"><i class="fas fa-play-circle work-overlay-icon"></i></div>
+                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/666/fff&text=Event+E"><i class="fas fa-play-circle work-overlay-icon"></i></div>
                 </div>
             </div>
 
