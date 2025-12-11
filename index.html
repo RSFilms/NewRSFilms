@@ -28,7 +28,7 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Hide default cursor */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
@@ -38,7 +38,7 @@
             line-height: 1.6;
         }
 
-        /* FILM GRAIN OVERLAY (Unique Touch) */
+        /* FILM GRAIN OVERLAY */
         .film-grain {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9998;
@@ -56,7 +56,6 @@
             width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.5);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
-        /* Hover Effect for Cursor */
         body.hovering .cursor-outline {
             width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1);
             border-color: var(--secondary); mix-blend-mode: difference;
@@ -68,44 +67,64 @@
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
 
         /* =========================================
-           2. NAVIGATION (Floating & Glass)
+           2. NAVIGATION
            ========================================= */
         nav {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 1200px;
+            width: 95%; max-width: 1200px;
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 30px;
-            background: rgba(10, 10, 10, 0.6);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 50px;
             z-index: 1000;
         }
         
-        .logo { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .logo { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
         .logo span { color: var(--primary); }
         
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links li span { 
+            color: var(--text-main); text-decoration: none; font-size: 0.85rem; 
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer;
+        }
+        .nav-links li span:hover, .nav-links li span.active { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
 
         .cta-nav {
             background: linear-gradient(45deg, var(--primary), #ff0040);
             padding: 10px 25px; border-radius: 30px; color: #fff;
             text-decoration: none; font-weight: 600; font-size: 0.9rem;
-            transition: 0.3s; box-shadow: 0 0 20px rgba(255, 42, 109, 0.4);
+            transition: 0.3s; box-shadow: 0 0 20px rgba(255, 42, 109, 0.4); border:none; cursor: pointer;
         }
         .cta-nav:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 42, 109, 0.8); }
 
         /* =========================================
-           3. HERO SECTION (Glitch & Cinematic)
+           3. PAGE TRANSITIONS (SPA LOGIC)
+           ========================================= */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+            padding-top: 120px;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        .page-section.active-page {
+            display: block;
+        }
+        #home { padding-top: 0; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           4. HERO SECTION
            ========================================= */
         .hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden;
         }
-        
-        /* Dynamic Background Gradient */
         .hero-bg {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(5, 217, 232, 0.1) 0%, rgba(3, 3, 3, 0) 60%),
@@ -121,8 +140,6 @@
             text-transform: uppercase;
             position: relative;
         }
-        
-        /* Glitch Effect */
         .glitch-text { position: relative; color: white; }
         .glitch-text::before, .glitch-text::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -135,375 +152,442 @@
             left: -2px; text-shadow: -1px 0 var(--secondary); clip: rect(85px, 550px, 140px, 0);
             animation: glitch-anim 2.5s infinite linear alternate-reverse;
         }
-        @keyframes glitch-anim {
-            0% { clip: rect(10px, 9999px, 31px, 0); }
-            100% { clip: rect(80px, 9999px, 100px, 0); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(60px, 9999px, 90px, 0); }
-            100% { clip: rect(10px, 9999px, 40px, 0); }
-        }
+        @keyframes glitch-anim { 0% { clip: rect(10px, 9999px, 31px, 0); } 100% { clip: rect(80px, 9999px, 100px, 0); } }
+        @keyframes glitch-anim-2 { 0% { clip: rect(60px, 9999px, 90px, 0); } 100% { clip: rect(10px, 9999px, 40px, 0); } }
 
-        .hero-sub {
-            font-size: 1.2rem; color: var(--text-muted); margin: 30px 0;
-            letter-spacing: 2px; text-transform: uppercase;
-        }
-
-        .scroll-indicator {
-            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            font-size: 0.8rem; color: var(--text-muted); opacity: 0.7;
-        }
-        .mouse {
-            width: 25px; height: 40px; border: 2px solid var(--text-muted);
-            border-radius: 20px; position: relative;
-        }
-        .wheel {
-            width: 3px; height: 6px; background: #fff; border-radius: 2px;
-            position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-            animation: scroll 1.5s infinite;
-        }
-        @keyframes scroll { 0% { top: 8px; opacity: 1; } 100% { top: 25px; opacity: 0; } }
+        .hero-sub { font-size: 1.2rem; color: var(--text-muted); margin: 30px 0; letter-spacing: 2px; text-transform: uppercase; }
 
         /* =========================================
-           4. STATS COUNTER (Missing Item Added)
+           5. MARQUEES (Artists, Clients, Logos)
            ========================================= */
-        .stats-strip {
-            display: flex; justify-content: space-around; padding: 60px 5%;
-            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            background: rgba(255,255,255,0.02); flex-wrap: wrap; gap: 30px;
-        }
-        .stat-item { text-align: center; }
-        .stat-num { font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: #fff; display: block; }
-        .stat-label { color: var(--secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .marquee-zone { position: relative; padding: 100px 0; overflow: hidden; background: #000; }
+        .marquee-strip { position: absolute; left: -5%; width: 110%; padding: 15px 0; display: flex; white-space: nowrap; overflow: hidden; }
+
+        .marquee-artists { background: var(--primary); color: #000; top: 20%; transform: rotate(-3deg); z-index: 2; box-shadow: 0 10px 30px rgba(255, 42, 109, 0.3); }
+        .marquee-artists .marquee-content { animation: slideLeft 25s linear infinite; }
+
+        .marquee-clients { background: var(--secondary); color: #000; top: 45%; transform: rotate(3deg); z-index: 3; box-shadow: 0 10px 30px rgba(5, 217, 232, 0.3); }
+        .marquee-clients .marquee-content { animation: slideRight 35s linear infinite; }
+
+        /* New: Music Platform Logos Marquee */
+        .marquee-logos-zone { padding: 40px 0; background: rgba(255,255,255,0.03); margin-top: 50px; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .marquee-logos { display: flex; gap: 80px; animation: slideLeft 20s linear infinite; align-items: center; }
+        .platform-icon { font-size: 3rem; color: #555; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+        .platform-icon:hover { color: #fff; transform: scale(1.1); }
+        .platform-icon span { font-size: 1.5rem; font-family: var(--font-head); font-weight: bold; }
+
+        .marquee-content { display: flex; gap: 50px; }
+        .marquee-content span { font-family: var(--font-head); font-size: 2.5rem; font-weight: 800; text-transform: uppercase; display: flex; align-items: center; gap: 20px; }
+
+        @keyframes slideLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes slideRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
         /* =========================================
-           5. 3D SERVICES (Tilt Effect)
+           6. HIGHLIGHT SECTIONS & CARDS
            ========================================= */
-        .section-title {
-            font-family: var(--font-head); font-size: 3rem; text-align: center;
-            margin: 100px 0 50px; text-transform: uppercase;
-        }
-        .services-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; padding: 0 10%; perspective: 1000px;
-        }
+        .section-title { font-family: var(--font-head); font-size: 3rem; text-align: center; margin: 30px 0; text-transform: uppercase; color: #fff; }
+        .section-sub { text-align: center; color: var(--text-muted); margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 0 10% 100px; perspective: 1000px; }
         
         .tilt-card {
             background: linear-gradient(145deg, #111, #050505);
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 40px; min-height: 350px; position: relative;
-            transform-style: preserve-3d; transition: transform 0.2s;
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
-        /* Gradient Border Glow on Hover */
-        .tilt-card::before {
-            content: ''; position: absolute; inset: -2px; border-radius: 22px;
-            background: linear-gradient(45deg, var(--primary), transparent, var(--secondary));
-            z-index: -1; opacity: 0; transition: 0.3s;
+            border: 1px solid var(--border); border-radius: 20px; padding: 40px; min-height: 350px; position: relative;
+            transform-style: preserve-3d; transition: transform 0.2s; display: flex; flex-direction: column; justify-content: space-between;
         }
         .tilt-card:hover::before { opacity: 1; }
+        .tilt-card::before { content: ''; position: absolute; inset: -2px; border-radius: 22px; background: linear-gradient(45deg, var(--primary), transparent, var(--secondary)); z-index: -1; opacity: 0; transition: 0.3s; }
         
         .card-icon { font-size: 3rem; color: var(--secondary); margin-bottom: 20px; transform: translateZ(30px); }
         .card-head { font-family: var(--font-head); font-size: 1.5rem; margin-bottom: 15px; transform: translateZ(20px); }
         .card-desc { color: var(--text-muted); font-size: 0.95rem; transform: translateZ(20px); }
+
+        /* Home Highlights Styling */
+        .highlight-section { padding: 80px 10%; border-bottom: 1px solid var(--border); }
+        .highlight-flex { display: flex; align-items: center; justify-content: space-between; gap: 50px; flex-wrap: wrap; }
+        .highlight-text { flex: 1; min-width: 300px; }
+        .highlight-visual { flex: 1; min-width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 20px; display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid var(--border); }
+        .big-icon { font-size: 8rem; color: rgba(255,255,255,0.1); }
         
         /* =========================================
-           6. FEATURED ARTISTS (Marquee)
-           ========================================= */
-        .marquee-wrap { margin: 100px 0; overflow: hidden; background: var(--primary); transform: rotate(-2deg); width: 105%; margin-left: -2.5%; padding: 20px 0; }
-        .marquee { display: flex; gap: 50px; animation: slideLeft 20s linear infinite; white-space: nowrap; }
-        .marquee span { font-family: var(--font-head); font-size: 4rem; color: #000; font-weight: 800; text-transform: uppercase; }
-        @keyframes slideLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* =========================================
-           7. FLOATING MUSIC PLAYER (Cool Feature)
+           7. MUSIC PLAYER & FOOTER
            ========================================= */
         .music-player {
-            position: fixed; bottom: 30px; right: 30px;
-            width: 300px; background: rgba(15, 15, 15, 0.9);
-            backdrop-filter: blur(15px); border: 1px solid var(--border);
-            border-radius: 20px; padding: 15px;
-            display: flex; align-items: center; gap: 15px;
-            z-index: 999; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: translateY(150px); animation: slideUp 1s 1s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: fixed; bottom: 30px; right: 30px; width: 300px; background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 20px; padding: 15px;
+            display: flex; align-items: center; gap: 15px; z-index: 999; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 1s 1s forwards;
         }
-        @keyframes slideUp { to { transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(150px); } to { transform: translateY(0); } }
 
-        .album-art {
-            width: 50px; height: 50px; border-radius: 10px; background: #333;
-            background-image: url('https://dummyimage.com/100x100/ff2a6d/fff&text=RS');
-            background-size: cover; position: relative;
-        }
-        /* Equalizer Animation */
-        .equalizer {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
-            display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding-bottom: 5px;
-        }
+        .album-art { width: 50px; height: 50px; border-radius: 10px; background: #333; position: relative; overflow: hidden; }
+        .equalizer { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding-bottom: 5px; }
         .bar { width: 3px; background: #fff; animation: dance 0.5s infinite alternate; }
         .bar:nth-child(1) { height: 10px; animation-delay: 0.1s; }
         .bar:nth-child(2) { height: 20px; animation-delay: 0.3s; }
         .bar:nth-child(3) { height: 15px; animation-delay: 0.2s; }
         @keyframes dance { 0% { height: 5px; } 100% { height: 20px; } }
 
-        .track-info { flex: 1; }
-        .track-title { font-size: 0.9rem; font-weight: 700; color: #fff; display: block; }
-        .track-artist { font-size: 0.75rem; color: var(--text-muted); }
-        
-        .controls i { color: #fff; font-size: 1.2rem; cursor: pointer; transition: 0.2s; }
-        .controls i:hover { color: var(--secondary); transform: scale(1.2); }
+        footer { border-top: 1px solid var(--border); padding: 50px; text-align: center; color: var(--text-muted); background: #020202; margin-top: 50px;}
 
-        /* =========================================
-           8. CONTACT & FOOTER
-           ========================================= */
-        .cta-section {
-            text-align: center; padding: 100px 20px;
-            background: radial-gradient(circle at center, rgba(5, 217, 232, 0.1), transparent 70%);
-        }
-        .big-cta-btn {
-            display: inline-block; margin-top: 30px;
-            padding: 20px 60px; background: #fff; color: #000;
-            font-family: var(--font-head); font-size: 1.5rem; font-weight: 700;
-            text-transform: uppercase; border-radius: 50px; text-decoration: none;
-            transition: 0.3s; position: relative; overflow: hidden;
-        }
-        .big-cta-btn:hover { background: var(--secondary); transform: scale(1.05); box-shadow: 0 0 50px var(--secondary); }
-        
-        footer {
-            border-top: 1px solid var(--border); padding: 50px; text-align: center;
-            font-size: 0.9rem; color: var(--text-muted);
-        }
+        /* Client Grid for Client Page */
+        .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 0 10% 50px; }
+        .client-box { border: 1px solid var(--border); padding: 20px; text-align: center; border-radius: 10px; background: rgba(255,255,255,0.02); transition: 0.3s; font-size: 0.9rem; color: #ccc; }
+        .client-box:hover { border-color: var(--secondary); color: var(--secondary); background: rgba(5, 217, 232, 0.05); }
 
-        /* Mobile Adjustments */
+        /* Form Styling */
+        .cyber-input { width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-family: var(--font-body); transition: 0.3s; }
+        .cyber-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px rgba(255, 42, 109, 0.2); }
+
         @media(max-width: 768px) {
             .hero-content h1 { font-size: 3.5rem; }
-            .stats-strip { gap: 40px; }
-            .marquee span { font-size: 2.5rem; }
+            .marquee-zone { padding: 80px 0; }
+            .marquee-content span { font-size: 1.5rem; }
+            .nav-links { display: none; } /* Simplified for mobile */
             .music-player { width: 90%; left: 5%; bottom: 20px; }
-            .nav-links { display: none; } /* Simplified mobile nav for demo */
-            .logo { font-size: 1.2rem; }
-            .cursor-dot, .cursor-outline { display: none; } /* No custom cursor on mobile */
+            .cursor-dot, .cursor-outline { display: none; }
+            .highlight-flex { flex-direction: column; }
             * { cursor: auto; }
         }
     </style>
 </head>
 <body>
     
-    <!-- Unique 1: Film Grain Overlay -->
     <div class="film-grain"></div>
-
-    <!-- Unique 2: Custom Cursor -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
     <!-- Navigation -->
     <nav>
-        <div class="logo">R.S <span>Group</span></div>
+        <div class="logo" onclick="switchPage('home')">R.S <span>Group</span></div>
         <ul class="nav-links">
-            <li><a href="#services" class="magnet">Services</a></li>
-            <li><a href="#work" class="magnet">Work</a></li>
-            <li><a href="#artists" class="magnet">Artists</a></li>
-            <li><a href="#about" class="magnet">Vision</a></li>
+            <li><span onclick="switchPage('services')">Services</span></li>
+            <li><span onclick="switchPage('distribution')">Distribution</span></li>
+            <li><span onclick="switchPage('mcn')">MCN</span></li>
+            <li><span onclick="switchPage('clients')">Partners</span></li>
+            <li><span onclick="switchPage('contact')">Contact</span></li>
         </ul>
-        <a href="https://wa.me/919999999999" class="cta-nav magnet">Let's Talk</a>
+        <button onclick="switchPage('contact')" class="cta-nav magnet">Let's Talk</button>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <p class="hero-sub">The New Era of Entertainment</p>
-            <h1 class="glitch-text" data-text="WE CREATE LEGENDS">WE CREATE<br>LEGENDS</h1>
-            
-            <div class="scroll-indicator">
-                <div class="mouse"><div class="wheel"></div></div>
-                <span>SCROLL</span>
+    <!-- ===================== PAGE 1: HOME ===================== -->
+    <div id="home" class="page-section active-page">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <p class="hero-sub">The New Era of Entertainment</p>
+                <h1 class="glitch-text" data-text="WE CREATE LEGENDS">WE CREATE<br>LEGENDS</h1>
+                <div style="margin-top: 50px;">
+                    <button onclick="switchPage('services')" class="cta-nav" style="background: transparent; border: 1px solid white; margin-right: 15px;">Explore Services</button>
+                    <button onclick="switchPage('mcn')" class="cta-nav">Join MCN</button>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Missing Item: Live Stats -->
-    <div class="stats-strip">
-        <div class="stat-item">
-            <span class="stat-num" data-target="250">0</span>
-            <span class="stat-label">Projects Done</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-num" data-target="15">0</span>
-            <span class="stat-label">Million Views</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-num" data-target="50">0</span>
-            <span class="stat-label">Signed Artists</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-num" data-target="100">0%</span>
-            <span class="stat-label">Growth Rate</span>
-        </div>
+        <!-- Crossing Marquees Section (Artists & Clients) -->
+        <section class="marquee-zone">
+            <!-- Artist Marquee (Left) -->
+            <div class="marquee-strip marquee-artists">
+                <div class="marquee-content">
+                    <span>PAWAN SINGH <i class="fas fa-star"></i> KHESARI LAL <i class="fas fa-star"></i> SHILPI RAJ <i class="fas fa-star"></i> NEELKAMAL SINGH <i class="fas fa-star"></i> ANKUSH RAJA <i class="fas fa-star"></i></span>
+                    <span>PAWAN SINGH <i class="fas fa-star"></i> KHESARI LAL <i class="fas fa-star"></i> SHILPI RAJ <i class="fas fa-star"></i> NEELKAMAL SINGH <i class="fas fa-star"></i> ANKUSH RAJA <i class="fas fa-star"></i></span>
+                </div>
+            </div>
+            <!-- Client Marquee (Right) -->
+            <div class="marquee-strip marquee-clients">
+                <div class="marquee-content">
+                    <span>AARTI FILMS • ABHISHEK CHHALIYA • AHIR BRAND • AMRESH YADAV • BVD MUSIC • GP MUSIC • GUDIYA JHAKI • NEERAJ OFFICIAL • ISHU TILAKDHARI • LOVKUSH ARPITA • MB MUSIC • MANISH MASTANA • MAYUR BHARAT • NEHA SINGH • R.S FILMS • RANG MAHAL • SHIVAM CHHALIYA • SIDDHI VINAYAK • VIKASH BHARDWAJ •</span>
+                    <span>AARTI FILMS • ABHISHEK CHHALIYA • AHIR BRAND • AMRESH YADAV • BVD MUSIC • GP MUSIC • GUDIYA JHAKI • NEERAJ OFFICIAL • ISHU TILAKDHARI • LOVKUSH ARPITA • MB MUSIC • MANISH MASTANA • MAYUR BHARAT • NEHA SINGH • R.S FILMS • RANG MAHAL • SHIVAM CHHALIYA • SIDDHI VINAYAK • VIKASH BHARDWAJ •</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- HIGHLIGHT: MUSIC DISTRIBUTION (With Logo Marquee) -->
+        <section class="highlight-section">
+            <h2 class="section-title" style="margin-bottom: 50px;">Global Music Distribution</h2>
+            <div class="marquee-logos-zone">
+                <div class="marquee-logos">
+                    <!-- Logos Repeated for Loop -->
+                    <div class="platform-icon"><i class="fab fa-spotify" style="color:#1DB954;"></i> <span>Spotify</span></div>
+                    <div class="platform-icon"><i class="fab fa-apple" style="color:#fff;"></i> <span>Apple</span></div>
+                    <div class="platform-icon"><i class="fab fa-youtube" style="color:#FF0000;"></i> <span>YouTube</span></div>
+                    <div class="platform-icon"><i class="fab fa-amazon" style="color:#FF9900;"></i> <span>Amazon</span></div>
+                    <div class="platform-icon"><i class="fab fa-soundcloud" style="color:#ff5500;"></i> <span>SoundCloud</span></div>
+                    <div class="platform-icon"><i class="fab fa-instagram" style="color:#E1306C;"></i> <span>Reels</span></div>
+                    <div class="platform-icon"><i class="fab fa-facebook" style="color:#1877F2;"></i> <span>Facebook</span></div>
+                    <div class="platform-icon"><i class="fas fa-music" style="color:#05d9e8;"></i> <span>JioSaavn</span></div>
+                    <div class="platform-icon"><i class="fas fa-headphones" style="color:#ff2a6d;"></i> <span>Wynk</span></div>
+                    <!-- Repeat -->
+                    <div class="platform-icon"><i class="fab fa-spotify" style="color:#1DB954;"></i> <span>Spotify</span></div>
+                    <div class="platform-icon"><i class="fab fa-apple" style="color:#fff;"></i> <span>Apple</span></div>
+                    <div class="platform-icon"><i class="fab fa-youtube" style="color:#FF0000;"></i> <span>YouTube</span></div>
+                    <div class="platform-icon"><i class="fab fa-amazon" style="color:#FF9900;"></i> <span>Amazon</span></div>
+                    <div class="platform-icon"><i class="fab fa-soundcloud" style="color:#ff5500;"></i> <span>SoundCloud</span></div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="color:#aaa; margin-bottom: 20px;">We deliver your music to 150+ platforms worldwide. Keep 100% of your rights.</p>
+                <button onclick="switchPage('distribution')" class="cta-nav">View Plans</button>
+            </div>
+        </section>
+
+        <!-- HIGHLIGHT: MCN -->
+        <section class="highlight-section">
+            <div class="highlight-flex">
+                <div class="highlight-text">
+                    <h2 class="section-title" style="text-align: left;">Official YouTube MCN</h2>
+                    <p style="color:#ccc; font-size: 1.1rem; margin-bottom: 30px;">
+                        Stop losing revenue. Join our Multi-Channel Network to protect your content, increase CPM, and get dedicated support.
+                    </p>
+                    <ul style="color:#888; margin-bottom: 30px; line-height: 2; list-style: none;">
+                        <li><i class="fas fa-check-circle" style="color:var(--primary);"></i> Content ID Protection</li>
+                        <li><i class="fas fa-check-circle" style="color:var(--primary);"></i> Higher Ad Revenue</li>
+                        <li><i class="fas fa-check-circle" style="color:var(--primary);"></i> Copyright Strike Management</li>
+                    </ul>
+                    <button onclick="switchPage('mcn')" class="cta-nav">Check Eligibility</button>
+                </div>
+                <div class="highlight-visual">
+                    <i class="fab fa-youtube big-icon" style="color: red;"></i>
+                    <div style="position:absolute; bottom:20px; font-family:var(--font-head); font-size:1.5rem;">Verified Partner</div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Services (3D Tilt) -->
-    <section id="services">
+    <!-- ===================== PAGE 2: SERVICES (General) ===================== -->
+    <div id="services" class="page-section">
         <h2 class="section-title">What We Do</h2>
+        <p class="section-sub">End-to-End Solutions for Creators</p>
         <div class="services-grid">
-            <!-- Card 1 -->
-            <div class="tilt-card magnet-card">
+            <div class="tilt-card">
                 <div>
                     <i class="fas fa-video card-icon"></i>
                     <h3 class="card-head">Cinematic Production</h3>
                     <p class="card-desc">4K Music Videos, Short Films, and Web Series production with industry-grade equipment (Red/Arri).</p>
                 </div>
-                <div style="margin-top:20px; color:var(--primary);">Learn More &rarr;</div>
             </div>
-            <!-- Card 2 -->
-            <div class="tilt-card magnet-card">
+            <div class="tilt-card" onclick="switchPage('distribution')" style="cursor: pointer;">
                 <div>
                     <i class="fas fa-music card-icon" style="color: var(--primary);"></i>
                     <h3 class="card-head">Music Distribution</h3>
-                    <p class="card-desc">Get your songs on Spotify, Apple Music, Wynk, JioSaavn & 150+ platforms in 24 hours.</p>
+                    <p class="card-desc">Click to view our distribution networks and plans.</p>
                 </div>
-                <div style="margin-top:20px; color:var(--primary);">Distribute Now &rarr;</div>
+                <div style="color:var(--primary); margin-top:10px;">View More &rarr;</div>
             </div>
-            <!-- Card 3 -->
-            <div class="tilt-card magnet-card">
+            <div class="tilt-card">
                 <div>
                     <i class="fas fa-rocket card-icon" style="color: #ffaa00;"></i>
                     <h3 class="card-head">Viral Marketing</h3>
                     <p class="card-desc">Instagram Reels promotion, YouTube SEO, and Influencer campaigns to make you a star.</p>
                 </div>
-                <div style="margin-top:20px; color:var(--primary);">Go Viral &rarr;</div>
             </div>
-        </div>
-    </section>
-
-    <!-- Marquee (Netflix Style) -->
-    <section id="artists">
-        <div class="marquee-wrap">
-            <div class="marquee">
-                <span>• PAWAN SINGH • KHESARI LAL • SHILPI RAJ • NEELKAMAL SINGH • RITESH PANDEY • ANKUSH RAJA •</span>
-                <span>• PAWAN SINGH • KHESARI LAL • SHILPI RAJ • NEELKAMAL SINGH • RITESH PANDEY • ANKUSH RAJA •</span>
+            <div class="tilt-card" onclick="switchPage('mcn')" style="cursor: pointer;">
+                <div>
+                    <i class="fas fa-copyright card-icon" style="color: #00ff00;"></i>
+                    <h3 class="card-head">MCN & Content ID</h3>
+                    <p class="card-desc">Click to apply for our Official YouTube MCN Network.</p>
+                </div>
+                <div style="color:var(--primary); margin-top:10px;">Apply Now &rarr;</div>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2 style="font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 20px;">Ready to be the Next Big Thing?</h2>
-        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Join the fastest growing label in India. We turn talent into legacy.</p>
-        <a href="https://wa.me/919999999999" class="big-cta-btn magnet">Start Project</a>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div style="margin-bottom: 20px; font-size: 1.5rem; color: #fff;">
-            <i class="fab fa-youtube"></i> &nbsp; <i class="fab fa-instagram"></i> &nbsp; <i class="fab fa-facebook"></i>
-        </div>
-        <p>&copy; 2024 R.S Films Group. Made for Legends.</p>
-    </footer>
-
-    <!-- Unique 3: Floating Music Player -->
-    <div class="music-player">
-        <div class="album-art">
-            <div class="equalizer">
-                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-            </div>
-        </div>
-        <div class="track-info">
-            <span class="track-title">Desi Swag Vol. 1</span>
-            <span class="track-artist">Now Playing...</span>
-        </div>
-        <div class="controls">
-            <i class="fas fa-pause-circle" id="playBtn"></i>
         </div>
     </div>
 
+    <!-- ===================== PAGE 3: MUSIC DISTRIBUTION (Deep Detail) ===================== -->
+    <div id="distribution" class="page-section">
+        <h2 class="section-title">Music Distribution</h2>
+        <p class="section-sub">Release Unlimited Music. Keep Your Royalties.</p>
+
+        <div style="padding: 0 10%; margin-bottom: 50px;">
+            <div class="tilt-card" style="min-height: auto; align-items: center; text-align: center;">
+                <h3 class="card-head">Why Choose Us?</h3>
+                <div style="display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+                    <div><i class="fas fa-bolt" style="color:var(--secondary); font-size: 2rem;"></i><p>Fast Delivery</p></div>
+                    <div><i class="fas fa-globe" style="color:var(--secondary); font-size: 2rem;"></i><p>Global Reach</p></div>
+                    <div><i class="fas fa-chart-line" style="color:var(--secondary); font-size: 2rem;"></i><p>Daily Analytics</p></div>
+                    <div><i class="fas fa-file-contract" style="color:var(--secondary); font-size: 2rem;"></i><p>Monthly Payouts</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-grid">
+            <div class="tilt-card">
+                <h3 class="card-head">Single Release</h3>
+                <h1 style="color:var(--primary); font-size:3rem; font-family:var(--font-head);">₹499</h1>
+                <p class="card-desc">Perfect for debut singles.</p>
+                <ul style="color:#aaa; list-style:none; line-height:2; margin: 20px 0;">
+                    <li>• 1 Song Distribution</li>
+                    <li>• Instagram Music</li>
+                    <li>• Content ID Optional</li>
+                </ul>
+                <button class="cta-nav">Distribute Now</button>
+            </div>
+            <div class="tilt-card" style="border-color: var(--secondary);">
+                <h3 class="card-head">Album Pro</h3>
+                <h1 style="color:var(--secondary); font-size:3rem; font-family:var(--font-head);">₹1999</h1>
+                <p class="card-desc">For EPs and Albums.</p>
+                <ul style="color:#aaa; list-style:none; line-height:2; margin: 20px 0;">
+                    <li>• Up to 10 Songs</li>
+                    <li>• Priority Support</li>
+                    <li>• Free Content ID</li>
+                    <li>• Caller Tune Codes</li>
+                </ul>
+                <button class="cta-nav">Distribute Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE 4: MCN (Deep Detail) ===================== -->
+    <div id="mcn" class="page-section">
+        <h2 class="section-title">Join MCN Network</h2>
+        <p class="section-sub">Official YouTube Multi-Channel Network Partner</p>
+
+        <div class="services-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="tilt-card">
+                <h3 class="card-head">Requirements</h3>
+                <ul style="color:#ccc; list-style: none; line-height: 2.5;">
+                    <li><i class="fas fa-check" style="color:var(--primary); margin-right:10px;"></i> Minimum 10,000 Subscribers</li>
+                    <li><i class="fas fa-check" style="color:var(--primary); margin-right:10px;"></i> 100% Original Content</li>
+                    <li><i class="fas fa-check" style="color:var(--primary); margin-right:10px;"></i> No Active Community Strikes</li>
+                    <li><i class="fas fa-check" style="color:var(--primary); margin-right:10px;"></i> AdSense Account Ready</li>
+                </ul>
+            </div>
+            <div class="tilt-card">
+                <h3 class="card-head">Benefits</h3>
+                <ul style="color:#ccc; list-style: none; line-height: 2.5;">
+                    <li><i class="fas fa-star" style="color:gold; margin-right:10px;"></i> Access to CMS Dashboard</li>
+                    <li><i class="fas fa-star" style="color:gold; margin-right:10px;"></i> Manual Copyright Claiming</li>
+                    <li><i class="fas fa-star" style="color:gold; margin-right:10px;"></i> Premium Ad Inventory (High CPM)</li>
+                    <li><i class="fas fa-star" style="color:gold; margin-right:10px;"></i> Dedicated Channel Manager</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px; text-align: center;">
+            <h2 style="font-family: var(--font-head); margin-bottom: 20px;">Apply For MCN</h2>
+            <form class="tilt-card" style="text-align: left;">
+                <label style="color:#888; margin-bottom:5px; display:block;">Channel Name</label>
+                <input type="text" class="cyber-input" placeholder="e.g. R.S Films">
+                
+                <label style="color:#888; margin-bottom:5px; display:block;">Channel Link URL</label>
+                <input type="text" class="cyber-input" placeholder="https://youtube.com/...">
+                
+                <label style="color:#888; margin-bottom:5px; display:block;">Subscriber Count</label>
+                <input type="number" class="cyber-input" placeholder="e.g. 50000">
+
+                <label style="color:#888; margin-bottom:5px; display:block;">Owner Name</label>
+                <input type="text" class="cyber-input" placeholder="Your Name">
+
+                <button class="cta-nav" style="width:100%; margin-top:20px;">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE 5: CLIENTS / PARTNERS ===================== -->
+    <div id="clients" class="page-section">
+        <h2 class="section-title">Our Trusted Partners</h2>
+        <p class="section-sub">Powering the biggest names in the regional industry.</p>
+        <div class="client-grid" id="clientListContainer"></div>
+    </div>
+
+    <!-- ===================== PAGE 6: CONTACT ===================== -->
+    <div id="contact" class="page-section">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 class="section-title">Join The Revolution</h2>
+            <div class="tilt-card" style="text-align: left;">
+                <h3 style="color:#fff; margin-bottom:20px;">Get in Touch</h3>
+                <input type="text" class="cyber-input" placeholder="Your Name">
+                <input type="text" class="cyber-input" placeholder="Mobile Number">
+                <textarea rows="4" class="cyber-input" placeholder="Message"></textarea>
+                <button class="cta-nav" style="width:100%; border:none; cursor: pointer;">Send Enquiry</button>
+                
+                <div style="margin-top: 30px; display:flex; gap:20px; justify-content:center;">
+                    <a href="#" style="color:#fff; font-size:1.5rem;"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" style="color:#fff; font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color:#fff; font-size:1.5rem;"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 R.S Films Group. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Floating Player -->
+    <div class="music-player">
+        <div class="album-art"><img src="https://dummyimage.com/100x100/ff2a6d/000&text=RS" style="width:100%;"><div class="equalizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+        <div class="track-info">
+            <span class="track-title" style="color:#fff; font-weight:bold; font-size:0.9rem;">Desi Swag Vol. 1</span>
+            <span class="track-artist" style="color:#aaa; font-size:0.75rem;">Now Playing...</span>
+        </div>
+        <i class="fas fa-pause-circle" id="playBtn" style="color:#fff; font-size:1.5rem;"></i>
+    </div>
+
     <script>
-        // 1. CUSTOM CURSOR LOGIC
+        // 1. CLIENT LIST DATA POPULATION
+        const clientList = [
+            "Aarti Films Jhanki", "Abhishek Chhaliya Official", "Ahir Brand", 
+            "Amresh Yadav Entertainment", "Avinash Madhur Official", "BVD Music World", 
+            "GP Music Official", "Gudiya Jhaki Official", "Neeraj Official", 
+            "Ishu Tilakdhari Kanpur", "Ishu Tilakdhari Official", "Lovkush Arpita Official", 
+            "MB Music World", "Manish Mastana Official", "Mayur Bharat Raas", 
+            "Neha Singh Music", "R.S Films Bhojpuri", "Rang Mahal Studios", 
+            "Shivam Chhaliya Official", "Siddhi Vinayak Films", "Siddhi Vinayak Films Bhakti", 
+            "Vikash Bhardwaj Official"
+        ];
+
+        const clientContainer = document.getElementById('clientListContainer');
+        clientList.forEach(client => {
+            const div = document.createElement('div');
+            div.className = 'client-box';
+            div.innerHTML = `<i class="fas fa-check-circle" style="color:var(--secondary); margin-bottom:10px;"></i><br>${client}`;
+            clientContainer.appendChild(div);
+        });
+
+        // 2. PAGE SWITCHING LOGIC (SPA)
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active-page');
+            });
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo(0,0);
+        }
+
+        // 3. CURSOR & 3D TILT LOGIC
         const cursorDot = document.getElementById("cursor-dot");
         const cursorOutline = document.getElementById("cursor-outline");
 
         window.addEventListener("mousemove", function (e) {
             const posX = e.clientX;
             const posY = e.clientY;
-
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
-
-            // Add delay to outline for smooth feel
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
         });
 
-        // Hover states
-        document.querySelectorAll('a, .tilt-card, .controls i').forEach(el => {
+        document.querySelectorAll('a, button, span, .tilt-card, .platform-icon').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
 
-        // 2. 3D TILT EFFECT FOR CARDS
-        const cards = document.querySelectorAll(".tilt-card");
-
-        cards.forEach(card => {
+        // Tilt Cards
+        document.querySelectorAll(".tilt-card").forEach(card => {
             card.addEventListener("mousemove", (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                const rotateX = ((y - centerY) / centerY) * -10;
                 const rotateY = ((x - centerX) / centerX) * 10;
-
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
-
             card.addEventListener("mouseleave", () => {
                 card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
             });
         });
-
-        // 3. STATS COUNTER ANIMATION
-        const stats = document.querySelectorAll('.stat-num');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const target = +entry.target.getAttribute('data-target');
-                    const isPercent = entry.target.innerText.includes('%');
-                    let count = 0;
-                    const inc = target / 50; // Speed
-
-                    const updateCount = () => {
-                        count += inc;
-                        if(count < target) {
-                            entry.target.innerText = Math.ceil(count) + (isPercent ? '%' : '+');
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            entry.target.innerText = target + (isPercent ? '%' : '+');
-                        }
-                    };
-                    updateCount();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        stats.forEach(stat => observer.observe(stat));
-
-        // 4. MUSIC PLAYER TOGGLE (Visual Only)
-        const playBtn = document.getElementById('playBtn');
-        let isPlaying = true;
-        playBtn.addEventListener('click', () => {
-            isPlaying = !isPlaying;
-            playBtn.className = isPlaying ? 'fas fa-pause-circle' : 'fas fa-play-circle';
-            // Toggle equalizer bars
-            const bars = document.querySelectorAll('.bar');
-            bars.forEach(bar => bar.style.animationPlayState = isPlaying ? 'running' : 'paused');
-        });
-
     </script>
 </body>
 </html>
