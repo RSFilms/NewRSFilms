@@ -1436,22 +1436,22 @@
         <h2 class="section-title">Secure Checkout</h2>
         
         <div class="checkout-container">
-            <div class="pay-options-box">
+<div class="pay-options-box">
                 <h3 class="checkout-head">Select Payment Method</h3>
                 
                 <div class="payment-tabs">
-                    <div class="pay-method active" onclick="selectPaymentMethod(this)">
+                    <div class="pay-method active" onclick="selectPaymentMethod(this, 'card')">
                         <i class="fas fa-credit-card"></i> Card
                     </div>
-                    <div class="pay-method" onclick="selectPaymentMethod(this)">
+                    <div class="pay-method" onclick="selectPaymentMethod(this, 'upi')">
                         <i class="fab fa-google-pay"></i> UPI / GPay
                     </div>
-                    <div class="pay-method" onclick="selectPaymentMethod(this)">
+                    <div class="pay-method" onclick="selectPaymentMethod(this, 'qr')">
                         <i class="fas fa-qrcode"></i> QR Code
                     </div>
                 </div>
 
-                <div class="payment-form">
+                <div id="card-form" class="payment-content">
                     <div class="floating-input-group">
                         <input type="text" class="floating-input" placeholder=" ">
                         <span class="floating-label-text">Card Number</span>
@@ -1459,10 +1459,10 @@
                     <div class="form-grid">
                         <div class="floating-input-group">
                             <input type="text" class="floating-input" placeholder=" ">
-                            <span class="floating-label-text">Expiry</span>
+                            <span class="floating-label-text">Expiry (MM/YY)</span>
                         </div>
                         <div class="floating-input-group">
-                            <input type="text" class="floating-input" placeholder=" ">
+                            <input type="password" class="floating-input" placeholder=" ">
                             <span class="floating-label-text">CVV</span>
                         </div>
                     </div>
@@ -1470,6 +1470,32 @@
                         <input type="text" class="floating-input" placeholder=" ">
                         <span class="floating-label-text">Card Holder Name</span>
                     </div>
+                </div>
+
+                <div id="upi-form" class="payment-content" style="display:none;">
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <i class="fas fa-mobile-alt" style="font-size:3rem; color:#ddd; margin-bottom:10px;"></i>
+                        <p style="color:#666; font-size:0.9rem;">Enter your UPI ID to verify and pay.</p>
+                    </div>
+                    <div class="floating-input-group">
+                        <input type="text" class="floating-input" placeholder=" ">
+                        <span class="floating-label-text">Enter UPI ID (e.g. mobile@upi)</span>
+                    </div>
+                    <div style="background:#eef; padding:10px; border-radius:8px; font-size:0.8rem; color:#444; margin-top:10px;">
+                        <i class="fas fa-info-circle"></i> You will receive a payment request on your UPI app.
+                    </div>
+                </div>
+
+                <div id="qr-form" class="payment-content" style="display:none; text-align:center;">
+                    <p style="color:#666; margin-bottom:15px; font-size:0.9rem;">Scan with any UPI App (GPay, Paytm, PhonePe)</p>
+                    
+                    <div style="background:#fff; padding:10px; display:inline-block; border:1px solid #ddd; border-radius:10px;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=rsfilms@upi&pn=RSFilms&am=1" alt="Scan QR">
+                    </div>
+
+                    <p style="font-size:0.9rem; color:var(--primary); margin-top:20px; font-weight:bold;">
+                        <i class="fas fa-circle-notch fa-spin"></i> Waiting for payment...
+                    </p>
                 </div>
             </div>
 
@@ -2236,10 +2262,20 @@
             switchPage('checkout-page');
         }
 
-        function selectPaymentMethod(el) {
-            document.querySelectorAll('.pay-method').forEach(item => item.classList.remove('active'));
-            el.classList.add('active');
-        }
+        function selectPaymentMethod(el, method) {
+        // 1. UI: Sabhi tabs se 'active' class hatao
+        document.querySelectorAll('.pay-method').forEach(item => item.classList.remove('active'));
+        // 2. Click kiye gaye tab ko active karo
+        el.classList.add('active');
+
+        // 3. Logic: Sabhi forms ko chupao
+        document.getElementById('card-form').style.display = 'none';
+        document.getElementById('upi-form').style.display = 'none';
+        document.getElementById('qr-form').style.display = 'none';
+
+        // 4. Sirf selected method ka form dikhao
+        document.getElementById(method + '-form').style.display = 'block';
+    }
 
         function processPayment() {
             const btn = document.getElementById('pay-btn');
