@@ -42,6 +42,75 @@
             line-height: 1.6;
         }
 
+        /* PRELOADER STYLES */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease;
+        }
+        .loader-content-box {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .loader-logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+            animation: logoPulse 2s infinite ease-in-out;
+        }
+        .loader-ring {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+        .loader-ring::before {
+            content: "";
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 3px solid transparent;
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 3s linear infinite reverse;
+        }
+        .loading-text {
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #111, var(--primary), #111);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 3s linear infinite;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes logoPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes textShine { to { background-position: 200% center; } }
+
+
         /* ANIMATED BACKGROUND CANVAS */
         #cyber-canvas {
             position: fixed;
@@ -104,8 +173,51 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
         
-        .logo { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; color: #000; }
-        .logo span { color: var(--primary); }
+        /* NEW LOGO STYLES */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .logo-container:hover {
+            transform: scale(1.02);
+        }
+        .logo-img {
+            height: 60px; /* Slightly bigger */
+            width: 60px;
+            object-fit: cover;
+            border-radius: 50%; /* Circular logo looks better */
+            box-shadow: 0 4px 15px rgba(255, 42, 109, 0.2); /* Glow effect */
+            border: 2px solid #fff;
+        }
+        .brand-text-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1;
+            padding-left: 15px;
+            border-left: 2px solid #ddd;
+        }
+        .brand-main {
+            font-family: var(--font-head);
+            font-weight: 800; /* Extra Bold */
+            font-size: 1.8rem; /* Much bigger */
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1); /* Subtle 3D pop */
+        }
+        .brand-sub {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 6px; /* Wider spacing */
+            margin-top: 4px;
+        }
         
         .nav-links { display: flex; gap: 15px; list-style: none; }
         .nav-links li span { 
@@ -134,6 +246,8 @@
             z-index: 1001; padding: 100px 40px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 30px;
             box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            /* SCROLL FIX */
+            overflow-y: auto;
         }
         .mobile-menu.active { right: 0; }
         .mobile-menu span {
@@ -418,6 +532,32 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
+        /* NEW PAGES STYLES (AI, Production, Support) */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 0 5% 50px;
+        }
+        .feature-card {
+            background: #fff; padding: 30px; border-radius: 20px; border: 1px solid var(--border);
+            text-align: center; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--secondary); box-shadow: var(--card-shadow); }
+        .feature-icon { font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px; }
+        
+        .support-box {
+            max-width: 800px; margin: 0 auto; background: #fff; border-radius: 20px; border: 1px solid var(--border);
+            overflow: hidden; display: flex; flex-direction: column; height: 500px;
+        }
+        .support-header { background: #f9f9f9; padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .support-body { flex: 1; padding: 20px; overflow-y: auto; background: #fff; }
+        .support-input-area { padding: 20px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-msg { margin-bottom: 15px; max-width: 80%; padding: 10px 15px; border-radius: 10px; font-size: 0.9rem; }
+        .chat-msg.bot { background: #f0f0f0; color: #333; align-self: flex-start; }
+        .chat-msg.user { background: var(--primary); color: #fff; align-self: flex-end; margin-left: auto; }
+
+        .terms-content { max-width: 800px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 20px; border: 1px solid var(--border); }
+        .terms-content h3 { font-family: var(--font-head); margin-top: 20px; margin-bottom: 10px; color: #111; }
+        .terms-content p { color: #555; margin-bottom: 15px; font-size: 0.9rem; }
+
         /* =========================================
            8. MUSIC PLAYER & FOOTER
            ========================================= */
@@ -460,8 +600,57 @@
             
             .cursor-dot, .cursor-outline { display: none; }
             .p-info-name { font-size: 2rem; }
-            .services-grid, .plans-grid, .work-grid { padding: 0 5% 50px; gap: 20px; grid-template-columns: 1fr; }
+            .services-grid, .plans-grid, .work-grid, .features-grid { padding: 0 5% 50px; gap: 20px; grid-template-columns: 1fr; }
             .client-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        }
+
+        /* NEW STYLES FOR PARTNER PROFILE (UNIQUE LOOK) */
+        .partner-tag { display: inline-block; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .partner-tag.devotional { background: linear-gradient(45deg, #FF512F, #DD2476); } /* Orange-Pink */
+        .partner-tag.music { background: linear-gradient(45deg, #00b09b, #96c93d); } /* Green-Teal */
+        .partner-tag.artist { background: linear-gradient(45deg, #8E2DE2, #4A00E0); } /* Purple-Blue */
+        
+        .partner-quote { font-size: 1.1rem; color: #333; font-style: italic; border-left: 3px solid var(--primary); padding-left: 15px; margin: 15px 0 25px; line-height: 1.6; }
+        
+        .stats-grid-modern { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
+        .stat-card-modern { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; transition: 0.3s; position: relative; overflow: hidden; }
+        .stat-card-modern:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .stat-val-modern { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; color: #111; display: block; line-height: 1; margin-bottom: 5px; }
+        .stat-lbl-modern { font-size: 0.7rem; text-transform: uppercase; color: #888; letter-spacing: 1px; font-weight: 600; }
+        
+        .content-pill { display: inline-block; background: #f4f4f4; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #555; margin: 0 5px 5px 0; border: 1px solid transparent; transition:0.2s; }
+        .content-pill:hover { border-color: #ccc; background: #fff; }
+
+        /* FLOATING CONTACT ICON */
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--primary);
+            animation: pulse-btn 2s infinite;
+        }
+        .floating-contact:hover {
+            transform: scale(1.1) rotate(10deg);
+            background: var(--primary);
+            border-color: #fff;
+        }
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 109, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 42, 109, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 109, 0); }
         }
     </style>
 </head>
@@ -473,20 +662,45 @@
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="loader-content-box">
+            <div class="loader-ring"></div>
+            <img src="https://yt3.googleusercontent.com/pYa-GJZ4ns3_wTNwgy5X9XnKEPf8dX536fVShkRUTlvaazkmfeIIkacjXqqUWMbAnOBjo5h1pA=s900-c-k-c0x00ffffff-no-rj" class="loader-logo-img">
+        </div>
+        <div class="loading-text">R.S Films Group</div>
+    </div>
+
+    <!-- FLOATING CONTACT ICON (Unique Placement) -->
+    <div class="floating-contact" onclick="switchPage('contact')" title="Contact Us">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
     <!-- Navigation -->
     <nav>
-        <div class="logo" onclick="switchPage('home')">R.S <span>Group</span></div>
+        <!-- Updated Logo Section with Image and Unique Style -->
+        <div class="logo-container" onclick="switchPage('home')">
+            <img src="https://yt3.googleusercontent.com/pYa-GJZ4ns3_wTNwgy5X9XnKEPf8dX536fVShkRUTlvaazkmfeIIkacjXqqUWMbAnOBjo5h1pA=s900-c-k-c0x00ffffff-no-rj" alt="R.S Films Logo" class="logo-img">
+            <div class="brand-text-block">
+                <span class="brand-main">R.S Films</span>
+                <span class="brand-sub">Group</span>
+            </div>
+        </div>
+
+        <!-- RESTORED ALL LINKS -->
         <ul class="nav-links">
-            <li><span onclick="switchPage('work')">Work</span></li>
             <li><span onclick="switchPage('services')">Services</span></li>
             <li><span onclick="switchPage('distribution')">Distro</span></li>
             <li><span onclick="switchPage('mcn')">MCN</span></li>
+            <li><span onclick="switchPage('production')">Production</span></li>
+            <li><span onclick="switchPage('ai-studio')">AI Studio</span></li>
+            <li><span onclick="switchPage('work')">Work</span></li>
             <li><span onclick="switchPage('plans')">Plans</span></li>
             <li><span onclick="switchPage('partners')">Partners</span></li>
-            <li><span onclick="switchPage('team')">Team</span></li>
-            <li><span onclick="switchPage('contact')">Contact</span></li>
+            <li><span onclick="switchPage('support')">Support</span></li>
         </ul>
-        <button onclick="switchPage('contact')" class="cta-nav magnet">Let's Talk</button>
+        <!-- 'Contact' removed from here as per request, moved to floating icon -->
+        
         <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
 
@@ -494,13 +708,16 @@
     <div class="mobile-menu" id="mobileMenu">
         <i class="fas fa-times close-menu" onclick="toggleMenu()"></i>
         <span onclick="mobileLink('home')">Home</span>
-        <span onclick="mobileLink('work')">Our Work</span>
         <span onclick="mobileLink('services')">Services</span>
         <span onclick="mobileLink('distribution')">Distribution</span>
-        <span onclick="mobileLink('mcn')">Join MCN</span>
+        <span onclick="mobileLink('mcn')">MCN Network</span>
+        <span onclick="mobileLink('production')">Production House</span>
+        <span onclick="mobileLink('ai-studio')">AI Studio</span>
+        <span onclick="mobileLink('work')">Our Work</span>
         <span onclick="mobileLink('plans')">Pricing</span>
         <span onclick="mobileLink('partners')">Partners</span>
-        <span onclick="mobileLink('team')">Team</span>
+        <span onclick="mobileLink('support')">Support Center</span>
+        <span onclick="mobileLink('terms')">Terms & Policy</span>
         <span onclick="mobileLink('contact')">Contact Us</span>
     </div>
 
@@ -552,19 +769,51 @@
             <p class="section-sub">Witness our recent productions currently trending.</p>
             
             <div class="work-marquee-container">
-                <!-- Duplicated content for infinite scroll illusion -->
+                <!-- Reverted to Original Curated List -->
                 <div class="work-marquee-content">
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/ccc/fff&text=Song+A"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/bbb/fff&text=Reel+B"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/aaa/fff&text=Movie+C"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/999/fff&text=Promo+D"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/888/fff&text=Event+E"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/ccc/fff&text=Song+A"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/bbb/fff&text=Reel+B"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/aaa/fff&text=Movie+C"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/999/fff&text=Promo+D"><i class="fas fa-play-circle work-overlay-icon"></i></div>
-                    <div class="work-marquee-item"><img src="https://dummyimage.com/600x400/888/fff&text=Event+E"><i class="fas fa-play-circle work-overlay-icon"></i></div>
+                    <!-- Set 1 -->
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=-k4gf1O_nc0', '_blank')">
+                        <img src="https://img.youtube.com/vi/-k4gf1O_nc0/hqdefault.jpg" alt="Video 1">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=ImyRqDDKYR0', '_blank')">
+                        <img src="https://img.youtube.com/vi/ImyRqDDKYR0/hqdefault.jpg" alt="Video 2">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=yGSnlrtte8Q', '_blank')">
+                        <img src="https://img.youtube.com/vi/yGSnlrtte8Q/hqdefault.jpg" alt="Video 3">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=BduXcYhJpNo', '_blank')">
+                        <img src="https://img.youtube.com/vi/BduXcYhJpNo/hqdefault.jpg" alt="Video 4">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=S2AQLzl-kRc', '_blank')">
+                        <img src="https://img.youtube.com/vi/S2AQLzl-kRc/hqdefault.jpg" alt="Video 5">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+
+                    <!-- Set 2 (Duplicate for smooth loop) -->
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=-k4gf1O_nc0', '_blank')">
+                        <img src="https://img.youtube.com/vi/-k4gf1O_nc0/hqdefault.jpg" alt="Video 1">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=ImyRqDDKYR0', '_blank')">
+                        <img src="https://img.youtube.com/vi/ImyRqDDKYR0/hqdefault.jpg" alt="Video 2">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=yGSnlrtte8Q', '_blank')">
+                        <img src="https://img.youtube.com/vi/yGSnlrtte8Q/hqdefault.jpg" alt="Video 3">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=BduXcYhJpNo', '_blank')">
+                        <img src="https://img.youtube.com/vi/BduXcYhJpNo/hqdefault.jpg" alt="Video 4">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
+                    <div class="work-marquee-item" onclick="window.open('https://www.youtube.com/watch?v=S2AQLzl-kRc', '_blank')">
+                        <img src="https://img.youtube.com/vi/S2AQLzl-kRc/hqdefault.jpg" alt="Video 5">
+                        <i class="fas fa-play-circle work-overlay-icon"></i>
+                    </div>
                 </div>
             </div>
 
@@ -630,18 +879,92 @@
         <div class="services-grid">
             <div class="tilt-card">
                 <div><i class="fas fa-video card-icon"></i><h3 class="card-head">Cinematic Production</h3><p class="card-desc">4K Music Videos, Short Films, and Web Series.</p></div>
+                <div style="color:var(--primary); margin-top:10px; font-weight:600; cursor:pointer;" onclick="switchPage('production')">Explore Production &rarr;</div>
             </div>
             <div class="tilt-card" onclick="switchPage('distribution')">
                 <div><i class="fas fa-music card-icon" style="color: var(--primary);"></i><h3 class="card-head">Music Distribution</h3><p class="card-desc">Click to view plans.</p></div>
                 <div style="color:var(--primary); margin-top:10px; font-weight:600;">View More &rarr;</div>
             </div>
-            <div class="tilt-card">
-                <div><i class="fas fa-rocket card-icon" style="color: #ffaa00;"></i><h3 class="card-head">Viral Marketing</h3><p class="card-desc">Instagram Reels & YouTube SEO.</p></div>
+            <div class="tilt-card" onclick="switchPage('ai-studio')">
+                <div><i class="fas fa-robot card-icon" style="color: #ffaa00;"></i><h3 class="card-head">AI Studio</h3><p class="card-desc">Next-Gen AI Music & Video Services.</p></div>
+                <div style="color:var(--primary); margin-top:10px; font-weight:600;">Explore AI &rarr;</div>
             </div>
             <div class="tilt-card" onclick="switchPage('mcn')">
                 <div><i class="fas fa-copyright card-icon" style="color: #00bb00;"></i><h3 class="card-head">MCN & Content ID</h3><p class="card-desc">Click to apply.</p></div>
                 <div style="color:var(--primary); margin-top:10px; font-weight:600;">Apply Now &rarr;</div>
             </div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE: AI STUDIO (NEW) ===================== -->
+    <div id="ai-studio" class="page-section">
+        <h2 class="section-title">AI Studio</h2>
+        <p class="section-sub">Future of Content Creation</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-music feature-icon"></i>
+                <h3 class="card-head">AI Music Generation</h3>
+                <p style="color:#555;">Create copyright-free unique tracks instantly for your videos and reels.</p>
+                <button class="cta-nav" style="margin-top:15px; font-size:0.8rem;" onclick="selectPlan('AI Music')">Get Started</button>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-video feature-icon"></i>
+                <h3 class="card-head">AI Video Production</h3>
+                <p style="color:#555;">Text-to-Video generation and AI avatars for explainer videos.</p>
+                <button class="cta-nav" style="margin-top:15px; font-size:0.8rem;" onclick="selectPlan('AI Video')">Get Started</button>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-image feature-icon"></i>
+                <h3 class="card-head">AI Graphic Design</h3>
+                <p style="color:#555;">Generate stunning posters, thumbnails, and album art in seconds.</p>
+                <button class="cta-nav" style="margin-top:15px; font-size:0.8rem;" onclick="selectPlan('AI Graphics')">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE: PRODUCTION (NEW) ===================== -->
+    <div id="production" class="page-section">
+        <h2 class="section-title">Production House</h2>
+        <p class="section-sub">Professional Filmmaking Services</p>
+        <div class="services-grid">
+            <div class="tilt-card">
+                <h3 class="card-head">Video Shooting</h3>
+                <p style="color:#555;">4K Music Videos, Short Films, and Commercials with high-end equipment.</p>
+                <button class="cta-nav" style="margin-top:15px; width:100%;" onclick="selectPlan('Video Shooting Booking')">Book Now</button>
+            </div>
+            <div class="tilt-card">
+                <h3 class="card-head">Video Editing</h3>
+                <p style="color:#555;">Professional cuts, color grading, and VFX. Pricing starts at ₹2000.</p>
+                <button class="cta-nav" style="margin-top:15px; width:100%;" onclick="selectPlan('Video Editing Service')">Hire Editor</button>
+            </div>
+            <div class="tilt-card">
+                <h3 class="card-head">Graphic Design</h3>
+                <p style="color:#555;">Posters, Banners, and Thumbnails that get clicks.</p>
+                <button class="cta-nav" style="margin-top:15px; width:100%;" onclick="selectPlan('Graphic Design Service')">Order Design</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE: SUPPORT (NEW) ===================== -->
+    <div id="support" class="page-section">
+        <h2 class="section-title">Support Center</h2>
+        <p class="section-sub">We are here to help you 24/7</p>
+        <div class="support-box">
+            <div class="support-header">
+                <span style="font-weight:bold;">R.S Support Agent (AI)</span>
+                <span style="color:green; font-size:0.8rem;">● Online</span>
+            </div>
+            <div class="support-body">
+                <div class="chat-msg bot">Hello! Welcome to R.S Films Group support. How can I help you today?</div>
+                <div class="chat-msg bot">You can ask about MCN, Distribution, or Services.</div>
+            </div>
+            <div class="support-input-area">
+                <input type="text" class="cyber-input" placeholder="Type your query..." style="margin-bottom:0;">
+                <button class="cta-nav" style="padding:0 20px;"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:30px;">
+            <button class="cta-nav" onclick="selectPlan('Support Ticket')">Raise Priority Ticket</button>
         </div>
     </div>
 
@@ -653,13 +976,13 @@
                 <h3 class="card-head">Single Release</h3>
                 <h1 style="color:var(--primary); font-size:3rem; font-family:var(--font-head);">₹499</h1>
                 <ul style="color:#666; list-style:none; line-height:2; margin: 20px 0;"><li>• 1 Song Distribution</li><li>• Instagram Music</li></ul>
-                <button class="cta-nav" style="display:inline-block; width:100%;">Distribute Now</button>
+                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="selectPlan('Single Release Distribution')">Distribute Now</button>
             </div>
             <div class="tilt-card" style="border-color: var(--secondary);">
                 <h3 class="card-head">Album Pro</h3>
                 <h1 style="color:var(--secondary); font-size:3rem; font-family:var(--font-head);">₹1999</h1>
                 <ul style="color:#666; list-style:none; line-height:2; margin: 20px 0;"><li>• Up to 10 Songs</li><li>• Free Content ID</li></ul>
-                <button class="cta-nav" style="display:inline-block; width:100%;">Distribute Now</button>
+                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="selectPlan('Album Pro Distribution')">Distribute Now</button>
             </div>
         </div>
     </div>
@@ -679,7 +1002,7 @@
                     <li><i class="fas fa-check"></i> 1 Poster Design</li>
                     <li><i class="fas fa-check"></i> 10k YouTube Views</li>
                 </ul>
-                <button class="cta-nav" style="display:inline-block; width:100%;">Select Plan</button>
+                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="selectPlan('Starter Artist Plan')">Select Plan</button>
             </div>
 
             <div class="plan-card" style="border-color: var(--primary);">
@@ -691,7 +1014,7 @@
                     <li><i class="fas fa-check"></i> Reels Promotion</li>
                     <li><i class="fas fa-check"></i> 50k YouTube Views</li>
                 </ul>
-                <button class="cta-nav" style="background:var(--primary); display:inline-block; width:100%;">Select Plan</button>
+                <button class="cta-nav" style="background:var(--primary); display:inline-block; width:100%;" onclick="selectPlan('Pro Label Plan')">Select Plan</button>
             </div>
 
             <div class="plan-card" style="border-color: #333;">
@@ -732,7 +1055,7 @@
             <form class="tilt-card" style="text-align: left;">
                 <label style="color:#333; margin-bottom:5px; display:block; font-weight:600;">Channel URL</label>
                 <input type="text" class="cyber-input" placeholder="https://youtube.com/...">
-                <button class="cta-nav" style="width:100%; margin-top:20px; display:inline-block;">Submit</button>
+                <button class="cta-nav" style="width:100%; margin-top:20px; display:inline-block;" onclick="alert('Request sent! Our team will review your channel.')">Submit</button>
             </form>
         </div>
     </div>
@@ -741,10 +1064,27 @@
     <div id="work" class="page-section">
         <h2 class="section-title">Our Portfolio</h2>
         <div class="work-grid">
-            <div class="work-card"><img src="https://dummyimage.com/600x400/ccc/fff&text=Music+Video+1"><i class="fas fa-play-circle play-icon"></i></div>
-            <div class="work-card"><img src="https://dummyimage.com/600x400/bbb/fff&text=Short+Film"><i class="fas fa-play-circle play-icon"></i></div>
-            <div class="work-card"><img src="https://dummyimage.com/600x400/aaa/fff&text=Documentary"><i class="fas fa-play-circle play-icon"></i></div>
-            <div class="work-card"><img src="https://dummyimage.com/600x400/999/fff&text=Commercial"><i class="fas fa-play-circle play-icon"></i></div>
+            <!-- Updated Work Page to match Home Page Videos -->
+            <div class="work-card" onclick="window.open('https://www.youtube.com/watch?v=-k4gf1O_nc0', '_blank')">
+                <img src="https://img.youtube.com/vi/-k4gf1O_nc0/hqdefault.jpg" alt="Video 1">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="work-card" onclick="window.open('https://www.youtube.com/watch?v=ImyRqDDKYR0', '_blank')">
+                <img src="https://img.youtube.com/vi/ImyRqDDKYR0/hqdefault.jpg" alt="Video 2">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="work-card" onclick="window.open('https://www.youtube.com/watch?v=yGSnlrtte8Q', '_blank')">
+                <img src="https://img.youtube.com/vi/yGSnlrtte8Q/hqdefault.jpg" alt="Video 3">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="work-card" onclick="window.open('https://www.youtube.com/watch?v=BduXcYhJpNo', '_blank')">
+                <img src="https://img.youtube.com/vi/BduXcYhJpNo/hqdefault.jpg" alt="Video 4">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="work-card" onclick="window.open('https://www.youtube.com/watch?v=S2AQLzl-kRc', '_blank')">
+                <img src="https://img.youtube.com/vi/S2AQLzl-kRc/hqdefault.jpg" alt="Video 5">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
         </div>
     </div>
 
@@ -775,7 +1115,8 @@
             <div class="p-info-box">
                 <h1 id="detail-name" class="p-info-name"></h1>
                 <div id="detail-role" class="p-info-role"></div>
-                <p id="detail-bio" class="p-info-bio"></p>
+                <!-- Changed p to div for detailed content -->
+                <div id="detail-bio" class="p-info-bio"></div>
                 
                 <h3 style="color:#111; margin-bottom:15px; font-family:var(--font-head);">Latest Portfolio</h3>
                 <div id="detail-portfolio" class="work-grid" style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; padding:0; margin:0;"></div>
@@ -786,23 +1127,45 @@
     <!-- ===================== PAGE: TERMS ===================== -->
     <div id="terms" class="page-section">
         <h2 class="section-title">Terms & Conditions</h2>
-        <div style="max-width: 800px; margin: 0 auto; padding: 20px; background: #fff; border-radius: 20px; color: #444; text-align: left; box-shadow: var(--card-shadow);">
-            <h3 style="color: #111;">1. Introduction</h3>
-            <p>Welcome to R.S Films Group.</p>
-            <h3 style="color: #111; margin-top:20px;">2. Music Distribution</h3>
-            <p>You agree to grant us the non-exclusive right to distribute your music.</p>
+        <div class="terms-content">
+            <h3 style="margin-top:0;">1. Acceptance of Terms</h3>
+            <p>By accessing and using the services of R.S Films Group, you accept and agree to be bound by the terms and provision of this agreement.</p>
+            <h3>2. Music Distribution</h3>
+            <p>You agree to grant us the non-exclusive right to distribute your music to digital platforms. You retain 100% ownership of your master recording rights unless stated otherwise in a specific contract.</p>
+            <h3>3. Payments & Royalties</h3>
+            <p>Royalties are calculated based on reports received from digital stores. Payments are processed monthly/quarterly upon reaching the minimum threshold.</p>
+            <h3>4. Content Guidelines</h3>
+            <p>We do not distribute content that is offensive, defamatory, or violates copyright laws. R.S Films Group reserves the right to reject any content.</p>
+            <h3>5. Refunds</h3>
+            <p>Services once purchased are generally non-refundable unless there is a technical error from our side preventing service delivery.</p>
         </div>
     </div>
 
     <!-- ===================== PAGE: CONTACT ===================== -->
     <div id="contact" class="page-section">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 20px;">
             <h2 class="section-title">Join The Revolution</h2>
-            <div class="tilt-card" style="text-align: left;">
-                <h3 style="color:#111; margin-bottom:20px;">Get in Touch</h3>
-                <input type="text" class="cyber-input" placeholder="Your Name">
-                <input type="text" class="cyber-input" placeholder="Mobile Number">
-                <button class="cta-nav" style="width:100%; border:none; cursor: pointer; display:inline-block;">Send Enquiry</button>
+            <div class="tilt-card" style="text-align: left; padding: 40px;">
+                <h3 style="color:#111; margin-bottom:20px; font-family:var(--font-head);">Get in Touch</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+                    <input type="text" class="cyber-input" placeholder="Your Name">
+                    <input type="text" class="cyber-input" placeholder="Mobile Number">
+                </div>
+                <input type="email" class="cyber-input" placeholder="Email Address">
+                <input type="text" id="serviceInput" class="cyber-input" placeholder="Service / Plan (Optional)">
+                <textarea class="cyber-input" rows="5" placeholder="Your Message or Project Details"></textarea>
+                <button class="cta-nav" style="width:100%; border:none; cursor: pointer; display:inline-block; font-size:1.1rem; padding:15px;">Send Enquiry</button>
+            </div>
+            
+            <div style="margin-top:40px; display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
+                <div style="text-align:center;">
+                    <i class="fas fa-envelope" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
+                    <p>contact@rsfilms.com</p>
+                </div>
+                <div style="text-align:center;">
+                    <i class="fab fa-whatsapp" style="font-size:2rem; color:#25D366; margin-bottom:10px;"></i>
+                    <p>+91 98765 43210</p>
+                </div>
             </div>
         </div>
     </div>
@@ -990,6 +1353,197 @@
             "Vikash Bhardwaj Official"
         ];
 
+        // NEW: Specific Portfolio Data for Partners
+        const partnerSpecificVideos = {
+            "Ahir Brand": [
+                "UyeH93Z7T_0", "uQ3r9dqk5Qw", "q5dQtXdezao", "nekHMOespko", "PxfcK_HPhxQ", 
+                "AcrQy_8QDy0", "ulXCEYS6iX8", "Hm2aWyHOUZ4", "84GMtipHXfM", "0Pd6GM_ngKA", 
+                "qr-6Bh0qQOk", "WM2ENiq80Lw", "xtaHBivQSzY", "AyX9aZFkyp8", "PloOWhwFIY8", 
+                "vTvOS5h_Dtc", "Z9--cS6h_SY", "5mnX42CiIWc", "9tO6WurHFkI", "JE4M-rgdofI", 
+                "Y_88qTzUHmA", "rAO1kSz0alE", "j9DmMgbXPds", "rYZztMPQYGc"
+            ],
+            "Gudiya Jhaki Official": [
+                "ImyRqDDKYR0", "9gqxJ4h7zE0", "a4j2gYmaYls", "cZoDtxzU-dk", "gfUSMHAh2_A",
+                "ppf9nRtW6Io", "XHVNj61J2AU", "EIBolyMuf5Q", "ikyHGdWJjoI", "ipgctBlWKik",
+                "XCE9zh4qSv0", "8iWUctkmDiE", "UFiwOV_S1a8", "sqI_MgKXcXM", "RW8anlP7R0Y",
+                "_Dpwe4LaHQ0", "boBSnltFuVQ", "G7bSEG6QGzU", "ETEhCUKp31g", "VsT6oW_YnI8",
+                "QiTd8tKAfCU", "0QDGpZDacgE", "ukmPO3VRUXQ", "EdBvNZrsLv0", "IPBp3htxarI",
+                "pBbvobD1Nog", "D20zljQWvHs", "dtytQH2DObU", "CjSGT6sP-VQ", "7XeS2vSmhvI",
+                "z3IwmxHvIFM", "z2DIdVr4Qo0", "FyE22qWVx0Y", "F8iqM6tycrE", "hQnusFjLVqQ",
+                "It4nQTed9GU", "TKLBHaGtbgA", "uw2HCTkcwgc", "BRxaxAwgTxU", "k6bx8TBn6FA",
+                "HJs8qE0cJh0", "8tfHMI1FJjo", "IDhBFhP_REI", "AbXmfXR-8yA", "hho0nA7UDmY",
+                "bYJEkKDNyi8", "XJeeuBEZ180", "IEsKTztc0AA", "6qKDGuRYdQM", "kBu8FWdlUUM",
+                "Icj36k_3aio", "8hHmQoggDhI", "D5QBTmHZiF0", "NLbphNRoBYc", "IYLCr_cBfGI",
+                "bpo5CVcmeUc", "6CYKPKJlgZA", "ZVzesepjF9M", "l0t23jUQhP0", "j_XQVRYTBgE",
+                "8OmmLeU6Q2k", "OXJ1t2pHQ1E", "yLTekTk_6ek", "he4GDU3VN0o", "DhpqsySwN2I",
+                "9Kkodc8qIOQ", "jJJGcbn-bwY", "f4PZT6WXfg0", "sIgaSgZgIew", "GZH-zoeBGBU",
+                "U7724WXkUqk", "qLYoOZoINdU", "KQizQ9ynexk", "uyhZZoocuvM", "0NNMMzUVcfI",
+                "3tfBIvM6U9E", "rgbq8ZG-_GU", "xyQtYFIRBZg", "7xQ7w2yolj0", "gAFLe-n5dok",
+                "cViDfdad-u8", "cwFht9JutmU", "_SATbBK8w90", "QZqQzR4F_EA", "iSaMZyv7XBw",
+                "Fby0uocB2vc", "44LLo4lmfdU", "GFnuVCPjKgs", "JP2gau9Aj4Y", "69p1_raHjoU",
+                "SMu-uPIYZs0", "e62BSz2yCO8", "tyxsQaCcwoQ", "kOC3Hob7Jdo", "cuxPukEDB6s",
+                "kzyaAKez5wU", "2UYU9by4UGg", "6uJ7o2q2Loo", "BMaUTG7M-Fk", "29gEgsZ2iDQ",
+                "64qPF9fS_Ag", "H_5yxdoQv6k", "TjBR68JSMok", "2lPl3bJ6Dos", "s-S8NjjbNzo",
+                "LlgfiZKTTJg", "GiwS8SZ6I8c", "ujRhP81Dun8", "jVNeLO2UBbY", "Ld1qeu5n1kk",
+                "UQADn1xwd4g", "BHKffieDR0o", "lTZo_s6IMZc", "VsItso2hDxo", "0KfUHI1VQAs",
+                "xdig22fLQjk", "-161fz54_2Q", "ZCxopNSQXTM", "S3U-lvrnBjg", "hgvIdcEAR14",
+                "9tMPqnK6JRM", "E2c8amuDfE8", "f1WwTMak1tw", "6LRWyEyDcMs", "pZJ4QdSrb4g"
+            ],
+            "Aarti Films Jhanki": [
+                "ANIt_gZf0xQ", "007BcGeSoDw", "ggDkWOPVY08", "JEz-xg65z24", "EadW8uU4Ta0",
+                "ckjI5hpQ0Cg", "g8NKsTZ7iGk"
+            ],
+            "Abhishek Chhaliya Official": [
+                "_Mklvd08nBI", "f7u18XEF2t4", "3sbmKW7hzmA", "5MP9R94QDJA", "Z1mDlUOnPT4",
+                "lGhCoipDHSc", "J4wNp005Yqg", "GCU4DTq3GrE", "LMYQHXRQ0Q8", "4GJGzKMGtho",
+                "FszBcAnMpTo", "JWF3t8B4MFE", "aqkqF6WR8BE", "GQR6ulxKmmg", "t8NJ0DfXgdI",
+                "cNFpxXy3dUc", "hhOSJ6JKReY", "1rKU_ncrGNM", "UbmmV1M81DU"
+            ],
+            "Avinash Madhur Official": [
+                "mUrYL8n3Bbk", "I99b3ue7N9o", "3zbTeB8b4GQ", "c_dxf5enNEM", "gd2_p24i-Xk",
+                "_NBOczCTaBo", "0oV11SeS1-o", "kh0K2Lf2UWg", "zqEz3ZA_AXk", "wZOmgUbq3IQ",
+                "hx2NEsObloc", "Vb8zFoPXlQU", "Iowm_g2R8tU", "zN4IFqZ8Unc", "R67a_S_b2Es",
+                "OGDIE6gQcRo", "csTmWvPVAxQ", "QQMUNJsNzz0", "J5VJ0m4V2OI", "KOtTrH6SK5s",
+                "R7YqXNTF8u0", "Da3nkh4w2IM", "FuRCYDnUpmo", "-J2YhIFUULY", "G9byzV2VZlg",
+                "_D-xXYlA6xI", "m0GwqjUYAuA", "e_Z0f-94Yyc", "mkDs0XK8Njk", "xdz0abUNGBs",
+                "_c5g52M7g2E", "O0NL14jOml0", "4Eox0gDUrL4", "cZWXkfkVcYA", "j0tDWvBtwnA",
+                "NnTmE5S4zbk", "j-7FG4YFlXE", "hrPR39wrpTk", "lE-70MYKs0E", "H_oSzg-U8LI",
+                "4GKPWrJmpkQ", "s1d02TsA1AM", "dSRpYvf50DQ", "48-r9eYbX3w", "Q2tO21MydOY",
+                "PNAqHhdY-tY", "zpS9MVZzZRA", "LXdwYDsoi6A", "H6QZq3n9AD8", "2WHPK4d_nLU",
+                "k8DXnhKTX1U", "uOOW4gImlSI", "c2hRjljGUio", "G5H0Ai2Lvo0", "uU2ygV81ThA",
+                "dtQyqZxR_M4", "b7SGVoWyO-k", "4Ggu2E4X-CM", "5AjNM2hmPp4", "rbqsmBgDGyw",
+                "POCpvgiaWKU", "7EsaIJJRHto", "WWnBi2CRHNE", "xwht4glGDpk", "EkK8kkozDtQ",
+                "d4-W5r1gXf4", "lCiwQua2BAk", "KU9Tz6BbiJo", "-yLx0ayyp6I", "wHXwE16kCq0",
+                "SH57qcXu2j0", "n7gWzbu8ydM", "ER-MsmLH8FE", "ySqV94FOWaI", "PgmK_VFj938",
+                "bXxiMuBbxew", "-LBfaEbu8YM", "J5zD6EOIMsk", "JgCbXKhAzm4", "E3dYJIlI9Ao",
+                "RK_EIhhwIk8", "4okxX5jYKK8", "6Pru3205-3w", "dQJ8sZow4D8", "w32zoKJpvQI",
+                "gtf3IMv0cA8", "GezCC8G1LyA", "jTRa_PbXN8U", "f61l7CT5a3A", "2h_P0xvzC3A",
+                "aAxqPQPQe_s", "htBE1igjftU", "P_zwx-dwJAM", "PgNU6tgGDtU", "Ny4uLofqhVw",
+                "B0mdEt9AXnA", "59itx4u4ORw", "v1w5uiioOXg", "ImxBz5SQ07c", "VT_mGOit-hA",
+                "VkYIkWiMVZ0", "QeZ6vePZolU", "tkeGQ4v4eDo", "6hwSLFWPuE4", "hu_WadLT7Rw",
+                "xhTW1B3V2vw", "5erWKZyVfZ8", "D6OCv1odffQ", "fw5EaPfHvnU"
+            ],
+            "Amresh Yadav Entertainment": [
+                "8OcXSc1waUU", "y0wZ4Hx2G_Y", "hrF45Ayd47k", "FjOCFTI1oss", "RKahC20pREM",
+                "pGU0-YGQwvg", "iW7XtCd-iLM", "pnRPFz4boU4", "kOJEoP92D-8", "_C3vwETKVGs",
+                "rrfknmW6-IE", "OOpF9y6LRjc", "7DC3N-ptyTk", "-ePz-7l4uaU", "plZDlnjN_DI",
+                "wnnXTG7TMv0", "ipO2gIPOZHA", "r6M3WMA5Ke0", "lKvVaker2Cc", "t4221vUvAdY",
+                "MdxixDDrGwc", "xfxXCtDOS5I", "lP-pi2IOcN8", "CRKTgBzCvfE", "B-xuwWdf78E",
+                "jUAMfPt-N5k", "mlAmRMObp90", "CC0yib3at3M", "XGn_ekc0MtY", "Oq7JHIgKYFg",
+                "lHTwgVebB_k", "1kYwMjgrvro", "FuZO-Ja1Qsw", "v0ZRAyuwX2w", "1QGMhpzypZ4",
+                "na1scPYY48Y", "iXGvWlVTnwE", "p6CLYIhbvLk", "QDAxzCkisos", "J0Kbe5lCj94",
+                "De1PLqB6KzY", "LVzhrfiMc74", "4kugOS2qiO8", "L1zxY2IPEDk", "pTneQSnijoY",
+                "eQ1zHhv7I4Q", "8X7c8_xNisI", "Nta68rQg_pE"
+            ],
+            "BVD Music World": [
+                "ufvcJot_x4c", "VXvR9i1SLQs", "UJ0bq9YXtLE", "vIyT7mzQxPo"
+            ],
+            "GP Music Official": [
+                "3q8ssp5y6H4", "anefJoTAbjY", "ez8hLTMQyBk", "BXiribN_PgM", "myx1a8YaBAg",
+                "i72Xzn_Rmck"
+            ],
+            "Ishu Tilakdhari Kanpur": [
+                "HgSC4xsfAmo", "_obEYg8jGsI", "WYY-7a84qvU", "PPrESHW6-GE", "C8SFKQ3nIhQ",
+                "CUzkc_W-P3s", "lwwdcYX07_M", "WaWTvSesgRk", "TCjT5Zyp0cU", "_HlKnKrXfsc",
+                "4_spp8lEjOA", "ake-amcxrWc", "0GMdX3V0un8", "Nx-C40XTA2A", "viKIgJEuxwg",
+                "TBddRAI949g", "ogvQB2FxtZc", "Tis5CXffiR8", "GmO6X4E7GDk", "ZHjVHUPDrYA",
+                "RK4AXroBaM8", "2O3uQ_FXcYs", "s_Bu2a1jhM0", "npA3TJEuHnM", "xDXIXKU0jVY",
+                "ZP9C_u75MmI", "-Ve34o79SL8", "bYEN39fzgSQ", "fDiW77EPd44", "FGw2Po837q8",
+                "2LaxsGwPHxA", "s1-Tpytc5ok", "ob6qW1BmC0Y", "LxDZseTTazA", "hoBhKvHj3_Y",
+                "MYdvJkviYI4", "PAxsBnQ3jMQ", "i-Emxhw6nA8", "6TKI_rNAKd4", "Nyvk23kA_YI",
+                "3bv2zCU6Yg8", "mmmaCQ3kwsQ", "XH1xm3mr94k", "bhtyenEe61g", "ReRlbMITmB0",
+                "CIg3Ldz9uWY", "A5xnuDsVnZ4", "IS9rsnsjxtw", "QNqqm8iijYY", "818uqQaWtmA",
+                "k1s-2SawXEA", "rNNnzDfRx-s", "u7tcCvXd4ag", "qDcCQmSUTg8", "rrAEdLoVIDk",
+                "xzplh3dyBeU", "eay0b_DIqrM", "qj_UoRK7Ku0", "kU5YUPq6ICc", "PgjS-1fknrg",
+                "GdtBfPeHPSI", "lw3pokcUVnw", "l6smNpoBWsI", "rFWAskjH3VE", "uJEgmZIS20M",
+                "SJFpbnQxRxQ", "fsg3lDrSAIc", "MioeC9i4wbg", "naRhzKXWIxg", "9Jo2iJ71E5g",
+                "erjOt2OfNsI", "-QsY4ZykAXM", "SecOrlRr7BE", "Uc_2EfMPJMc", "rd2ckB8akhc",
+                "BMOI6heji7M"
+            ],
+            "Ishu Tilakdhari Official": [
+                "Dr7HmqA0JQU", "h6sZ-QmZfXo", "9TaQHu85u9s", "X4hiGx6iWZY", "vhxuDTVjVqg",
+                "wrj15A8M2E4", "i0mwpnN7KHU", "PrbWRTyEq-g", "aMsGHPtXvA0", "lVuD6GpCstw",
+                "PiQJhCHJos4"
+            ],
+            "Lovkush Arpita Official": [
+                "n9QzZ5SQ5Jk", "Gb-CgQVsGeQ", "BKMmb8X6do4", "tA-SWSWRcAw", "nApUVFU_owM",
+                "73hjpmpHVJc", "Fbs25Bdy6Pc", "frECcPl9VL4", "ljGJ5ZFUEYE", "NTdLwpHgHF8",
+                "D1pr8XRXdHg", "RPOKKs7sl18", "GCEOaKiXFWE", "T4mFAlJRapI", "XpT-6l9KIDY"
+            ],
+            "Manish Mastana Official": [
+                "1LNK2lEdtX8", "yaXyIICGwoM", "9fzVef9h4HU", "LrvLhI-L06M", "cvxt2vCJig0",
+                "0cdL0YSJA3U", "31fWmJd4PDE", "HddBvGXY4wI", "3-B_AUnS3mk", "vI5B6hHU9uk",
+                "orHfX57Hn4U", "uH0OmarbtBk", "U4RfMfp4Shs", "i5EeWDoOo4w", "kLvDnpLtmqI",
+                "41FI0OJ0YA0", "cPlkGbpxxsM", "aGvjOaj2Fs4", "E8R3Yg3wjyw", "8rhq6yCxCy4",
+                "kowQQ_kxc44", "tsf3vIrRezk", "GvTORSyezM8", "naHlUJ-6Ngo", "FnpC00GjGNE",
+                "4G6sHvUaBWw"
+            ],
+            "Mayur Bharat Raas": [
+                "jn4EVdC-dXY", "HEUnJV00yhA", "Ype0NTAKDYA"
+            ],
+            "Neha Singh Music": [
+                "yGSnlrtte8Q", "oLpHz8vX-rY", "wVnqMWUOGew", "q-x0bTrNPbg", "bMY8c6I7qh4",
+                "5Dn2GU1xHSE"
+            ],
+            "R.S Films Bhojpuri": [
+                "s0044jDbRD8", "paD5uhbXbZc", "hRzb0FSAmc0", "Hr6lhY0SdVo", "7gLGFFjR2Rw",
+                "9tVDn9mZs2w", "gfUFsEWn-nY", "1awCzWMtsEQ", "k0kHLaVxH3c", "4PzxPbGIJVI",
+                "8iRs4haG6H0", "r5vsk1Dm1d4", "rZbqy0wxPRs", "6b1xdoBYMY0", "TA7S3RC_YmA",
+                "Gz1-Hr6nma0", "ibyJhNMqKRg", "--M2LkrPDhM", "k_kA-xbI4qw", "QaD4KbnIWYk",
+                "u_aRwqDeUqg", "hbj1MFaEbsY", "gxxjxhfc9fM", "iVtwYkS-xCQ", "pAFdThjGfps",
+                "OzMIL-s5S9w", "vg8deIxsy3s", "OUwSJ_xLm2U", "Cd-epWmUibY", "pTW2i32KF8g",
+                "Zqu4HEsqXlY", "iadHizBDCrY", "UOfPHSaVF4g", "fAyR_3BTuHA", "WI56kRS_S3s",
+                "ac29BeDhdKQ", "Qp47OHumLgw", "lnW1ixwsdIA", "1baxLUjCRNY", "GKmb6--4q3g",
+                "UwixPdF5DiY", "tmnOmBFhNJY", "O2z1v3JR6vo", "ZlJ0bSWGN28", "iC1KJad8WTE",
+                "W8WKveGrcjE", "qXLlfV7PA0c", "xcx438RJHRw", "GtgkVd-LSqU", "qL5h7fWfRHw",
+                "Jpc1xatGWIk", "7G6GO-vnNDk", "-ls_6V6GsSk", "iFUPvJReIs0", "DUcSaQBiMdo",
+                "DVXJ2Dx3Lkg", "2qwHdxXxCEU", "dciIMNmdiPE", "Y7H_l0DvE-Q", "TEQ8B1ld3kM",
+                "uwMAhPCdz1M", "yUE4hm-VcXk", "SoCfbjCzV2g", "LvKYQX-iw7I", "Z4fSq64ygDY",
+                "eUm5oW7L9dg", "ER_5hQmLJZ4", "ec07Lqdos4M", "5Oo9jRyhw4U", "nsmkTXKnC9I",
+                "bxHJx7i591I", "e9HmbJRhvpw", "tRBp3hOOe5k", "15Bl6-U2XRs", "Q4ujD6EWTTA",
+                "NXu4xyKQ8us", "P5piNcvRuqo", "A9-HOd7Dfac", "RAKLQzeYsrs", "7wsbVKrLoAg",
+                "D5o1rhzGrnI", "U93z7nxyuuE", "Ku_oDko_fcI", "pvERH6HEMbE", "GTBilgCOH6E",
+                "9Y9Yh7JhQXQ", "wolenAJxKzk", "7vlJoa4BD8A", "4gJdB4S0mUk", "B6j2FQgHDTE",
+                "RKMJiJ5Dnvs", "7u_LvTrRo18", "RMPePThGSyQ", "E-oqOlH8Q04", "brRdSMNRaNQ",
+                "AnEMT8qo_Zs", "6OAtRcWgL_A", "MGzAhpFmeaU", "_RMRsiDsLvU", "l15SJ1Rx7Ig",
+                "Q6LSh54Yf2Q", "XjfItrTktQs", "rUYe6lnJ4Jg", "cPyeioQnAuI", "QJK8ylwxcb8",
+                "8bJlK07c_Zs", "ws99F73JwZs", "VkFLxAYreBc", "QSxcZ6quBJ4", "1AqonxB1sjo",
+                "citHEE7jAF0", "0gOLZ4dLTc0", "C13vJeT81u0", "mTgLcLBa1HU", "tlz727i5t_8",
+                "-W4Uu9czPEA"
+            ],
+            "Rang Mahal Studios": [
+                "F1En68eUuLY", "sRQLCebBJRc", "K7F3IFIA--g", "BA09xmdLVWM", "Nhhd8bMGt2M",
+                "0U1Ca-CYF2c", "4HJE54KQkFY", "38Q2tqkFloo", "P50fCn2RGMk", "5HFczJW3I2M",
+                "35eWM8Fgk84", "Vyd88toR0KM", "zVnyXLCOVe4", "LLAMOkwZJD8", "23PFL7IBMJk",
+                "xXPbxTxJ2lY", "aO_YhbBHM8w", "5feteVSp04A", "9V8ITQBVcsk", "MHkC9YuQqzs",
+                "DiOyR7RzS2k", "JoDDwdkUwZk", "Q2KTWFpTcuE", "H9kQFAOIryg", "3YCazrWEzT0",
+                "FxNIRbWhIgk", "4KveMJEoWvM", "n3GNhzXth_c", "Dv2i2RtKr1I", "Hk1fOcmhc4Q"
+            ],
+            "Shivam Chhaliya Official": [
+                "bGPtO7juMe0", "1xAHdBLT3rk", "5zqM77kl4L8", "8sd0UjXYGHA", "5s1mCa4IZ8U",
+                "dmjD5AC0NKM", "XnzkxJcYFDg", "IEcS9IREfJA", "4UP_eAFJYs8", "YWTkAXZGhiQ",
+                "xUMidLEkiaI", "kbQAk0WSW8A", "2dGvWvMtdU8", "WpI3F7su6eU", "IlnAwPLTzsI",
+                "XsGYimpDHG8", "pRimcZQkJ40", "RPEnb0j5ePM", "EzGo1n0qjP0", "LYjLoKeU-84"
+            ],
+            "Siddhi Vinayak Films": [
+                "lsp8axMZNl4", "PtJvjDsZYI4", "Hh2fQImCSV0", "xvxmhBflMbA", "BduXcYhJpNo",
+                "AFq7DP2Uulo", "Jz7V5yIEPuc", "goAm-7EhFGY", "Cc1WBdsQ4cA", "XvU7HLDualQ",
+                "hHPgGPHMXHM", "BpIyuZdEJDc", "rRn5jAVrWMw", "HYWuH41_WW4", "_HoAOCV43bE",
+                "SzklJDx7W5g", "d0-YxLCiEb4", "N6oqdLApXW8", "9Y9Yh7JhQXQ"
+            ],
+            "Siddhi Vinayak Films Bhakti": [
+                "AP8arWrTLF8", "f_S5BsEAeic", "Ix4yq8b0Y2A", "j6TwZxeVxWo", "k2Dt1wLE1LE",
+                "pq24Blcbk5A", "faE58LVHCw4", "fL0XFKhbWlI", "tsmj6xQIlfs", "n5STcsW5wzw",
+                "u3T90jmvwcY", "J-vvgpz1H3o", "loHzevB4HW8", "b78Y7GymOrs", "Jw8SZ8-eSE8",
+                "NjnDLHE7bT4", "5XgPimLvqdo", "y0MdqigOg5Y", "H81-r0vZXKE", "gUbhMDVr_DQ",
+                "eSyFF-J-Bvk", "X_b_dN2GGTg", "9rr_pp1yRLY"
+            ],
+            "Vikash Bhardwaj Official": [
+                "rTgnd73bPaA", "vM-NhlK1aWw", "Wa6bUX6HmsM", "Od9ixey4DsA", "I5XEC2JPpEI",
+                "GefwGmjVeW0", "ZAI_WUVDW2w", "upA66VC9brA", "zgvRVUXz9FY", "fSYydWJIeWI"
+            ]
+        };
+
         // 2. RENDER FUNCTIONS
         function renderTeam(data) {
             const container = document.getElementById('teamGrid');
@@ -1009,6 +1563,80 @@
             });
         }
 
+        // New Helper to generate UNIQUE detailed HTML bio based on name keywords
+        function getPartnerTemplate(name) {
+            let type = "General";
+            let typeClass = "music";
+            let quote = "Redefining entertainment, one video at a time.";
+            let about = "Managed exclusively by R.S Films Group.";
+            let tags = ["Music Video", "Viral", "Entertainment"];
+            let stats = { subs: "50K+", views: "10M+" };
+
+            const lowerName = name.toLowerCase();
+
+            if (lowerName.includes("jhanki") || lowerName.includes("bhakti") || lowerName.includes("raas")) {
+                type = "Devotional Giant";
+                typeClass = "devotional";
+                quote = "\"Aastha aur Technology ka sangam.\" Bringing the divine experience of Live Jhanki and Bhajans directly to millions.";
+                about = "Ye sirf ek channel nahi, bhakto ka digital mandir hai. Humare live events aur bhajans se audience ka spiritual connection gehra hota hai. High retention aur loyal fanbase humari pehchan hai.";
+                tags = ["Live Jhanki", "Bhakti Sangeet", "Religious Events", "Aarti"];
+                stats = { subs: "100K+", views: "25M+" };
+            } else if (lowerName.includes("music") || lowerName.includes("films") || lowerName.includes("studios") || lowerName.includes("entertainment") || lowerName.includes("brand")) {
+                type = "Music Powerhouse";
+                typeClass = "music";
+                quote = "\"Sirf gaane nahi, hum emotions create karte hain.\" The ultimate destination for regional beats and viral hits.";
+                about = "Ek premier label jo naye talents ko star banata hai. Humara focus hai 'Mass Appeal' aur 'Quality Production'. Har release ek tyohaar ki tarah celebrate kiya jata hai.";
+                tags = ["Chartbusters", "DJ Remix", "Lyrical Video", "New Releases"];
+                stats = { subs: "500K+", views: "80M+" };
+            } else if (lowerName.includes("official") || lowerName.includes("chhaliya") || lowerName.includes("yadav") || lowerName.includes("singh")) {
+                type = "Star Creator";
+                typeClass = "artist";
+                quote = "\"Connecting the Star with the Fans.\" Exclusive access to the life and art of [Name].";
+                about = "Official artist channel jahan fans ko milta hai direct access. BTS masti se lekar exclusive releases tak, sab kuch yahan pehle aata hai. A personal brand built on trust.";
+                tags = ["Official Vlogs", "Live Shows", "Fan Q&A", "Exclusive Tracks"];
+                stats = { subs: "200K+", views: "40M+" };
+            }
+
+            // Generate Content Pills
+            const pillsHTML = tags.map(tag => `<span class="content-pill">${tag}</span>`).join('');
+
+            return `
+                <div class="partner-detail-content">
+                    <span class="partner-tag ${typeClass}">${type}</span>
+                    <h3 style="font-family: var(--font-head); margin-bottom:5px; color:#111; line-height:1.2;">${name}</h3>
+                    
+                    <div class="partner-quote">${quote}</div>
+
+                    <div class="stats-grid-modern">
+                        <div class="stat-card-modern">
+                            <span class="stat-val-modern">${stats.subs}</span>
+                            <span class="stat-lbl-modern">Subscribers</span>
+                        </div>
+                        <div class="stat-card-modern">
+                            <span class="stat-val-modern">${stats.views}</span>
+                            <span class="stat-lbl-modern">Total Views</span>
+                        </div>
+                    </div>
+
+                    <h4 style="font-family: var(--font-head); margin-top:20px; color:#111;">The Vision</h4>
+                    <p style="color:#555; font-size:0.95rem; line-height:1.6; margin-bottom:20px;">${about}</p>
+
+                    <h4 style="font-family: var(--font-head); margin-bottom:10px; color:#111;">Content DNA</h4>
+                    <div style="margin-bottom:25px;">
+                        ${pillsHTML}
+                    </div>
+
+                    <div style="background:#f4f4f4; padding:15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <span style="font-size:0.75rem; color:#888; display:block; text-transform:uppercase; letter-spacing:1px;">Managed By</span>
+                            <span style="font-weight:700; color:#111;">R.S Films Group</span>
+                        </div>
+                        <button style="background:#111; color:#fff; border:none; padding:8px 20px; border-radius:30px; font-size:0.8rem; font-weight:600; cursor:pointer;">Visit Channel</button>
+                    </div>
+                </div>
+            `;
+        }
+
         function renderClients(list) {
             const container = document.getElementById('clientListContainer');
             container.innerHTML = '';
@@ -1020,7 +1648,7 @@
                     name: client, 
                     role: "Official Partner", 
                     img: "https://dummyimage.com/600x600/eee/000&text=" + client.charAt(0),
-                    bio: client + " is a valued partner of R.S Films Group."
+                    bio: getPartnerTemplate(client)
                 }, 'partners');
                 container.appendChild(div);
             });
@@ -1037,16 +1665,33 @@
             document.getElementById('detail-img').src = data.img;
             document.getElementById('detail-name').innerText = data.name;
             document.getElementById('detail-role').innerText = data.role;
-            document.getElementById('detail-bio').innerText = data.bio;
+            // Updated to use innerHTML for rich content
+            document.getElementById('detail-bio').innerHTML = data.bio;
 
             const portfolioContainer = document.getElementById('detail-portfolio');
             portfolioContainer.innerHTML = '';
-            for(let i=1; i<=3; i++) {
-                portfolioContainer.innerHTML += `
-                    <div class="work-card" style="aspect-ratio:1/1;">
-                        <img src="https://dummyimage.com/300x300/ccc/000&text=Work+${i}">
-                    </div>
-                `;
+
+            // Check if specific videos exist for this partner (e.g., Ahir Brand)
+            const specificVids = partnerSpecificVideos[data.name];
+
+            if (specificVids && specificVids.length > 0) {
+                specificVids.forEach(vidId => {
+                    portfolioContainer.innerHTML += `
+                        <div class="work-card" onclick="window.open('https://www.youtube.com/watch?v=${vidId}', '_blank')">
+                            <img src="https://img.youtube.com/vi/${vidId}/hqdefault.jpg" style="width:100%; height:100%; object-fit:cover;">
+                            <i class="fas fa-play-circle play-icon" style="font-size: 2.5rem;"></i>
+                        </div>
+                    `;
+                });
+            } else {
+                // Default dummy content for others
+                for(let i=1; i<=3; i++) {
+                    portfolioContainer.innerHTML += `
+                        <div class="work-card" style="aspect-ratio:1/1;">
+                            <img src="https://dummyimage.com/300x300/ccc/000&text=Work+${i}">
+                        </div>
+                    `;
+                }
             }
             switchPage('profile-details');
         }
@@ -1135,6 +1780,20 @@
             });
         }, { threshold: 0.5 });
         stats.forEach(stat => observer.observe(stat));
+
+        function selectPlan(planName) {
+            document.getElementById('serviceInput').value = planName;
+            switchPage('contact');
+        }
+    </script>
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('preloader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
     </script>
 </body>
 </html>
