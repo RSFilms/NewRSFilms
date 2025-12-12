@@ -795,6 +795,32 @@
             .floating-btn-container.right { right: 20px; }
             .floating-btn { width: 60px; height: 60px; font-size: 1.5rem; }
         }
+        /* CHECKOUT PAGE STYLES */
+    .checkout-container {
+        display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px;
+        max-width: 1000px; margin: 0 auto; padding: 0 5%;
+    }
+    .pay-options-box, .order-summary-box {
+        background: #fff; border: 1px solid var(--border); border-radius: 20px;
+        padding: 30px; box-shadow: var(--card-shadow);
+    }
+    .checkout-head { font-family: var(--font-head); margin-bottom: 20px; font-size: 1.3rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    
+    .payment-tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+    .pay-method {
+        flex: 1; text-align: center; padding: 12px; border: 1px solid #ddd; border-radius: 10px;
+        cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 0.9rem;
+    }
+    .pay-method i { display: block; font-size: 1.5rem; margin-bottom: 5px; color: #555; }
+    .pay-method.active, .pay-method:hover { border-color: var(--primary); color: var(--primary); background: rgba(255,42,109,0.05); }
+    .pay-method.active i { color: var(--primary); }
+
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; color: #444; }
+    .summary-row.total { font-size: 1.4rem; font-weight: 800; color: #000; margin-top: 10px; }
+
+    @media (max-width: 768px) {
+        .checkout-container { grid-template-columns: 1fr; gap: 20px; }
+    }
 /* --- MOBILE MENU FIX (Line 798 par paste karein) --- */
     @media (max-width: 768px) {
         /* 1. Desktop Menu Chupao */
@@ -1240,13 +1266,13 @@
                 <h3 class="card-head">Single Release</h3>
                 <h1 style="color:var(--primary); font-size:3rem; font-family:var(--font-head);">₹499</h1>
                 <ul style="color:#666; list-style:none; line-height:2; margin: 20px 0;"><li>• 1 Song Distribution</li><li>• Instagram Music</li></ul>
-                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="selectPlan('Single Release Distribution')">Distribute Now</button>
+                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="openCheckout('Single Release', 499)">Distribute Now</button>
             </div>
             <div class="tilt-card" style="border-color: var(--secondary);">
                 <h3 class="card-head">Album Pro</h3>
                 <h1 style="color:var(--secondary); font-size:3rem; font-family:var(--font-head);">₹1999</h1>
                 <ul style="color:#666; list-style:none; line-height:2; margin: 20px 0;"><li>• Up to 10 Songs</li><li>• Free Content ID</li></ul>
-                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="selectPlan('Album Pro Distribution')">Distribute Now</button>
+                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="openCheckout('Album Pro', 1999)">Distribute Now</button>
             </div>
         </div>
     </div>
@@ -1266,7 +1292,7 @@
                     <li><i class="fas fa-check"></i> 1 Poster Design</li>
                     <li><i class="fas fa-check"></i> 10k YouTube Views</li>
                 </ul>
-                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="selectPlan('Starter Artist Plan')">Select Plan</button>
+                <button class="cta-nav" style="display:inline-block; width:100%;" onclick="openCheckout('Starter Artist', 4999)">Select Plan</button>
             </div>
 
             <div class="plan-card" style="border-color: var(--primary);">
@@ -1278,7 +1304,7 @@
                     <li><i class="fas fa-check"></i> Reels Promotion</li>
                     <li><i class="fas fa-check"></i> 50k YouTube Views</li>
                 </ul>
-                <button class="cta-nav" style="background:var(--primary); display:inline-block; width:100%;" onclick="selectPlan('Pro Label Plan')">Select Plan</button>
+                <button class="cta-nav" style="background:var(--primary); display:inline-block; width:100%;" onclick="openCheckout('Pro Label', 14999)">Select Plan</button>
             </div>
 
             <div class="plan-card" style="border-color: #333;">
@@ -1406,6 +1432,94 @@
     </div>
 
     <!-- ===================== PAGE: CONTACT ===================== -->
+    <div id="checkout-page" class="page-section">
+        <h2 class="section-title">Secure Checkout</h2>
+        
+        <div class="checkout-container">
+            <div class="pay-options-box">
+                <h3 class="checkout-head">Select Payment Method</h3>
+                
+                <div class="payment-tabs">
+                    <div class="pay-method active" onclick="selectPaymentMethod(this)">
+                        <i class="fas fa-credit-card"></i> Card
+                    </div>
+                    <div class="pay-method" onclick="selectPaymentMethod(this)">
+                        <i class="fab fa-google-pay"></i> UPI / GPay
+                    </div>
+                    <div class="pay-method" onclick="selectPaymentMethod(this)">
+                        <i class="fas fa-qrcode"></i> QR Code
+                    </div>
+                </div>
+
+                <div class="payment-form">
+                    <div class="floating-input-group">
+                        <input type="text" class="floating-input" placeholder=" ">
+                        <span class="floating-label-text">Card Number</span>
+                    </div>
+                    <div class="form-grid">
+                        <div class="floating-input-group">
+                            <input type="text" class="floating-input" placeholder=" ">
+                            <span class="floating-label-text">Expiry</span>
+                        </div>
+                        <div class="floating-input-group">
+                            <input type="text" class="floating-input" placeholder=" ">
+                            <span class="floating-label-text">CVV</span>
+                        </div>
+                    </div>
+                    <div class="floating-input-group">
+                        <input type="text" class="floating-input" placeholder=" ">
+                        <span class="floating-label-text">Card Holder Name</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-summary-box">
+                <h3 class="checkout-head">Order Summary</h3>
+                
+                <div class="summary-row">
+                    <span id="checkout-plan-name">Selected Plan</span>
+                    <span id="checkout-plan-price" style="font-weight:bold;">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>GST (18%)</span>
+                    <span id="checkout-tax">₹0</span>
+                </div>
+                <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+                <div class="summary-row total">
+                    <span>Total Pay</span>
+                    <span id="checkout-total" style="color:var(--primary);">₹0</span>
+                </div>
+
+                <ul style="margin: 20px 0; font-size: 0.8rem; color: #666; list-style: none;">
+                    <li><i class="fas fa-lock" style="color:green;"></i> 256-Bit SSL Secured</li>
+                    <li><i class="fas fa-check-circle" style="color:green;"></i> Instant Activation</li>
+                </ul>
+
+                <button id="pay-btn" class="cta-nav" style="width:100%; border:none; padding:15px; font-size:1.1rem;" onclick="processPayment()">
+                    Pay Securely
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-page" class="page-section" style="text-align:center; padding-top:150px;">
+        <div style="width:100px; height:100px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 30px; box-shadow: 0 10px 30px rgba(37,211,102,0.4);">
+            <i class="fas fa-check" style="font-size:3rem; color:#fff;"></i>
+        </div>
+        <h2 style="font-family:var(--font-head); font-size:2.5rem;">Payment Successful!</h2>
+        <p style="color:#666; font-size:1.1rem; margin-bottom:30px;">Thank you for joining R.S Films Group.<br>Your plan has been activated.</p>
+        
+        <div style="background:#f9f9f9; display:inline-block; padding:20px 40px; border-radius:15px; border:1px solid #eee;">
+            <p style="margin:0; font-weight:bold; color:#111;">Transaction ID</p>
+            <p style="margin:0; color:var(--primary); font-family:monospace; font-size:1.2rem;">TXN_8829302_RS</p>
+            <p style="margin-top:10px; font-weight:bold; color:#111;">Amount Paid</p>
+            <p id="confirm-amount" style="margin:0; color:#111; font-size:1.2rem;">₹0</p>
+        </div>
+
+        <div style="margin-top:40px;">
+            <button onclick="switchPage('home')" class="cta-nav" style="border:none;">Go to Dashboard</button>
+        </div>
+    </div>
     <div id="contact" class="page-section">
         <div style="text-align: center; max-width: 900px; margin: 0 auto; padding: 20px;">
             <h2 class="section-title">Join The Revolution</h2>
@@ -2425,6 +2539,42 @@
                 chatBox.scrollTop = chatBox.scrollHeight;
             }, 1000);
         }
+        // --- CHECKOUT LOGIC ---
+    function openCheckout(planName, price) {
+        // Tax Calculation (18% GST)
+        const tax = Math.round(price * 0.18);
+        const total = price + tax;
+        
+        // Update HTML Elements
+        document.getElementById('checkout-plan-name').innerText = planName;
+        document.getElementById('checkout-plan-price').innerText = "₹" + price.toLocaleString();
+        document.getElementById('checkout-tax').innerText = "₹" + tax.toLocaleString();
+        document.getElementById('checkout-total').innerText = "₹" + total.toLocaleString();
+        document.getElementById('confirm-amount').innerText = "₹" + total.toLocaleString();
+        
+        // Switch Page
+        switchPage('checkout-page');
+    }
+
+    function selectPaymentMethod(el) {
+        document.querySelectorAll('.pay-method').forEach(item => item.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function processPayment() {
+        const btn = document.getElementById('pay-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+        btn.style.opacity = '0.8';
+        btn.style.pointerEvents = 'none';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
+            switchPage('confirmation-page');
+        }, 2500);
+    }
     </script>
     <script>
         window.addEventListener('load', () => {
