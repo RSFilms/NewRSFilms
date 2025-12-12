@@ -1432,11 +1432,11 @@
     </div>
 
     <!-- ===================== PAGE: CONTACT ===================== -->
-    <div id="checkout-page" class="page-section">
+<div id="checkout-page" class="page-section">
         <h2 class="section-title">Secure Checkout</h2>
         
         <div class="checkout-container">
-<div class="pay-options-box">
+            <div class="pay-options-box">
                 <h3 class="checkout-head">Select Payment Method</h3>
                 
                 <div class="payment-tabs">
@@ -1472,30 +1472,25 @@
                     </div>
                 </div>
 
-                <div id="upi-form" class="payment-content" style="display:none;">
-                    <div style="text-align:center; margin-bottom:20px;">
-                        <i class="fas fa-mobile-alt" style="font-size:3rem; color:#ddd; margin-bottom:10px;"></i>
-                        <p style="color:#666; font-size:0.9rem;">Enter your UPI ID to verify and pay.</p>
-                    </div>
+                <div id="upi-form" class="payment-content" style="display:none; text-align:center; padding: 20px 0;">
+                    <i class="fas fa-mobile-alt" style="font-size:3rem; color:#ddd; margin-bottom:15px; display:block;"></i>
                     <div class="floating-input-group">
                         <input type="text" class="floating-input" placeholder=" ">
                         <span class="floating-label-text">Enter UPI ID (e.g. mobile@upi)</span>
                     </div>
-                    <div style="background:#eef; padding:10px; border-radius:8px; font-size:0.8rem; color:#444; margin-top:10px;">
-                        <i class="fas fa-info-circle"></i> You will receive a payment request on your UPI app.
-                    </div>
+                    <p style="color:#666; font-size:0.85rem; margin-top:10px;">
+                        <i class="fas fa-check-circle" style="color:green;"></i> Securely verified by BHIM UPI
+                    </p>
                 </div>
 
-                <div id="qr-form" class="payment-content" style="display:none; text-align:center;">
-                    <p style="color:#666; margin-bottom:15px; font-size:0.9rem;">Scan with any UPI App (GPay, Paytm, PhonePe)</p>
-                    
-                    <div style="background:#fff; padding:10px; display:inline-block; border:1px solid #ddd; border-radius:10px;">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=rsfilms@upi&pn=RSFilms&am=1" alt="Scan QR">
+                <div id="qr-form" class="payment-content" style="display:none; text-align:center; padding: 10px 0;">
+                    <p style="color:#444; margin-bottom:15px; font-weight:600;">Scan to Pay</p>
+                    <div style="background:#fff; padding:10px; display:inline-block; border:1px solid #ddd; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=rsfilms@upi&pn=RSFilms&am=1" alt="Scan QR" style="width:150px;">
                     </div>
-
-                    <p style="font-size:0.9rem; color:var(--primary); margin-top:20px; font-weight:bold;">
-                        <i class="fas fa-circle-notch fa-spin"></i> Waiting for payment...
-                    </p>
+                    <div style="margin-top:20px; font-size:0.9rem; color:var(--primary);">
+                        <i class="fas fa-spinner fa-spin"></i> Waiting for payment...
+                    </div>
                 </div>
             </div>
 
@@ -1517,33 +1512,14 @@
                 </div>
 
                 <ul style="margin: 20px 0; font-size: 0.8rem; color: #666; list-style: none;">
-                    <li><i class="fas fa-lock" style="color:green;"></i> 256-Bit SSL Secured</li>
-                    <li><i class="fas fa-check-circle" style="color:green;"></i> Instant Activation</li>
+                    <li style="margin-bottom:5px;"><i class="fas fa-lock" style="color:green; margin-right:5px;"></i> 256-Bit SSL Secured</li>
+                    <li><i class="fas fa-shield-alt" style="color:green; margin-right:5px;"></i> 100% Safe Payment</li>
                 </ul>
 
-                <button id="pay-btn" class="cta-nav" style="width:100%; border:none; padding:15px; font-size:1.1rem;" onclick="processPayment()">
+                <button id="pay-btn" class="cta-nav" style="width:100%; border:none; padding:15px; font-size:1.1rem; cursor:pointer;" onclick="processPayment()">
                     Pay Securely
                 </button>
             </div>
-        </div>
-    </div>
-
-    <div id="confirmation-page" class="page-section" style="text-align:center; padding-top:150px;">
-        <div style="width:100px; height:100px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 30px; box-shadow: 0 10px 30px rgba(37,211,102,0.4);">
-            <i class="fas fa-check" style="font-size:3rem; color:#fff;"></i>
-        </div>
-        <h2 style="font-family:var(--font-head); font-size:2.5rem;">Payment Successful!</h2>
-        <p style="color:#666; font-size:1.1rem; margin-bottom:30px;">Thank you for joining R.S Films Group.<br>Your plan has been activated.</p>
-        
-        <div style="background:#f9f9f9; display:inline-block; padding:20px 40px; border-radius:15px; border:1px solid #eee;">
-            <p style="margin:0; font-weight:bold; color:#111;">Transaction ID</p>
-            <p style="margin:0; color:var(--primary); font-family:monospace; font-size:1.2rem;">TXN_8829302_RS</p>
-            <p style="margin-top:10px; font-weight:bold; color:#111;">Amount Paid</p>
-            <p id="confirm-amount" style="margin:0; color:#111; font-size:1.2rem;">₹0</p>
-        </div>
-
-        <div style="margin-top:40px;">
-            <button onclick="switchPage('home')" class="cta-nav" style="border:none;">Go to Dashboard</button>
         </div>
     </div>
     <div id="contact" class="page-section">
@@ -2592,9 +2568,19 @@
         switchPage('checkout-page');
     }
 
-    function selectPaymentMethod(el) {
+    function selectPaymentMethod(el, method) {
+        // 1. Sabhi tabs se active class hatao
         document.querySelectorAll('.pay-method').forEach(item => item.classList.remove('active'));
+        // 2. Click kiye hue tab ko active karo
         el.classList.add('active');
+
+        // 3. Sabhi forms ko chupao
+        document.getElementById('card-form').style.display = 'none';
+        document.getElementById('upi-form').style.display = 'none';
+        document.getElementById('qr-form').style.display = 'none';
+
+        // 4. Sirf selected method ka form dikhao
+        document.getElementById(method + '-form').style.display = 'block';
     }
 
     function processPayment() {
