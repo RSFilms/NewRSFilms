@@ -699,7 +699,6 @@
             <li><span onclick="switchPage('partners')">Partners</span></li>
             <li><span onclick="switchPage('support')">Support</span></li>
         </ul>
-        <!-- 'Contact' removed from here as per request, moved to floating icon -->
         
         <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
@@ -1343,17 +1342,289 @@
         ];
 
         const clientList = [
-            "Aarti Films Jhanki", "Abhishek Chhaliya Official", "Ahir Brand", 
-            "Amresh Yadav Entertainment", "Avinash Madhur Official", "BVD Music World", 
-            "GP Music Official", "Gudiya Jhaki Official", "Neeraj Official", 
-            "Ishu Tilakdhari Kanpur", "Ishu Tilakdhari Official", "Lovkush Arpita Official", 
-            "MB Music World", "Manish Mastana Official", "Mayur Bharat Raas", 
-            "Neha Singh Music", "R.S Films Bhojpuri", "Rang Mahal Studios", 
-            "Shivam Chhaliya Official", "Siddhi Vinayak Films", "Siddhi Vinayak Films Bhakti", 
-            "Vikash Bhardwaj Official"
+            "Gudiya Jhaki Official", "Shivam Chhaliya Official", "R.S Films Bhojpuri", 
+            "Siddhi Vinayak Films Bhakti", "Aarti Films Jhanki", "Ahir Brand", 
+            "Rang Mahal Studios", "Ishu Tilakdhari Official", "Abhishek Chhaliya Official", 
+            "Avinash Madhur Official", "Vikash Bhardwaj Official", "Lovkush Arpita Official", 
+            "Siddhi Vinayak Films", "Aarti Films Hits", "Neha Singh Music", "BVD Music World", 
+            "Ishu Tilakdhari Kanpur", "Manish Mastana Official", "Mayur Bharat Raas", 
+            "GP Music Official", "Amresh Yadav Entertainment", "Neeraj Official", "MB Music World"
         ];
 
-        // NEW: Specific Portfolio Data for Partners
+        // NEW: Specific Data for Each Channel (Stats & Bio & Links)
+        const partnerDetails = {
+            "Gudiya Jhaki Official": {
+                tagline: "Radha Krishan, Fagan Geet & Bhakti",
+                about: "Our YouTube Channel Gudiya Jhakhi Official brings devotional content related to radha krishan, Fagan Geet, dehati bhakti bhajan, dancing bhakti songs, jagran songs and more.",
+                stats: { subs: "63.9K", views: "30M+", videos: "190" },
+                contact: "gudiyajhakiofficial01@gmail.com | +91 91615 29116",
+                type: "Devotional",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@gudiyajhakiofficial",
+                    instagram: "https://instagram.com/gudiyaprinceofficial",
+                    facebook: "https://facebook.com/gudiyajhankiofficial"
+                }
+            },
+            "Aarti Films Hits": {
+                tagline: "Trending Bhojpuri Hits",
+                about: "Your ultimate destination for trending Bhojpuri songs, romantic hits, and official music videos that define passion, emotion, and entertainment.",
+                stats: { subs: "900+", views: "208K+", videos: "49" },
+                contact: "info.rsfilmsofficial@gmail.com",
+                type: "Music Label",
+                typeClass: "music",
+                links: {
+                    youtube: "https://youtube.com/@AartiFilmsHits",
+                    instagram: "https://instagram.com/aartifilms099",
+                    facebook: "https://facebook.com/people/AARTI-FILMS/100064133170179"
+                }
+            },
+            "Neha Singh Music": {
+                tagline: "Soulful Melodies & Beats",
+                about: "Your ultimate destination for soulful melodies, energetic beats, and heart-touching songs. From romantic tracks to devotional music, every tune here is crafted to connect with your emotions.",
+                stats: { subs: "220+", views: "11K+", videos: "14" },
+                contact: "nehasinghmusiclko@gmail.com",
+                type: "Artist Channel",
+                typeClass: "artist",
+                links: {
+                    youtube: "https://www.youtube.com/@NehaSinghMusic1"
+                }
+            },
+            "R.S Films Bhojpuri": {
+                tagline: "The Heart of Bhojpuri",
+                about: "R.S Films Bhojpuri mein apna gana release karne ke liye call karein. Hum fresh content aur naye talent ko promote karte hain. No release charges.",
+                stats: { subs: "19.9K", views: "5.5M+", videos: "220" },
+                contact: "ay95686@gmail.com | 9792946666",
+                type: "Music Label",
+                typeClass: "music",
+                links: {
+                    youtube: "https://www.youtube.com/@RSFilmsBhojpuri",
+                    instagram: "https://instagram.com/r.sfilmsbhojpuri",
+                    facebook: "https://facebook.com/r.sfilmsbhojpuri"
+                }
+            },
+            "Ishu Tilakdhari Official": {
+                tagline: "Soulful Jhankis & Devotion",
+                about: "Your spiritual destination for soulful jhankis and devotional content. Immerse yourself in divine stories, mesmerizing bhajans, and spiritual teachings.",
+                stats: { subs: "7.48K", views: "2.2M+", videos: "23" },
+                contact: "ishutilakdhariofficial@gmail.com | 6386505230",
+                type: "Devotional Creator",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@IshuTilakdhariOfficial",
+                    instagram: "https://instagram.com/ishutilakdhari/?hl=en",
+                    facebook: "https://facebook.com/people/Ishu-Tilakdhari/100023361700549/"
+                }
+            },
+            "Vikash Bhardwaj Official": {
+                tagline: "Rangdari Songs Ka Asli Adda",
+                about: "Is channel par aapko milega dhamakedar Rangdari Song, Awadhi Tadka aur zabardast entertainment. Awadhi power-packed gaane pasand hain, toh subscribe karein!",
+                stats: { subs: "4.01K", views: "334K+", videos: "24" },
+                contact: "vikashsharmaofficial111@gmail.com | +91 9792946666",
+                type: "Artist Channel",
+                typeClass: "artist",
+                links: {
+                    youtube: "https://www.youtube.com/@Vikashbhardwajofficial1",
+                    instagram: "https://instagram.com/pt.vikash_bhardwaj_thekedaar"
+                }
+            },
+            "BVD Music World": {
+                tagline: "Bhojpuri Bhakti & Vibes",
+                about: "Your ultimate destination for Bhojpuri Videos & Music. Soul-touching Bhajans, Kirtans, and Spiritual Songs dedicated to various deities.",
+                stats: { subs: "263", views: "18K+", videos: "12" },
+                contact: "bvdmusicworld@gmail.com",
+                type: "Music Channel",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@BVDMusicWorld"
+                }
+            },
+            "Avinash Madhur Official": {
+                tagline: "Voice of Avinash Yadav Madhur",
+                about: "Official channel of Avinash Yadav 'Madhur'. Dedicated to providing the best songs to the audience with love and blessings.",
+                stats: { subs: "7.08K", views: "987K+", videos: "341" },
+                contact: "avinashyadav.madhur@gmail.com | +91 9839233977",
+                type: "Official Artist",
+                typeClass: "artist",
+                links: {
+                    youtube: "https://www.youtube.com/@AvinashYadavMadhur",
+                    instagram: "https://instagram.com/avinashmadhurji?igsh=MWowMW4yNnY1NWtnZQ==",
+                    facebook: "https://facebook.com/AvinashYadavMadhur"
+                }
+            },
+            "Aarti Films Jhanki": {
+                tagline: "Faith, Devotion & Culture",
+                about: "We bring you soul-touching devotional videos filled with faith, devotion, and Indian cultural traditions — including stunning Radha Krishna Jhanki Songs and soulful Bhajans.",
+                stats: { subs: "788", views: "265K+", videos: "28" },
+                contact: "aartifilmsjhanki@gmail.com | +91 9792946666",
+                type: "Devotional Hub",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@AartiFilmsJhanki"
+                }
+            },
+            "Ahir Brand": {
+                tagline: "Trending Music Brand",
+                about: "Ahir Brand mein apna gaana release karne ke liye call karein. Fresh content only. Humare sath judkar apne music ko naye mukam par le jayein.",
+                stats: { subs: "3.54K", views: "474K+", videos: "46" },
+                contact: "info.ahiranbrand@gmail.com | 9792946666",
+                type: "Music Brand",
+                typeClass: "music",
+                links: {
+                    youtube: "https://www.youtube.com/@ahirbrandofficial"
+                }
+            },
+            "Siddhi Vinayak Films Bhakti": {
+                tagline: "Divine Melodies",
+                about: "Immerse yourself in the spiritual world of bhajans, aartis, and mantras dedicated to Lord Ganesha, Krishna, Durga, Shiva. Crafted to uplift your soul.",
+                stats: { subs: "16.4K", views: "5.5M+", videos: "52" },
+                contact: "siddhivinayakfilmbhakti@gmail.com | 7068636112",
+                type: "Bhakti Channel",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@SiddhiVinayakFilmsBhakti"
+                }
+            },
+            "Siddhi Vinayak Films": {
+                tagline: "Vibrant Bhojpuri Hits",
+                about: "Your ultimate destination for soulful and vibrant Bhojpuri music! Trending Bhojpuri hits, high-quality music videos, and exclusive releases.",
+                stats: { subs: "3.08K", views: "386K+", videos: "47" },
+                contact: "info.siddhivinayakfilms@gmail.com | 7068636112",
+                type: "Regional Music",
+                typeClass: "music",
+                links: {
+                    youtube: "https://www.youtube.com/@SiddhiVinayakFilmsBhojpuri",
+                    facebook: "https://facebook.com/SiddhiVinayakFilms01"
+                }
+            },
+            "Rang Mahal Studios": {
+                tagline: "Spiritual Music Destination",
+                about: "Dive into the divine world of Bhajans. Soulful Hanuman Bhajans, Krishna Bhajans, Ram Bhajans, and heart-touching devotional melodies.",
+                stats: { subs: "11.4K", views: "2.5M+", videos: "90" },
+                contact: "poonamsingla299@gmail.com",
+                type: "Studio Channel",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@rangmahalstudios",
+                    instagram: "https://instagram.com/rangmahalstudios",
+                    facebook: "https://facebook.com/rangmahalstu"
+                }
+            },
+            "Shivam Chhaliya Official": {
+                tagline: "The Jhanki King",
+                about: "Your spiritual destination for soulful jhankis and devotional content. Join us on a sacred journey as we bring you closer to the divine through vibrant jhankis.",
+                stats: { subs: "116K", views: "34M+", videos: "211" },
+                contact: "shivamchhaliya9335@gmail.com | 7007376969",
+                type: "Star Creator",
+                typeClass: "artist",
+                links: {
+                    youtube: "https://www.youtube.com/@shivamchhaliyaofficial",
+                    instagram: "https://instagram.com/shivam_chhaliya_official?igsh=MW5vbjc4aWJ5ZGRzeA==",
+                    facebook: "https://facebook.com/profile.php?id=100008744467616"
+                }
+            },
+            "Abhishek Chhaliya Official": {
+                tagline: "Devotion & Faith",
+                about: "Your ultimate destination for soulful and divine experiences through Indian devotional songs and mesmerizing jhanki videos of Radha Krishna and Shankar Parvati.",
+                stats: { subs: "8.12K", views: "2.7M+", videos: "42" },
+                contact: "abhishekchhaliyaofficial@gmail.com | +91 9792946666",
+                type: "Devotional Creator",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@AbhishekChhaliyaOfficial"
+                }
+            },
+            "Lovkush Arpita Official": {
+                tagline: "Divya Bhakti Sangeet",
+                about: "Divya bhakti sangeet ke liye aapka pavitra sthan. Bhagwan Ram, Sita Mata, Krishna, aur Devi Durga ko samarpit bhavpoorn bhajan aur aarti.",
+                stats: { subs: "2.38K", views: "679K+", videos: "31" },
+                contact: "lovkusharpitaofficial@gmail.com | +91 91405 69766",
+                type: "Bhakti Duo",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/@LovkushArpitaOfficial"
+                }
+            },
+            "Amresh Yadav Entertainment": {
+                tagline: "Complete Entertainment",
+                about: "Official channel for Amresh Yadav Entertainment. Bringing you the best of regional content and music videos.",
+                stats: { subs: "50K+", views: "5M+", videos: "100+" },
+                contact: "amreshyadavballu6859@gmail.com",
+                type: "Entertainment",
+                typeClass: "music",
+                links: {
+                    youtube: "https://www.youtube.com/channel/UCD_3yi3VuRyMoFzF44LLvTg"
+                }
+            },
+            "GP Music Official": {
+                tagline: "Music for Soul",
+                about: "GP Music Official channel presenting heart-touching songs and melodies.",
+                stats: { subs: "10K+", views: "1M+", videos: "50+" },
+                contact: "info.gpmusicofficial@gmail.com",
+                type: "Music Channel",
+                typeClass: "music",
+                links: {
+                    youtube: "https://www.youtube.com/channel/UCVSk3hYESHNPvsWKYYk-2yg"
+                }
+            },
+            "Ishu Tilakdhari Kanpur": {
+                tagline: "Kanpur's Devotional Voice",
+                about: "Official channel of Ishu Tilakdhari from Kanpur, featuring devotional songs and events.",
+                stats: { subs: "15K+", views: "1.5M+", videos: "60+" },
+                contact: "eshushukla52@gmail.com",
+                type: "Devotional",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/channel/UCQ8IFeH6_MnAVOSBDjNag3g"
+                }
+            },
+            "Manish Mastana Official": {
+                tagline: "Mastana Melodies",
+                about: "Official channel of Manish Mastana. Enjoy the best of regional hits.",
+                stats: { subs: "20K+", views: "2M+", videos: "80+" },
+                contact: "my868881@gmail.com",
+                type: "Artist Channel",
+                typeClass: "artist",
+                links: {
+                    youtube: "https://www.youtube.com/channel/UC_4PIApVwjbY8FeV3BrIDIQ"
+                }
+            },
+            "Mayur Bharat Raas": {
+                tagline: "Cultural Raas & Bhajans",
+                about: "Dedicated to Raas Leela and cultural devotional events.",
+                stats: { subs: "5K+", views: "500K+", videos: "30+" },
+                contact: "mayurbharatraas6394@gmail.com",
+                type: "Cultural",
+                typeClass: "devotional",
+                links: {
+                    youtube: "https://www.youtube.com/channel/UCIICR6RaExZzusn1swtFuZg"
+                }
+            },
+            "Neeraj Official": {
+                tagline: "Official Music Channel",
+                about: "Official channel for Neeraj Official. Bringing you fresh and trending music content managed by R.S Films Group.",
+                stats: { subs: "Coming Soon", views: "Growing", videos: "New" },
+                contact: "info.neerajofficial@gmail.com",
+                type: "Artist Channel",
+                typeClass: "artist",
+                links: {
+                    youtube: "#"
+                }
+            },
+            "MB Music World": {
+                tagline: "Regional & Devotional Beats",
+                about: "MB Music World is your destination for soulful regional and devotional music. Subscribe for regular updates.",
+                stats: { subs: "1K+", views: "100K+", videos: "20+" },
+                contact: "mandeepbabacreator@gmail.com",
+                type: "Music Label",
+                typeClass: "music",
+                links: {
+                    youtube: "https://www.youtube.com/channel/UCjatmsWwJ7fSK1MAVBnrlxQ"
+                }
+            }
+        };
+
+        // Specific Portfolio Data for Partners
         const partnerSpecificVideos = {
             "Ahir Brand": [
                 "UyeH93Z7T_0", "uQ3r9dqk5Qw", "q5dQtXdezao", "nekHMOespko", "PxfcK_HPhxQ", 
@@ -1544,6 +1815,11 @@
             ]
         };
 
+        // NEW: Specific Logos for Partners
+        const partnerLogos = {
+            "Aarti Films Jhanki": "https://yt3.googleusercontent.com/EChckhiUBUcATT9qxmO1S939tG6aB0rkm2vCwoVtu1j_vHSx0Dm3E_ioNJ_15eb0cD3-TX8pbw=s176-c-k-c0x00ffffff-no-rj-mo"
+        };
+
         // 2. RENDER FUNCTIONS
         function renderTeam(data) {
             const container = document.getElementById('teamGrid');
@@ -1565,73 +1841,55 @@
 
         // New Helper to generate UNIQUE detailed HTML bio based on name keywords
         function getPartnerTemplate(name) {
-            let type = "General";
-            let typeClass = "music";
-            let quote = "Redefining entertainment, one video at a time.";
-            let about = "Managed exclusively by R.S Films Group.";
-            let tags = ["Music Video", "Viral", "Entertainment"];
-            let stats = { subs: "50K+", views: "10M+" };
+            // Default Values if not found in specific list
+            let details = partnerDetails[name] || {
+                type: "General Partner",
+                typeClass: "music",
+                tagline: "Premium Entertainment Hub",
+                about: "Official channel managing premium content under R.S Films Group.",
+                stats: { subs: "50K+", views: "10M+", videos: "100+" },
+                contact: "info.rsfilmsofficial@gmail.com",
+                links: { youtube: "#" }
+            };
 
-            const lowerName = name.toLowerCase();
-
-            if (lowerName.includes("jhanki") || lowerName.includes("bhakti") || lowerName.includes("raas")) {
-                type = "Devotional Giant";
-                typeClass = "devotional";
-                quote = "\"Aastha aur Technology ka sangam.\" Bringing the divine experience of Live Jhanki and Bhajans directly to millions.";
-                about = "Ye sirf ek channel nahi, bhakto ka digital mandir hai. Humare live events aur bhajans se audience ka spiritual connection gehra hota hai. High retention aur loyal fanbase humari pehchan hai.";
-                tags = ["Live Jhanki", "Bhakti Sangeet", "Religious Events", "Aarti"];
-                stats = { subs: "100K+", views: "25M+" };
-            } else if (lowerName.includes("music") || lowerName.includes("films") || lowerName.includes("studios") || lowerName.includes("entertainment") || lowerName.includes("brand")) {
-                type = "Music Powerhouse";
-                typeClass = "music";
-                quote = "\"Sirf gaane nahi, hum emotions create karte hain.\" The ultimate destination for regional beats and viral hits.";
-                about = "Ek premier label jo naye talents ko star banata hai. Humara focus hai 'Mass Appeal' aur 'Quality Production'. Har release ek tyohaar ki tarah celebrate kiya jata hai.";
-                tags = ["Chartbusters", "DJ Remix", "Lyrical Video", "New Releases"];
-                stats = { subs: "500K+", views: "80M+" };
-            } else if (lowerName.includes("official") || lowerName.includes("chhaliya") || lowerName.includes("yadav") || lowerName.includes("singh")) {
-                type = "Star Creator";
-                typeClass = "artist";
-                quote = "\"Connecting the Star with the Fans.\" Exclusive access to the life and art of [Name].";
-                about = "Official artist channel jahan fans ko milta hai direct access. BTS masti se lekar exclusive releases tak, sab kuch yahan pehle aata hai. A personal brand built on trust.";
-                tags = ["Official Vlogs", "Live Shows", "Fan Q&A", "Exclusive Tracks"];
-                stats = { subs: "200K+", views: "40M+" };
+            // Generate Social Links HTML
+            let linksHTML = '';
+            if (details.links) {
+                linksHTML = '<div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">';
+                if (details.links.youtube) linksHTML += `<a href="${details.links.youtube}" target="_blank" class="cta-nav" style="font-size:0.8rem; padding:8px 15px; display:inline-flex; align-items:center; gap:5px; background:linear-gradient(45deg, #FF0000, #c4302b);"><i class="fab fa-youtube"></i> Channel</a>`;
+                if (details.links.instagram) linksHTML += `<a href="${details.links.instagram}" target="_blank" class="cta-nav" style="font-size:0.8rem; padding:8px 15px; display:inline-flex; align-items:center; gap:5px; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);"><i class="fab fa-instagram"></i> Instagram</a>`;
+                if (details.links.facebook) linksHTML += `<a href="${details.links.facebook}" target="_blank" class="cta-nav" style="font-size:0.8rem; padding:8px 15px; display:inline-flex; align-items:center; gap:5px; background:linear-gradient(45deg, #3b5998, #1877f2);"><i class="fab fa-facebook"></i> Facebook</a>`;
+                linksHTML += '</div>';
             }
-
-            // Generate Content Pills
-            const pillsHTML = tags.map(tag => `<span class="content-pill">${tag}</span>`).join('');
 
             return `
                 <div class="partner-detail-content">
-                    <span class="partner-tag ${typeClass}">${type}</span>
+                    <span class="partner-tag ${details.typeClass}">${details.type}</span>
                     <h3 style="font-family: var(--font-head); margin-bottom:5px; color:#111; line-height:1.2;">${name}</h3>
                     
-                    <div class="partner-quote">${quote}</div>
+                    <div class="partner-quote">"${details.tagline}"</div>
 
                     <div class="stats-grid-modern">
                         <div class="stat-card-modern">
-                            <span class="stat-val-modern">${stats.subs}</span>
+                            <span class="stat-val-modern">${details.stats.subs}</span>
                             <span class="stat-lbl-modern">Subscribers</span>
                         </div>
                         <div class="stat-card-modern">
-                            <span class="stat-val-modern">${stats.views}</span>
+                            <span class="stat-val-modern">${details.stats.views}</span>
                             <span class="stat-lbl-modern">Total Views</span>
                         </div>
                     </div>
 
-                    <h4 style="font-family: var(--font-head); margin-top:20px; color:#111;">The Vision</h4>
-                    <p style="color:#555; font-size:0.95rem; line-height:1.6; margin-bottom:20px;">${about}</p>
+                    <h4 style="font-family: var(--font-head); margin-top:20px; color:#111;">About Channel</h4>
+                    <p style="color:#555; font-size:0.95rem; line-height:1.6; margin-bottom:20px;">${details.about}</p>
 
-                    <h4 style="font-family: var(--font-head); margin-bottom:10px; color:#111;">Content DNA</h4>
-                    <div style="margin-bottom:25px;">
-                        ${pillsHTML}
-                    </div>
+                    <h4 style="font-family: var(--font-head); margin-bottom:10px; color:#111;">Official Links</h4>
+                    ${linksHTML}
 
-                    <div style="background:#f4f4f4; padding:15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <span style="font-size:0.75rem; color:#888; display:block; text-transform:uppercase; letter-spacing:1px;">Managed By</span>
-                            <span style="font-weight:700; color:#111;">R.S Films Group</span>
-                        </div>
-                        <button style="background:#111; color:#fff; border:none; padding:8px 20px; border-radius:30px; font-size:0.8rem; font-weight:600; cursor:pointer;">Visit Channel</button>
+                    <div style="background:#f4f4f4; padding:20px; border-radius:15px; margin-top:25px; border-left: 5px solid var(--primary); box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                        <h4 style="font-family: var(--font-head); margin-bottom:10px; color:#111; text-transform:uppercase;">Managed By</h4>
+                        <div style="font-size:1.1rem; color:#111; font-weight:800; margin-bottom:10px;">R.S Films Group</div>
+                        <p style="font-size:0.9rem; color:#555;"><strong>Contact for Business:</strong> ${details.contact}</p>
                     </div>
                 </div>
             `;
@@ -1644,10 +1902,14 @@
                 const div = document.createElement('div');
                 div.className = 'client-box';
                 div.innerText = client;
+                
+                // Use custom logo if available, else default text image
+                const logoUrl = partnerLogos[client] ? partnerLogos[client] : "https://dummyimage.com/600x600/eee/000&text=" + client.charAt(0);
+
                 div.onclick = () => showProfileDetails({ 
                     name: client, 
                     role: "Official Partner", 
-                    img: "https://dummyimage.com/600x600/eee/000&text=" + client.charAt(0),
+                    img: logoUrl,
                     bio: getPartnerTemplate(client)
                 }, 'partners');
                 container.appendChild(div);
