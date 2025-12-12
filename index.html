@@ -544,6 +544,110 @@
         .feature-icon { font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px; }
         .content-pill:hover { border-color: #ccc; background: #fff; }
 
+        /* --- ADVANCED SUPPORT HUB STYLES --- */
+        .support-hub-container {
+            max-width: 1100px; margin: 0 auto;
+            background: #fff; border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: grid; grid-template-columns: 280px 1fr;
+            min-height: 600px;
+        }
+
+        /* Sidebar */
+        .hub-sidebar {
+            background: #f8f9fa;
+            border-right: 1px solid #eee;
+            padding: 30px 20px;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .agent-card {
+            display: flex; align-items: center; gap: 15px; margin-bottom: 40px;
+            padding: 15px; background: #fff; border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #eee;
+        }
+        .agent-avatar {
+            width: 50px; height: 50px; border-radius: 50%; object-fit: cover;
+            border: 2px solid #25D366; padding: 2px;
+        }
+        .agent-info h4 { font-size: 0.95rem; margin: 0; color: #111; font-weight: 700; }
+        .agent-status { font-size: 0.75rem; color: #25D366; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .hub-nav-btn {
+            display: flex; align-items: center; gap: 12px;
+            padding: 15px; border-radius: 12px; cursor: pointer;
+            color: #666; font-weight: 600; font-size: 0.9rem;
+            transition: all 0.3s ease; margin-bottom: 8px;
+        }
+        .hub-nav-btn:hover { background: rgba(0,0,0,0.03); color: #111; }
+        .hub-nav-btn.active { background: var(--primary); color: #fff; box-shadow: 0 5px 15px rgba(255, 42, 109, 0.3); }
+        .hub-nav-btn i { font-size: 1.1rem; }
+
+        .system-status { margin-top: auto; padding-top: 20px; border-top: 1px solid #eee; }
+        .status-item { display: flex; justify-content: space-between; font-size: 0.75rem; color: #888; margin-bottom: 8px; }
+        .status-val { color: #25D366; font-weight: 600; }
+
+        /* Main Content */
+        .hub-main { padding: 0; position: relative; background: #fff; display: flex; flex-direction: column; }
+        .hub-tab-content { display: none; height: 100%; flex-direction: column; animation: fadeIn 0.4s ease; }
+        .hub-tab-content.active { display: flex; }
+
+        /* Chat Area */
+        .hub-chat-area { flex: 1; padding: 30px; overflow-y: auto; background-image: radial-gradient(#eee 1px, transparent 1px); background-size: 20px 20px; }
+        .chat-msg-row { display: flex; margin-bottom: 20px; align-items: flex-end; }
+        .chat-msg-row.bot { justify-content: flex-start; }
+        .chat-msg-row.user { justify-content: flex-end; }
+        
+        .msg-bubble {
+            max-width: 70%; padding: 15px 20px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5;
+            position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .chat-msg-row.bot .msg-bubble { background: #fff; color: #333; border-bottom-left-radius: 4px; border: 1px solid #eee; }
+        .chat-msg-row.user .msg-bubble { background: #111; color: #fff; border-bottom-right-radius: 4px; }
+        
+        .chat-time { font-size: 0.7rem; color: #aaa; margin-top: 5px; margin-left: 5px; }
+
+        /* Quick Chips */
+        .quick-actions { padding: 15px 30px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+        .action-chip {
+            padding: 8px 15px; background: #fff; border: 1px solid #ddd; border-radius: 50px;
+            font-size: 0.8rem; color: #555; cursor: pointer; white-space: nowrap; transition: 0.2s;
+        }
+        .action-chip:hover { border-color: var(--primary); color: var(--primary); background: rgba(255,42,109,0.05); }
+
+        /* Input Area */
+        .hub-input-box {
+            padding: 20px 30px; background: #fff; border-top: 1px solid #eee;
+            display: flex; gap: 15px; align-items: center;
+        }
+        .hub-input {
+            flex: 1; padding: 15px; background: #f9f9f9; border: none; border-radius: 12px;
+            outline: none; color: #333; font-family: var(--font-body);
+        }
+        .send-btn-hub {
+            width: 50px; height: 50px; background: var(--primary); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; color: #fff;
+            border: none; cursor: pointer; transition: 0.2s;
+        }
+        .send-btn-hub:hover { transform: scale(1.05); }
+
+        /* Ticket Form inside Hub */
+        .hub-form-container { padding: 40px; max-width: 600px; margin: 0 auto; width: 100%; }
+        .hub-title { font-family: var(--font-head); font-size: 1.8rem; margin-bottom: 10px; color: #111; }
+        
+        @media(max-width: 768px) {
+            .support-hub-container { grid-template-columns: 1fr; border-radius: 0; min-height: auto; }
+            .hub-sidebar { display: none; } /* Hide sidebar on mobile, maybe add a toggle if needed, or simplify */
+            /* For simplicity in this request, let's stack or just show main content on mobile */
+            .support-hub-container { display: flex; flex-direction: column; }
+            .hub-sidebar { display: flex; flex-direction: row; overflow-x: auto; padding: 15px; }
+            .agent-card, .system-status { display: none; }
+            .hub-nav-btn { flex: 1; justify-content: center; white-space: nowrap; margin-bottom: 0; }
+        }
+
         /* --- UNIQUE GLASSMORPHISM FLOATING BUTTONS --- */
         .floating-btn-container {
             position: fixed;
@@ -999,26 +1103,96 @@
         </div>
     </div>
 
-    <!-- ===================== PAGE: SUPPORT (NEW) ===================== -->
+    <!-- ===================== PAGE: SUPPORT (ADVANCED HUB) ===================== -->
     <div id="support" class="page-section">
-        <h2 class="section-title">Support Center</h2>
-        <p class="section-sub">We are here to help you 24/7</p>
-        <div class="support-box">
-            <div class="support-header">
-                <span style="font-weight:bold;">R.S Support Agent (AI)</span>
-                <span style="color:green; font-size:0.8rem;">● Online</span>
+        <h2 class="section-title">Support Hub</h2>
+        <p class="section-sub">24/7 Priority Assistance Center</p>
+        
+        <div class="support-hub-container">
+            <!-- Sidebar -->
+            <div class="hub-sidebar">
+                <div>
+                    <div class="agent-card">
+                        <img src="https://dummyimage.com/100x100/ff2a6d/fff&text=AI" class="agent-avatar">
+                        <div class="agent-info">
+                            <h4>R.S Assistant</h4>
+                            <div class="agent-status"><span class="dot"></span> Online Now</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hub-nav-btn active" onclick="switchHubTab('chat', this)">
+                        <i class="fas fa-comments"></i> Live Chat
+                    </div>
+                    <div class="hub-nav-btn" onclick="switchHubTab('ticket', this)">
+                        <i class="fas fa-ticket-alt"></i> Raise Ticket
+                    </div>
+                    <div class="hub-nav-btn" onclick="window.open('https://wa.me/919792946666', '_blank')">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </div>
+                </div>
+
+                <div class="system-status">
+                    <div style="font-weight:700; margin-bottom:10px; color:#111;">SYSTEM STATUS</div>
+                    <div class="status-item"><span>Distribution Server</span> <span class="status-val">Operational</span></div>
+                    <div class="status-item"><span>MCN Dashboard</span> <span class="status-val">Operational</span></div>
+                    <div class="status-item"><span>Royalty Payouts</span> <span class="status-val">Processing</span></div>
+                </div>
             </div>
-            <div class="support-body">
-                <div class="chat-msg bot">Hello! Welcome to R.S Films Group support. How can I help you today?</div>
-                <div class="chat-msg bot">You can ask about MCN, Distribution, or Services.</div>
+
+            <!-- Main Content -->
+            <div class="hub-main">
+                
+                <!-- Chat View -->
+                <div id="hub-chat" class="hub-tab-content active">
+                    <div class="hub-chat-area" id="hubChatBox">
+                        <div class="chat-msg-row bot">
+                            <div class="msg-bubble">
+                                Hello! 👋 Welcome to R.S Films Group Support Hub.<br>
+                                I can help you with <strong>Music Release, MCN, or Payments</strong>.
+                                <div class="chat-time">Just Now</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <div class="action-chip" onclick="sendQuickMsg('Check Royalty Status')">💰 Check Royalty</div>
+                        <div class="action-chip" onclick="sendQuickMsg('Release Not Live')">🚀 Release Issue</div>
+                        <div class="action-chip" onclick="sendQuickMsg('Join MCN Network')">📺 Join MCN</div>
+                        <div class="action-chip" onclick="sendQuickMsg('Artist Booking')">🎤 Book Artist</div>
+                    </div>
+
+                    <div class="hub-input-box">
+                        <input type="text" id="hubChatInput" class="hub-input" placeholder="Type your message...">
+                        <button class="send-btn-hub" onclick="sendHubMessage()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+
+                <!-- Ticket View -->
+                <div id="hub-ticket" class="hub-tab-content">
+                    <div class="hub-form-container">
+                        <h3 class="hub-title">Submit a Request</h3>
+                        <p style="color:#666; margin-bottom:30px;">Our team usually responds within 24 hours.</p>
+                        
+                        <div class="floating-input-group">
+                            <select class="floating-select">
+                                <option>General Inquiry</option>
+                                <option>Technical Issue</option>
+                                <option>Billing / Payment</option>
+                                <option>Copyright Claim</option>
+                            </select>
+                            <span class="floating-label-text">Issue Type</span>
+                        </div>
+
+                        <div class="floating-input-group"><input type="text" class="floating-input" placeholder=" "><span class="floating-label-text">Ticket Subject</span></div>
+                        <div class="floating-input-group"><textarea class="floating-input" rows="5" placeholder=" "></textarea><span class="floating-label-text">Detailed Description</span></div>
+                        <div class="floating-input-group"><input type="text" class="floating-input" placeholder=" "><span class="floating-label-text">Your Email ID</span></div>
+
+                        <button class="cta-nav" style="width:100%; border:none;" onclick="alert('Ticket #9923 Created Successfully! Check your email.')">Create Ticket</button>
+                    </div>
+                </div>
+
             </div>
-            <div class="support-input-area">
-                <input type="text" class="cyber-input" placeholder="Type your query..." style="margin-bottom:0;">
-                <button class="cta-nav" style="padding:0 20px;"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <div style="text-align:center; margin-top:30px;">
-            <button class="cta-nav" onclick="selectPlan('Support Ticket')">Raise Priority Ticket</button>
         </div>
     </div>
 
@@ -2159,11 +2333,61 @@
         stats.forEach(stat => observer.observe(stat));
 
         function selectPlan(planName) {
-            // Updated to handle cases where amount isn't passed (legacy calls)
-            // Just redirects to contact if no amount, else checkout.
-            // But since buttons now call openCheckout directly, this is fallback.
             document.getElementById('serviceInput').value = planName;
             switchPage('contact');
+        }
+
+        // NEW: ADVANCED HUB LOGIC
+        function switchHubTab(tabName, btnElement) {
+            // Remove active class from buttons (if passed)
+            if(btnElement) {
+                document.querySelectorAll('.hub-nav-btn').forEach(btn => btn.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+            
+            // Hide all content
+            document.querySelectorAll('.hub-tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById('hub-' + tabName).classList.add('active');
+        }
+
+        function sendQuickMsg(msg) {
+            document.getElementById('hubChatInput').value = msg;
+            sendHubMessage();
+        }
+
+        function sendHubMessage() {
+            const input = document.getElementById('hubChatInput');
+            const chatBox = document.getElementById('hubChatBox');
+            if(input.value.trim() === '') return;
+            
+            // User Msg
+            const userRow = document.createElement('div');
+            userRow.className = 'chat-msg-row user';
+            userRow.innerHTML = `<div class="msg-bubble">${input.value}<div class="chat-time">Just Now</div></div>`;
+            chatBox.appendChild(userRow);
+            
+            // Auto Scroll
+            chatBox.scrollTop = chatBox.scrollHeight;
+            
+            const userText = input.value;
+            input.value = '';
+
+            // Bot Typing Simulation
+            setTimeout(() => {
+                const botRow = document.createElement('div');
+                botRow.className = 'chat-msg-row bot';
+                
+                let reply = "I've received your query. Our team is checking it.";
+                if(userText.toLowerCase().includes("royalty")) reply = "You can check your royalty in the Dashboard under 'Earnings'. If it's missing, please raise a ticket.";
+                else if(userText.toLowerCase().includes("mcn")) reply = "To join our MCN, you need 10k subs and original content. You can apply via the MCN page.";
+                else if(userText.toLowerCase().includes("booking")) reply = "For artist booking, please fill the form on the Artists page or call us directly.";
+
+                botRow.innerHTML = `<div class="msg-bubble">${reply}<div class="chat-time">Just Now</div></div>`;
+                chatBox.appendChild(botRow);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
         }
     </script>
     <script>
