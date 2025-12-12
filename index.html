@@ -411,7 +411,7 @@
         .section-title { font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3rem); text-align: center; margin: 30px 0; text-transform: uppercase; color: var(--text-main); }
         .section-sub { text-align: center; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 0.95rem; padding: 0 20px; font-weight: 500; }
         
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 0 5% 100px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 5% 100px; }
         
         .tilt-card {
             background: #fff;
@@ -428,6 +428,29 @@
         .card-icon { font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px; }
         .card-head { font-family: var(--font-head); font-size: 1.4rem; margin-bottom: 15px; color: #111; }
         .card-desc { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+
+        /* NEW STYLE FOR SERVICE LISTS */
+        .service-sub-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.8;
+            padding: 0;
+            font-weight: 500;
+        }
+        .service-sub-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .service-sub-list li i {
+            color: var(--primary);
+            margin-top: 4px; /* optical alignment */
+            font-size: 0.8rem;
+        }
 
         .highlight-section { padding: 60px 5%; border-bottom: 1px solid var(--border); }
         .highlight-flex { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
@@ -1092,27 +1115,140 @@
         </section>
     </div>
 
-    <!-- ===================== PAGE: SERVICES ===================== -->
+    <!-- ===================== PAGE: SERVICES (UPDATED WITH 8 CARDS) ===================== -->
     <div id="services" class="page-section">
         <h2 class="section-title">What We Do</h2>
-        <p class="section-sub">End-to-End Solutions for Creators</p>
+        <p class="section-sub">End-to-End Solutions for Creators & Brands</p>
+        
         <div class="services-grid">
+            <!-- 1. Video & Media Production -->
             <div class="tilt-card">
-                <div><i class="fas fa-video card-icon"></i><h3 class="card-head">Cinematic Production</h3><p class="card-desc">4K Music Videos, Short Films, and Web Series.</p></div>
-                <div style="color:var(--primary); margin-top:10px; font-weight:600; cursor:pointer;" onclick="switchPage('production')">Explore Production &rarr;</div>
+                <div>
+                    <i class="fas fa-video card-icon"></i>
+                    <h3 class="card-head">Video & Media Production</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Devotional Video Shoot</li>
+                        <li><i class="fas fa-check-circle"></i> Music Video Shoot</li>
+                        <li><i class="fas fa-check-circle"></i> Promotional/Ad Shoot</li>
+                        <li><i class="fas fa-check-circle"></i> Short Film & Reels</li>
+                        <li><i class="fas fa-check-circle"></i> VFX & Cinematic Editing</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="selectPlan('Video Production')">Book Now &rarr;</div>
             </div>
-            <div class="tilt-card" onclick="switchPage('distribution')">
-                <div><i class="fas fa-music card-icon" style="color: var(--primary);"></i><h3 class="card-head">Music Distribution</h3><p class="card-desc">Click to view plans.</p></div>
-                <div style="color:var(--primary); margin-top:10px; font-weight:600;">View More &rarr;</div>
+
+            <!-- 2. Graphic & Creative Design -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fas fa-palette card-icon" style="color:#ffaa00;"></i>
+                    <h3 class="card-head">Graphic & Creative Design</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Song Posters (All Genres)</li>
+                        <li><i class="fas fa-check-circle"></i> Album Art & Logos</li>
+                        <li><i class="fas fa-check-circle"></i> Motion Graphics</li>
+                        <li><i class="fas fa-check-circle"></i> Social Media Creatives</li>
+                        <li><i class="fas fa-check-circle"></i> Intro/Outro Animation</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="selectPlan('Graphic Design')">Order Design &rarr;</div>
             </div>
-            <div class="tilt-card" onclick="switchPage('ai-studio')">
-                <div><i class="fas fa-robot card-icon" style="color: #ffaa00;"></i><h3 class="card-head">AI Studio</h3><p class="card-desc">Next-Gen AI Music & Video Services.</p></div>
-                <div style="color:var(--primary); margin-top:10px; font-weight:600;">Explore AI &rarr;</div>
+
+            <!-- 3. YouTube Management -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fab fa-youtube card-icon" style="color:red;"></i>
+                    <h3 class="card-head">YouTube Management</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Full Channel Setup & SEO</li>
+                        <li><i class="fas fa-check-circle"></i> Daily Upload & Schedule</li>
+                        <li><i class="fas fa-check-circle"></i> Thumbnail Designing</li>
+                        <li><i class="fas fa-check-circle"></i> Channel Optimization</li>
+                        <li><i class="fas fa-check-circle"></i> Monetization Support</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="selectPlan('YouTube Management')">Manage Channel &rarr;</div>
             </div>
-            <div class="tilt-card" onclick="switchPage('mcn')">
-                <div><i class="fas fa-copyright card-icon" style="color: #00bb00;"></i><h3 class="card-head">MCN & Content ID</h3><p class="card-desc">Click to apply.</p></div>
-                <div style="color:var(--primary); margin-top:10px; font-weight:600;">Apply Now &rarr;</div>
+
+            <!-- 4. Social Media Management -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fab fa-instagram card-icon" style="color:#E1306C;"></i>
+                    <h3 class="card-head">Social Media Mgmt</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Instagram & Facebook</li>
+                        <li><i class="fas fa-check-circle"></i> Daily Posts & Reels</li>
+                        <li><i class="fas fa-check-circle"></i> Brand Designing</li>
+                        <li><i class="fas fa-check-circle"></i> Content Strategy</li>
+                        <li><i class="fas fa-check-circle"></i> Growth Planning</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="selectPlan('Social Media')">Grow Now &rarr;</div>
             </div>
+
+            <!-- 5. Music Distribution -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fas fa-music card-icon" style="color:#00acc1;"></i>
+                    <h3 class="card-head">Music Distribution</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Worldwide Platforms</li>
+                        <li><i class="fas fa-check-circle"></i> ISRC/UPC Creation</li>
+                        <li><i class="fas fa-check-circle"></i> Copyright Management</li>
+                        <li><i class="fas fa-check-circle"></i> Artist Verification (OAC)</li>
+                        <li><i class="fas fa-check-circle"></i> Digital Promotion</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="switchPage('distribution')">Distribute &rarr;</div>
+            </div>
+
+            <!-- 6. MCN Network & OTT -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fas fa-network-wired card-icon" style="color:#333;"></i>
+                    <h3 class="card-head">MCN Network & OTT</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> MCN Onboarding</li>
+                        <li><i class="fas fa-check-circle"></i> Monthly Revenue Support</li>
+                        <li><i class="fas fa-check-circle"></i> Channel Growth Monitor</li>
+                        <li><i class="fas fa-check-circle"></i> OTT Integration</li>
+                        <li><i class="fas fa-check-circle"></i> Premium Dashboard</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="switchPage('mcn')">Join Network &rarr;</div>
+            </div>
+
+            <!-- 7. Audio & Music Production -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fas fa-microphone-alt card-icon" style="color:#6610f2;"></i>
+                    <h3 class="card-head">Audio Production</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Song Recording</li>
+                        <li><i class="fas fa-check-circle"></i> Mixing & Mastering</li>
+                        <li><i class="fas fa-check-circle"></i> Background Music</li>
+                        <li><i class="fas fa-check-circle"></i> Devotional Production</li>
+                        <li><i class="fas fa-check-circle"></i> High Quality Output</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="selectPlan('Audio Production')">Start Recording &rarr;</div>
+            </div>
+
+            <!-- 8. Premium Client Dashboard -->
+            <div class="tilt-card">
+                <div>
+                    <i class="fas fa-chart-line card-icon" style="color:#20c997;"></i>
+                    <h3 class="card-head">Client Dashboard</h3>
+                    <ul class="service-sub-list">
+                        <li><i class="fas fa-check-circle"></i> Realtime Views Graph</li>
+                        <li><i class="fas fa-check-circle"></i> Revenue Charts</li>
+                        <li><i class="fas fa-check-circle"></i> OTT Earnings Report</li>
+                        <li><i class="fas fa-check-circle"></i> Performance Analysis</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 Access</li>
+                    </ul>
+                </div>
+                <div style="color:var(--primary); margin-top:15px; font-weight:600; cursor:pointer;" onclick="switchPage('support')">Login / Support &rarr;</div>
+            </div>
+
         </div>
     </div>
 
@@ -2180,7 +2316,7 @@
             ],
             "R.S Films Bhojpuri": [
                 "s0044jDbRD8", "paD5uhbXbZc", "hRzb0FSAmc0", "Hr6lhY0SdVo", "7gLGFFjR2Rw",
-                "9tVDn9mZs2w", "gfUFsEWn-nY", "1awCzWMtsEQ", "k0kHLaVxH3c", "4PzxPbGIJVI",
+                "9tVDn9mZs2w", "gfUSMHAh2-nY", "1awCzWMtsEQ", "k0kHLaVxH3c", "4PzxPbGIJVI",
                 "8iRs4haG6H0", "r5vsk1Dm1d4", "rZbqy0wxPRs", "6b1xdoBYMY0", "TA7S3RC_YmA",
                 "Gz1-Hr6nma0", "ibyJhNMqKRg", "--M2LkrPDhM", "k_kA-xbI4qw", "QaD4KbnIWYk",
                 "u_aRwqDeUqg", "hbj1MFaEbsY", "gxxjxhfc9fM", "iVtwYkS-xCQ", "pAFdThjGfps",
