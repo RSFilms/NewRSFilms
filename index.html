@@ -1522,6 +1522,24 @@
             </div>
         </div>
     </div>
+    <div id="confirmation-page" class="page-section" style="text-align:center; padding-top:150px;">
+        <div style="width:100px; height:100px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 30px; box-shadow: 0 10px 30px rgba(37,211,102,0.4);">
+            <i class="fas fa-check" style="font-size:3rem; color:#fff;"></i>
+        </div>
+        <h2 style="font-family:var(--font-head); font-size:2.5rem;">Payment Successful!</h2>
+        <p style="color:#666; font-size:1.1rem; margin-bottom:30px;">Thank you for joining R.S Films Group.<br>Your plan has been activated.</p>
+        
+        <div style="background:#f9f9f9; display:inline-block; padding:20px 40px; border-radius:15px; border:1px solid #eee;">
+            <p style="margin:0; font-weight:bold; color:#111;">Transaction ID</p>
+            <p style="margin:0; color:var(--primary); font-family:monospace; font-size:1.2rem;">TXN_8829302_RS</p>
+            <p style="margin-top:10px; font-weight:bold; color:#111;">Amount Paid</p>
+            <p id="confirm-amount" style="margin:0; color:#111; font-size:1.2rem;">₹0</p>
+        </div>
+
+        <div style="margin-top:40px;">
+            <button onclick="switchPage('home')" class="cta-nav" style="border:none;">Go to Dashboard</button>
+        </div>
+    </div>
     <div id="contact" class="page-section">
         <div style="text-align: center; max-width: 900px; margin: 0 auto; padding: 20px;">
             <h2 class="section-title">Join The Revolution</h2>
